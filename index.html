@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pisland Festival - Home</title>
+    <meta
+      name="description"
+      content="Pisland Festival: tres dias de musica, arte urbano y energia nocturna en la isla."
+    >
+    <meta name="theme-color" content="#141408">
+    <meta property="og:title" content="Pisland Festival">
+    <meta
+      property="og:description"
+      content="Una home neon-graffiti inspirada en Pisland Festival - Full Background Josh."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/pisland-hero-logo.png">
+    <link rel="icon" href="assets/pisland-nav-logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Hanken+Grotesk:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="preload" href="assets/pisland-hero-logo.png" as="image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="fixed-bg" aria-hidden="true"></div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div class="global-overlay" aria-hidden="true"></div>
+
+    <nav class="top-nav" aria-label="Navegacion principal">
+      <a class="nav-logo" href="#top" aria-label="Pisland Festival inicio">
+        <img src="assets/pisland-nav-logo.png" alt="Pisland">
+      </a>
+      <div class="nav-links" aria-label="Secciones">
+        <a class="active" href="#lineup">Lineup</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#info">Info</a>
+      </div>
+    </nav>
+
+    <main id="top">
+      <header class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <h1 id="hero-title" class="sr-only">Pisland Festival</h1>
+          <img
+            class="hero-logo"
+            src="assets/pisland-hero-logo.png"
+            alt="Pisland Festival"
+          >
+
+          <section class="countdown-card skew-card" aria-label="Cuenta atras para Pisland Festival">
+            <div class="countdown" data-countdown="2026-07-25T21:00:00+02:00">
+              <span>
+                <strong data-days>--</strong>
+                <small data-days-label>Dias</small>
+              </span>
+              <i aria-hidden="true">:</i>
+              <span>
+                <strong data-hours>--</strong>
+                <small data-hours-label>Hrs</small>
+              </span>
+              <i aria-hidden="true">:</i>
+              <span>
+                <strong data-minutes>--</strong>
+                <small data-minutes-label>Min</small>
+              </span>
+            </div>
+          </section>
+        </div>
+
+        <a class="scroll-cue" href="#lineup" aria-label="Bajar a ultimas noticias">
+          <span class="material-symbols-outlined" aria-hidden="true">keyboard_double_arrow_down</span>
+        </a>
+      </header>
+
+      <section class="news-section" id="lineup" aria-labelledby="news-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2 id="news-title">Ultimas noticias</h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div class="news-grid">
+            <article class="news-card featured-card" id="galeria">
+              <div class="media-frame">
+                <img
+                  src="assets/pisland-news-lineup.png"
+                  alt="Escenario Pisland con luces amarillas y multitud"
+                >
+                <p class="tag">Anuncio</p>
+              </div>
+              <div class="card-body">
+                <h3>Fase 1 del lineup liberada</h3>
+                <p>
+                  La primera ola de destruccion sonora ya esta aqui. Headliners
+                  internacionales, bajos pesados y visuales de alto voltaje llegan
+                  al escenario principal.
+                </p>
+                <a class="text-link" href="#info">
+                  Leer reporte
+                  <span class="material-symbols-outlined" aria-hidden="true">trending_flat</span>
+                </a>
+              </div>
+            </article>
+
+            <article class="news-card live-card skew-card">
+              <div>
+                <p class="live-label">
+                  <span aria-hidden="true"></span>
+                  Update live
+                </p>
+                <h3>Early bird agotado</h3>
+                <p>
+                  El primer cupo ya es historia. La demanda esta al maximo y los
+                  pases de segundo tramo se estan moviendo rapido.
+                </p>
+              </div>
+              <button class="outline-button" type="button" data-open-modal="tickets">
+                Ver tickets
+              </button>
+            </article>
+
+            <article class="news-card mini-card">
+              <span class="material-symbols-outlined card-icon" aria-hidden="true">location_on</span>
+              <h3>Upgrade del recinto</h3>
+              <p>Sector 7 crece con tres nuevos escenarios inmersivos.</p>
+            </article>
+
+            <article class="news-card mini-card bottom-line">
+              <span class="material-symbols-outlined card-icon" aria-hidden="true">volunteer_activism</span>
+              <h3>Unete al crew</h3>
+              <p>Ya estan abiertas las solicitudes para el Vanguard Pisland.</p>
+            </article>
+
+            <article class="news-card image-card">
+              <img
+                src="assets/pisland-action-sports.png"
+                alt="Area exterior de Pisland con pista y luces de festival"
+              >
+              <div class="image-caption">
+                <p>Action sports stage revelado</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="graffiti-cta" id="info" aria-labelledby="cta-title">
+        <div class="concrete-texture" aria-hidden="true"></div>
+        <div class="cta-panel skew-card">
+          <span class="material-symbols-outlined cta-brush" aria-hidden="true">brush</span>
+          <h2 id="cta-title">
+            Estas listo<br>
+            para entrar<br>
+            en la <span>isla?</span>
+          </h2>
+          <p>
+            Tres dias de musica sin filtro, arte y caos controlado. La isla llama.
+            La pregunta es si vas a cruzar.
+          </p>
+          <button class="primary-button" type="button" data-open-modal="trailer">
+            Ver trailer
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-logo">Pisland</p>
+          <div class="social-links" aria-label="Redes sociales">
+            <a href="mailto:info@pislandfestival.com" aria-label="Contacto">
+              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            </a>
+            <a href="#galeria" aria-label="Galeria">
+              <span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>
+            </a>
+            <a href="#top" aria-label="Volver arriba">
+              <span class="material-symbols-outlined" aria-hidden="true">north</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="action-modal" data-modal>
+      <button class="modal-close" type="button" aria-label="Cerrar modal" data-close-modal>
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+      <p class="modal-kicker" data-modal-kicker>Acceso Pisland</p>
+      <h2 data-modal-title>Proximamente</h2>
+      <p data-modal-copy>
+        Estamos preparando la siguiente activacion. Deja este canal abierto:
+        la isla vuelve a emitir muy pronto.
+      </p>
+      <a class="modal-link" href="mailto:info@pislandfestival.com?subject=Pisland%20Festival">
+        Contactar
+      </a>
+    </dialog>
+
+    <script src="script.js?v=2"></script>
+  </body>
+</html>

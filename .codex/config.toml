@@ -1,0 +1,41 @@
+# Project-scoped Codex configuration for pisland_web.
+# Loaded only after the project is trusted by Codex.
+
+# Keep Codex constrained to the repository while still allowing normal edits.
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+# Use cached web results by default; ask for live/network access when needed.
+web_search = "cached"
+
+# Treat the Git repository as the project boundary for Codex config and AGENTS.md.
+project_root_markers = [".git"]
+
+# Keep responses direct for engineering work in this repository.
+personality = "pragmatic"
+model_reasoning_effort = "high"
+model_verbosity = "medium"
+
+[features]
+hooks = true
+multi_agent = true
+shell_snapshot = true
+
+# MCP Servers
+
+# Playwright
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+default_tools_approval_mode = "prompt"
+
+# Google Stitch
+[mcp_servers.stitch]
+url = "https://stitch.googleapis.com/mcp"
+enabled = true
+startup_timeout_sec = 30
+
+[mcp_servers.stitch.http_headers]
+"X-Goog-Api-Key" = "AQ.Ab8RN6Ih77jasctHwoP9nbwoIghWur8w3SFSaMvtMgcXxWbiAg"
