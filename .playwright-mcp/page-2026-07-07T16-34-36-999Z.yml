@@ -1,0 +1,134 @@
+- generic [ref=e1]:
+  - navigation "Navegacion principal" [ref=e2]:
+    - link "Pisland Festival inicio" [ref=e3] [cursor=pointer]:
+      - /url: "#top"
+      - img "Pisland" [ref=e4]
+    - generic "Secciones"
+  - main [ref=e5]:
+    - generic "Pisland Festival" [ref=e6]:
+      - generic [ref=e7]:
+        - heading "Pisland Festival" [level=1] [ref=e8]
+        - img "Pisland Festival" [ref=e9]
+        - region "Cuenta atras para Pisland Festival" [ref=e10]:
+          - generic [ref=e11]:
+            - generic [ref=e12]:
+              - strong [ref=e13]: "18"
+              - generic [ref=e14]: Dias
+            - generic [ref=e15]: ":"
+            - generic [ref=e16]:
+              - strong [ref=e17]: "02"
+              - generic [ref=e18]: Hrs
+            - generic [ref=e19]: ":"
+            - generic [ref=e20]:
+              - strong [ref=e21]: "25"
+              - generic [ref=e22]: Min
+          - generic [ref=e23]:
+            - paragraph [ref=e24]:
+              - strong [ref=e25]: "2"
+              - generic [ref=e26]: asistentes
+            - button "+1" [ref=e27] [cursor=pointer]
+            - paragraph
+      - link "Bajar a ultimas noticias" [ref=e28] [cursor=pointer]:
+        - /url: "#lineup"
+        - generic [ref=e29]: keyboard_double_arrow_down
+    - region "Próximos Chismes" [ref=e30]:
+      - generic [ref=e31]:
+        - heading "Próximos Chismes" [level=2] [ref=e33]
+        - generic [ref=e35]:
+          - article [ref=e36]:
+            - generic [ref=e37]:
+              - img "Secreto" [ref=e38]
+              - paragraph [ref=e39]: Anuncio
+            - generic [ref=e40]:
+              - heading "Trailer" [level=3] [ref=e41]
+              - paragraph [ref=e42]: Video promocional de la Pisland Party.
+              - button "Ver trailer" [ref=e43] [cursor=pointer]:
+                - text: Ver trailer
+                - generic [ref=e44]: play_circle
+          - article [ref=e45]:
+            - generic [ref=e46]:
+              - paragraph [ref=e47]: Soon
+              - heading "Dress Code" [level=3] [ref=e49]
+              - paragraph [ref=e50]: Nueva sección de vestimenta y estilo para la party. Pronto disponible en la web.
+          - article [ref=e51]:
+            - generic [ref=e52]: location_on
+            - heading "Upgrade del recinto" [level=3] [ref=e53]
+            - paragraph [ref=e54]: Sector 7 crece con tres nuevos escenarios inmersivos.
+          - article [ref=e55]:
+            - generic [ref=e56]: volunteer_activism
+            - heading "Unete al crew" [level=3] [ref=e57]
+            - paragraph [ref=e58]: Ya estan abiertas las solicitudes para el Vanguard Pisland.
+          - article [ref=e59]:
+            - img "Area exterior de Pisland con pista y luces de festival" [ref=e60]
+            - paragraph [ref=e62]: Action sports stage revelado
+    - region "Música" [ref=e63]:
+      - generic [ref=e64]:
+        - heading "Música" [level=2] [ref=e66]
+        - iframe [ref=e69]:
+          - generic [active] [ref=f1e1]:
+            - generic [ref=f1e4]:
+              - generic [ref=f1e5]:
+                - img "PISLAND PARTY Nº1 cover" [ref=f1e8] [cursor=pointer]
+                - button "Play on Spotify" [ref=f1e10] [cursor=pointer]:
+                  - img [ref=f1e11]
+                - generic [ref=f1e13]:
+                  - heading "PISLAND PARTY Nº1" [level=1] [ref=f1e14]:
+                    - link "PISLAND PARTY Nº1" [ref=f1e18] [cursor=pointer]:
+                      - /url: https://open.spotify.com/playlist/0GpN0mCrK56Sg1mFvtRGJ8?go=1&sp_cid=df7ca080e8196e7f08ea7f05548950e5&utm_source=embed_player_p&utm_medium=desktop&si=350d9e0a95a84b67
+                  - generic [ref=f1e19]:
+                    - list "Tags" [ref=f1e20]:
+                      - generic "Preview" [ref=f1e21]
+                    - heading "josephguerrero" [level=2] [ref=f1e22]:
+                      - link "josephguerrero" [ref=f1e27] [cursor=pointer]:
+                        - /url: https://open.spotify.com/playlist/0GpN0mCrK56Sg1mFvtRGJ8?go=1&sp_cid=df7ca080e8196e7f08ea7f05548950e5&utm_source=embed_player_p&utm_medium=desktop&si=350d9e0a95a84b67
+                  - button "Save on Spotify" [ref=f1e29] [cursor=pointer]:
+                    - img [ref=f1e31]
+                    - generic [ref=f1e34]: Save on Spotify
+                - generic [ref=f1e36]:
+                  - generic [ref=f1e37]:
+                    - button "Previous" [disabled] [ref=f1e38]:
+                      - img [ref=f1e40]
+                    - button "Next" [disabled] [ref=f1e42]:
+                      - img [ref=f1e44]
+                  - button "More" [ref=f1e47] [cursor=pointer]:
+                    - img [ref=f1e48]
+                  - button "Play" [disabled] [ref=f1e52]:
+                    - img [ref=f1e53]
+              - list "Track list" [ref=f1e58]:
+                - listitem [ref=f1e59]:
+                  - button "Play track" [ref=f1e61] [cursor=pointer]:
+                    - generic [ref=f1e62]: "1"
+                  - 'heading "Daddy Yankee: Bzrp Music Sessions, Vol. 0/66" [level=3] [ref=f1e63]'
+                  - heading "Bizarrap, Daddy Yankee" [level=4] [ref=f1e64]
+                  - generic [ref=f1e65]: 02:31
+            - alert [ref=f1e66]
+    - region "Estas listo para entrar en la isla?" [ref=e70]:
+      - generic [ref=e72]:
+        - generic [ref=e73]: brush
+        - heading "Estas listo para entrar en la isla?" [level=2] [ref=e74]:
+          - text: Estas listo
+          - text: para entrar
+          - text: en la isla?
+        - paragraph [ref=e75]: Tres dias de musica sin filtro, arte y caos controlado. La isla llama. La pregunta es si vas a cruzar.
+        - button "Ver trailer" [ref=e76] [cursor=pointer]
+  - contentinfo [ref=e77]:
+    - generic [ref=e79]:
+      - paragraph [ref=e80]: Pisland
+      - generic "Redes sociales" [ref=e81]:
+        - link "Instagram" [ref=e82] [cursor=pointer]:
+          - /url: "#galeria"
+          - img [ref=e83]
+        - link "TikTok" [ref=e85] [cursor=pointer]:
+          - /url: "#galeria"
+          - img [ref=e86]
+        - link "Volver arriba" [ref=e88] [cursor=pointer]:
+          - /url: "#top"
+          - generic [ref=e89]: north
+  - dialog "Trailer" [ref=e90]:
+    - button "Cerrar trailer" [active] [ref=e91] [cursor=pointer]:
+      - generic [ref=e92]: close
+    - img "Secreto" [ref=e94]
+    - generic [ref=e95]:
+      - paragraph [ref=e96]: Trailer Pisland
+      - heading "Trailer" [level=2] [ref=e97]
+      - paragraph [ref=e98]: Video promocional de la Pisland Party.

@@ -16,6 +16,7 @@ const SUPABASE_URL = siteConfig.supabaseUrl || "";
 const SUPABASE_ANON_KEY = siteConfig.supabaseAnonKey || "";
 const ATTENDANCE_EVENT_ID = "pisland-2026";
 const TRAILER_SEEN_KEY = "pisland-trailer-seen";
+const ATTENDANCE_BUTTON_LABEL = "+1 MMV";
 
 const modalContent = {
   tickets: {
@@ -101,7 +102,7 @@ function setAttendanceLoading(isLoading) {
   if (!attendanceButton) return;
 
   attendanceButton.disabled = isLoading;
-  attendanceButton.textContent = isLoading ? "Sumando..." : "Asistir";
+  attendanceButton.textContent = isLoading ? "Sumando..." : ATTENDANCE_BUTTON_LABEL;
 }
 
 async function fetchAttendanceCount() {
