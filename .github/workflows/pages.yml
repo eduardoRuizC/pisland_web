@@ -26,10 +26,19 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Prepare static site
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           mkdir -p _site
           cp index.html styles.css script.js .nojekyll _site/
           cp -R assets _site/assets
+          cat > _site/config.js <<EOF
+          window.PISLAND_CONFIG = {
+            supabaseUrl: "${SUPABASE_URL}",
+            supabaseAnonKey: "${SUPABASE_ANON_KEY}"
+          };
+          EOF
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

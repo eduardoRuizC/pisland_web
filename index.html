@@ -36,9 +36,6 @@
         <img src="assets/pisland-nav-logo.png" alt="Pisland">
       </a>
       <div class="nav-links" aria-label="Secciones">
-        <a class="active" href="#lineup">Lineup</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#info">Info</a>
       </div>
     </nav>
 
@@ -69,6 +66,17 @@
                 <small data-minutes-label>Min</small>
               </span>
             </div>
+
+            <div class="attendance-panel" data-attendance>
+              <p class="attendance-total">
+                <strong data-attendance-count>0</strong>
+                <span>asistentes</span>
+              </p>
+              <button class="attendance-button" type="button" data-attendance-button>
+                +1 MMV
+              </button>
+              <p class="attendance-status" aria-live="polite" data-attendance-status></p>
+            </div>
           </section>
         </div>
 
@@ -80,7 +88,7 @@
       <section class="news-section" id="lineup" aria-labelledby="news-title">
         <div class="section-inner">
           <div class="section-heading">
-            <h2 id="news-title">Ultimas noticias</h2>
+            <h2 id="news-title">Próximos Chismes</h2>
             <span aria-hidden="true"></span>
           </div>
 
@@ -88,83 +96,54 @@
             <article class="news-card featured-card" id="galeria">
               <div class="media-frame">
                 <img
-                  src="assets/pisland-news-lineup.png"
-                  alt="Escenario Pisland con luces amarillas y multitud"
+                  src="assets/secret.png"
+                  alt="Secreto"
                 >
-                <p class="tag">Anuncio</p>
               </div>
               <div class="card-body">
-                <h3>Fase 1 del lineup liberada</h3>
-                <p>
-                  La primera ola de destruccion sonora ya esta aqui. Headliners
-                  internacionales, bajos pesados y visuales de alto voltaje llegan
-                  al escenario principal.
-                </p>
-                <a class="text-link" href="#info">
-                  Leer reporte
-                  <span class="material-symbols-outlined" aria-hidden="true">trending_flat</span>
-                </a>
-              </div>
-            </article>
-
-            <article class="news-card live-card skew-card">
-              <div>
                 <p class="live-label">
-                  <span aria-hidden="true"></span>
-                  Update live
-                </p>
-                <h3>Early bird agotado</h3>
+                <span aria-hidden="true"></span>
+                Soon
+              </p>
+                <h3>Trailer</h3>
                 <p>
-                  El primer cupo ya es historia. La demanda esta al maximo y los
-                  pases de segundo tramo se estan moviendo rapido.
+                  Video promocional de la Pisland Party.
                 </p>
               </div>
-              <button class="outline-button" type="button" data-open-modal="tickets">
-                Ver tickets
-              </button>
             </article>
 
             <article class="news-card mini-card">
-              <span class="material-symbols-outlined card-icon" aria-hidden="true">location_on</span>
-              <h3>Upgrade del recinto</h3>
-              <p>Sector 7 crece con tres nuevos escenarios inmersivos.</p>
-            </article>
-
-            <article class="news-card mini-card bottom-line">
-              <span class="material-symbols-outlined card-icon" aria-hidden="true">volunteer_activism</span>
-              <h3>Unete al crew</h3>
-              <p>Ya estan abiertas las solicitudes para el Vanguard Pisland.</p>
-            </article>
-
-            <article class="news-card image-card">
-              <img
-                src="assets/pisland-action-sports.png"
-                alt="Area exterior de Pisland con pista y luces de festival"
-              >
-              <div class="image-caption">
-                <p>Action sports stage revelado</p>
-              </div>
+              <span class="material-symbols-outlined card-icon" aria-hidden="true">checkroom</span>
+              <h3>Dress Code</h3>
+              <p>
+                Nueva sección de vestimenta y estilo para la party. Pronto disponible en la web.
+              </p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="graffiti-cta" id="info" aria-labelledby="cta-title">
-        <div class="concrete-texture" aria-hidden="true"></div>
-        <div class="cta-panel skew-card">
-          <span class="material-symbols-outlined cta-brush" aria-hidden="true">brush</span>
-          <h2 id="cta-title">
-            Estas listo<br>
-            para entrar<br>
-            en la <span>isla?</span>
-          </h2>
-          <p>
-            Tres dias de musica sin filtro, arte y caos controlado. La isla llama.
-            La pregunta es si vas a cruzar.
-          </p>
-          <button class="primary-button" type="button" data-open-modal="trailer">
-            Ver trailer
-          </button>
+      <section class="music-section" id="musica" aria-labelledby="music-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2 id="music-title">Música</h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div class="music-embed">
+            <iframe
+              data-testid="embed-iframe"
+              style="border-radius:12px"
+              src="https://open.spotify.com/embed/playlist/0GpN0mCrK56Sg1mFvtRGJ8?utm_source=generator&theme=0&si=350d9e0a95a84b67"
+              width="100%"
+              height="352"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Playlist Pisland en Spotify"
+            ></iframe>
+          </div>
         </div>
       </section>
     </main>
@@ -174,11 +153,15 @@
         <div>
           <p class="footer-logo">Pisland</p>
           <div class="social-links" aria-label="Redes sociales">
-            <a href="mailto:info@pislandfestival.com" aria-label="Contacto">
-              <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+            <a href="https://www.instagram.com/pislandwrld/" aria-label="Instagram">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.4 5.6 20 7.6 20h8.8c2 0 3.6-1.6 3.6-3.6V7.6c0-2-1.6-3.6-3.6-3.6H7.6Zm9.7 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"></path>
+              </svg>
             </a>
-            <a href="#galeria" aria-label="Galeria">
-              <span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>
+            <a href="https://www.tiktok.com/@pislandworld" aria-label="TikTok">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M16.6 2c.3 2.5 1.7 4 4.1 4.2v3.2a7.3 7.3 0 0 1-4.1-1.2v6.8c0 4.1-2.7 7-6.6 7a6.1 6.1 0 0 1-6.3-6.2c0-3.8 3-6.5 6.8-6.2v3.4c-1.9-.3-3.4.8-3.4 2.7 0 1.6 1.2 2.8 2.8 2.8 1.8 0 3-1.2 3-3.5V2h3.7Z"></path>
+              </svg>
             </a>
             <a href="#top" aria-label="Volver arriba">
               <span class="material-symbols-outlined" aria-hidden="true">north</span>
@@ -188,21 +171,24 @@
       </div>
     </footer>
 
-    <dialog class="action-modal" data-modal>
-      <button class="modal-close" type="button" aria-label="Cerrar modal" data-close-modal>
+    <dialog class="trailer-modal" aria-labelledby="trailer-modal-title" data-trailer-modal>
+      <button class="modal-close" type="button" aria-label="Cerrar trailer" data-close-trailer-modal>
         <span class="material-symbols-outlined" aria-hidden="true">close</span>
       </button>
-      <p class="modal-kicker" data-modal-kicker>Acceso Pisland</p>
-      <h2 data-modal-title>Proximamente</h2>
-      <p data-modal-copy>
-        Estamos preparando la siguiente activacion. Deja este canal abierto:
-        la isla vuelve a emitir muy pronto.
-      </p>
-      <a class="modal-link" href="mailto:info@pislandfestival.com?subject=Pisland%20Festival">
-        Contactar
-      </a>
+      <div class="trailer-modal-media">
+        <img src="assets/secret.png" alt="Secreto">
+      </div>
+      <div class="trailer-modal-body">
+        <p class="live-label">
+          <span aria-hidden="true"></span>
+          Soon
+        </p>
+        <h2 id="trailer-modal-title">Trailer</h2>
+        <p>Video promocional de la Pisland Party.</p>
+      </div>
     </dialog>
 
-    <script src="script.js?v=2"></script>
+    <script src="config.js?v=1"></script>
+    <script src="script.js?v=4"></script>
   </body>
 </html>

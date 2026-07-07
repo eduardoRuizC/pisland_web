@@ -36,6 +36,23 @@ Development notes:
 - Keep static assets in `assets/` and reference them with relative paths.
 - There is no compile step; refresh the browser after changes.
 
+## Attendance counter
+
+The hero attendance counter uses Supabase from the static frontend.
+
+1. Run `supabase-attendance.sql` in the Supabase SQL editor.
+2. In GitHub, add repository secrets named `SUPABASE_URL` and
+   `SUPABASE_ANON_KEY`.
+3. GitHub Actions generates `config.js` during the Pages deploy.
+
+For local development, copy `config.example.js` to `config.js` and fill the same
+public values. `config.js` is ignored by Git.
+
+These values are injected through GitHub Secrets, but they are still published
+to the browser as part of the static site. That is fine for the Supabase anon
+key with proper RLS/RPC policies. Never put a Supabase `service_role` key in
+this static site.
+
 ## GitHub Pages
 
 The workflow in `.github/workflows/pages.yml` deploys this static site on pushes
