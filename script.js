@@ -4,6 +4,8 @@ const modalTitle = document.querySelector("[data-modal-title]");
 const modalKicker = document.querySelector("[data-modal-kicker]");
 const modalCopy = document.querySelector("[data-modal-copy]");
 const closeModalButton = document.querySelector("[data-close-modal]");
+const trailerModal = document.querySelector("[data-trailer-modal]");
+const closeTrailerModalButton = document.querySelector("[data-close-trailer-modal]");
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const eventTimeZone = "Europe/Madrid";
 const attendanceCount = document.querySelector("[data-attendance-count]");
@@ -13,6 +15,7 @@ const siteConfig = window.PISLAND_CONFIG || {};
 const SUPABASE_URL = siteConfig.supabaseUrl || "";
 const SUPABASE_ANON_KEY = siteConfig.supabaseAnonKey || "";
 const ATTENDANCE_EVENT_ID = "pisland-2026";
+const TRAILER_SEEN_KEY = "pisland-trailer-seen";
 
 const modalContent = {
   tickets: {
@@ -187,6 +190,41 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
+function hasSeenTrailer() {
+  try {
+    return localStorage.getItem(TRAILER_SEEN_KEY) === "true";
+  } catch (error) {
+    return false;
+  }
+}
+
+function markTrailerSeen() {
+  try {
+    localStorage.setItem(TRAILER_SEEN_KEY, "true");
+  } catch (error) {
+    // Ignore storage failures; the trailer can still be closed normally.
+  }
+}
+
+function openTrailerModal() {
+  if (!trailerModal || typeof trailerModal.showModal !== "function" || trailerModal.open) return;
+
+  trailerModal.showModal();
+  document.body.classList.add("modal-open");
+}
+
+function closeTrailerModal() {
+  if (!trailerModal) return;
+  markTrailerSeen();
+  trailerModal.close();
+  document.body.classList.remove("modal-open");
+}
+
+function openInitialTrailerModal() {
+  if (hasSeenTrailer()) return;
+  openTrailerModal();
+}
+
 function syncActiveNav() {
   const current = [...document.querySelectorAll("main section[id]")]
     .filter((section) => section.getBoundingClientRect().top <= 140)
@@ -203,10 +241,13 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 syncActiveNav();
 loadAttendance();
+openInitialTrailerModal();
 
 document.addEventListener("click", (event) => {
   const openButton = event.target.closest("[data-open-modal]");
   const closeButton = event.target.closest("[data-close-modal]");
+  const openTrailerButton = event.target.closest("[data-open-trailer-modal]");
+  const closeTrailerButton = event.target.closest("[data-close-trailer-modal]");
 
   if (openButton) {
     openModal(openButton.dataset.openModal);
@@ -214,6 +255,14 @@ document.addEventListener("click", (event) => {
 
   if (closeButton) {
     closeModal();
+  }
+
+  if (openTrailerButton) {
+    openTrailerModal();
+  }
+
+  if (closeTrailerButton) {
+    closeTrailerModal();
   }
 });
 
@@ -233,6 +282,27 @@ if (closeModalButton) {
   closeModalButton.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeModal();
+    }
+  });
+}
+
+if (trailerModal) {
+  trailerModal.addEventListener("close", () => {
+    markTrailerSeen();
+    document.body.classList.remove("modal-open");
+  });
+
+  trailerModal.addEventListener("click", (event) => {
+    if (event.target === trailerModal) {
+      closeTrailerModal();
+    }
+  });
+}
+
+if (closeTrailerModalButton) {
+  closeTrailerModalButton.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeTrailerModal();
     }
   });
 }
