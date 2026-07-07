@@ -271,6 +271,103 @@ img {
   line-height: 0.8;
 }
 
+.attendance-panel {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: clamp(24px, 5vw, 34px);
+  padding-top: clamp(20px, 4vw, 28px);
+  border-top: 1px solid rgba(241, 232, 0, 0.28);
+  color: var(--ink);
+  text-align: center;
+}
+
+.attendance-kicker,
+.attendance-status {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.attendance-kicker {
+  color: var(--muted);
+  font-size: clamp(12px, 3vw, 14px);
+}
+
+.attendance-total {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--neon);
+  text-shadow: 0 0 18px rgba(241, 232, 0, 0.3);
+}
+
+.attendance-total strong {
+  display: block;
+  text-align: center;
+  font-family: "Anybody", ui-sans-serif, sans-serif;
+  font-size: clamp(42px, 10vw, 72px);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.attendance-total span {
+  font-family: "Space Mono", monospace;
+  font-size: clamp(13px, 3vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.attendance-button {
+  width: fit-content;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 2px solid var(--neon);
+  background: transparent;
+  color: var(--neon);
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.attendance-button:hover,
+.attendance-button:focus-visible {
+  background: var(--neon);
+  color: var(--black);
+  box-shadow: var(--shadow-hard);
+  transform: translate(-2px, -2px);
+}
+
+.attendance-button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+}
+
+.attendance-status {
+  min-height: 18px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.attendance-status.is-error {
+  color: var(--danger);
+}
+
+.attendance-status.is-success {
+  color: var(--aqua);
+}
+
 .scroll-cue {
   position: absolute;
   z-index: 4;
@@ -848,6 +945,17 @@ img {
 
   .countdown small {
     font-size: 13px;
+  }
+
+  .attendance-panel {
+    margin-top: 22px;
+    padding-top: 20px;
+  }
+
+  .attendance-total {
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .section-inner,

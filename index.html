@@ -36,9 +36,6 @@
         <img src="assets/pisland-nav-logo.png" alt="Pisland">
       </a>
       <div class="nav-links" aria-label="Secciones">
-        <a class="active" href="#lineup">Lineup</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#info">Info</a>
       </div>
     </nav>
 
@@ -69,6 +66,17 @@
                 <small data-minutes-label>Min</small>
               </span>
             </div>
+
+            <div class="attendance-panel" data-attendance>
+              <p class="attendance-total">
+                <strong data-attendance-count>0</strong>
+                <span>asistentes</span>
+              </p>
+              <button class="attendance-button" type="button" data-attendance-button>
+                +1
+              </button>
+              <p class="attendance-status" aria-live="polite" data-attendance-status></p>
+            </div>
           </section>
         </div>
 
@@ -80,7 +88,7 @@
       <section class="news-section" id="lineup" aria-labelledby="news-title">
         <div class="section-inner">
           <div class="section-heading">
-            <h2 id="news-title">Ultimas noticias</h2>
+            <h2 id="news-title">Noticias</h2>
             <span aria-hidden="true"></span>
           </div>
 
@@ -203,6 +211,7 @@
       </a>
     </dialog>
 
-    <script src="script.js?v=2"></script>
+    <script src="config.js?v=1"></script>
+    <script src="script.js?v=4"></script>
   </body>
 </html>

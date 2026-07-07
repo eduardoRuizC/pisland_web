@@ -6,6 +6,13 @@ const modalCopy = document.querySelector("[data-modal-copy]");
 const closeModalButton = document.querySelector("[data-close-modal]");
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const eventTimeZone = "Europe/Madrid";
+const attendanceCount = document.querySelector("[data-attendance-count]");
+const attendanceButton = document.querySelector("[data-attendance-button]");
+const attendanceStatus = document.querySelector("[data-attendance-status]");
+const siteConfig = window.PISLAND_CONFIG || {};
+const SUPABASE_URL = siteConfig.supabaseUrl || "";
+const SUPABASE_ANON_KEY = siteConfig.supabaseAnonKey || "";
+const ATTENDANCE_EVENT_ID = "pisland-2026";
 
 const modalContent = {
   tickets: {
@@ -60,6 +67,106 @@ function updateCountdown() {
   countdown.querySelector("[data-minutes-label]").textContent = showSeconds ? "Seg" : "Min";
 }
 
+function hasSupabaseConfig() {
+  return SUPABASE_URL.startsWith("https://") && SUPABASE_ANON_KEY.length > 20;
+}
+
+function getSupabaseHeaders() {
+  return {
+    apikey: SUPABASE_ANON_KEY,
+    Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    "Content-Type": "application/json",
+  };
+}
+
+function setAttendanceStatus(message = "", type = "") {
+  if (!attendanceStatus) return;
+
+  attendanceStatus.textContent = message;
+  attendanceStatus.classList.toggle("is-error", type === "error");
+  attendanceStatus.classList.toggle("is-success", type === "success");
+}
+
+function setAttendanceCount(value) {
+  if (!attendanceCount) return;
+
+  const count = Number.isFinite(value) ? value : 0;
+  attendanceCount.textContent = new Intl.NumberFormat("es-ES").format(count);
+}
+
+function setAttendanceLoading(isLoading) {
+  if (!attendanceButton) return;
+
+  attendanceButton.disabled = isLoading;
+  attendanceButton.textContent = isLoading ? "Sumando..." : "Asistir";
+}
+
+async function fetchAttendanceCount() {
+  const params = new URLSearchParams({
+    select: "attendees",
+    event_id: `eq.${ATTENDANCE_EVENT_ID}`,
+  });
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/event_attendance?${params}`, {
+    headers: getSupabaseHeaders(),
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not fetch attendance count");
+  }
+
+  const rows = await response.json();
+  return Number(rows?.[0]?.attendees || 0);
+}
+
+async function incrementAttendance() {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_attendees`, {
+    method: "POST",
+    headers: getSupabaseHeaders(),
+    body: JSON.stringify({ p_event_id: ATTENDANCE_EVENT_ID }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not increment attendance count");
+  }
+
+  return Number(await response.json());
+}
+
+async function loadAttendance() {
+  if (!attendanceCount || !attendanceButton) return;
+
+  setAttendanceCount(0);
+
+  if (!hasSupabaseConfig()) {
+    attendanceButton.disabled = true;
+    setAttendanceStatus("Configura Supabase para activar el contador global.", "error");
+    return;
+  }
+
+  try {
+    setAttendanceStatus("Cargando asistentes...");
+    setAttendanceCount(await fetchAttendanceCount());
+    setAttendanceStatus("");
+  } catch (error) {
+    setAttendanceStatus("No se pudo cargar el contador.", "error");
+  }
+}
+
+async function handleAttendanceClick() {
+  if (!attendanceButton || !hasSupabaseConfig()) return;
+
+  try {
+    setAttendanceLoading(true);
+    setAttendanceStatus("Registrando asistencia...");
+    setAttendanceCount(await incrementAttendance());
+    setAttendanceStatus("Asistencia sumada.", "success");
+  } catch (error) {
+    setAttendanceStatus("No se pudo registrar. Intentalo otra vez.", "error");
+  } finally {
+    setAttendanceLoading(false);
+  }
+}
+
 function openModal(kind) {
   if (!modal || !modalTitle || !modalKicker || !modalCopy) return;
 
@@ -95,6 +202,7 @@ function syncActiveNav() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 syncActiveNav();
+loadAttendance();
 
 document.addEventListener("click", (event) => {
   const openButton = event.target.closest("[data-open-modal]");
@@ -127,6 +235,10 @@ if (closeModalButton) {
       closeModal();
     }
   });
+}
+
+if (attendanceButton) {
+  attendanceButton.addEventListener("click", handleAttendanceClick);
 }
 
 window.addEventListener("scroll", syncActiveNav, { passive: true });
