@@ -1,0 +1,17 @@
+{
+  "id": "team-a",
+  "name": "Equipo A",
+  "players": [
+    { "name": "Jugador A1", "position": "DC", "rating": 91, "x": 50, "y": 15, "stats": { "PAC": 92, "SHO": 94, "PAS": 83, "DRI": 91, "DEF": 40, "PHY": 87 } },
+    { "name": "Jugador A2", "position": "EI", "rating": 88, "x": 18, "y": 29, "stats": { "PAC": 95, "SHO": 86, "PAS": 84, "DRI": 93, "DEF": 35, "PHY": 72 } },
+    { "name": "Jugador A3", "position": "ED", "rating": 89, "x": 82, "y": 29, "stats": { "PAC": 93, "SHO": 88, "PAS": 87, "DRI": 92, "DEF": 39, "PHY": 74 } },
+    { "name": "Jugador A4", "position": "MC", "rating": 87, "x": 25, "y": 51, "stats": { "PAC": 78, "SHO": 82, "PAS": 91, "DRI": 87, "DEF": 80, "PHY": 82 } },
+    { "name": "Jugador A5", "position": "MCD", "rating": 88, "x": 50, "y": 56, "stats": { "PAC": 75, "SHO": 72, "PAS": 88, "DRI": 83, "DEF": 92, "PHY": 89 } },
+    { "name": "Jugador A6", "position": "MC", "rating": 86, "x": 75, "y": 51, "stats": { "PAC": 80, "SHO": 84, "PAS": 89, "DRI": 88, "DEF": 76, "PHY": 79 } },
+    { "name": "Jugador A7", "position": "LI", "rating": 84, "x": 13, "y": 75, "stats": { "PAC": 91, "SHO": 69, "PAS": 82, "DRI": 85, "DEF": 81, "PHY": 78 } },
+    { "name": "Jugador A8", "position": "DFC", "rating": 87, "x": 38, "y": 77, "stats": { "PAC": 78, "SHO": 50, "PAS": 74, "DRI": 70, "DEF": 91, "PHY": 89 } },
+    { "name": "Jugador A9", "position": "DFC", "rating": 86, "x": 62, "y": 77, "stats": { "PAC": 76, "SHO": 53, "PAS": 73, "DRI": 69, "DEF": 90, "PHY": 88 } },
+    { "name": "Jugador A10", "position": "LD", "rating": 85, "x": 87, "y": 75, "stats": { "PAC": 90, "SHO": 70, "PAS": 83, "DRI": 84, "DEF": 82, "PHY": 80 } },
+    { "name": "Jugador A11", "position": "POR", "rating": 89, "x": 50, "y": 91, "stats": { "EST": 89, "MAN": 88, "SAQ": 85, "REF": 92, "VEL": 62, "POS": 90 } }
+  ]
+}

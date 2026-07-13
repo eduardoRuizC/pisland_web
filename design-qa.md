@@ -1,35 +1,45 @@
-source visual truth path: /tmp/pisland-full-background-josh.png
-implementation screenshot path: pisland-mobile-josh-bg.png
-desktop screenshot path: pisland-desktop-1440.png
-comparison evidence: pisland-mobile-comparison.png
-viewport: mobile 390x884, desktop 1440x1000
-state: home page default, plus trailer modal opened
-focused region comparison evidence: pisland-mobile-modal.png for modal; full-page mobile comparison used for hero, news, CTA, and footer.
+source visual truth path: /mnt/c/Users/Usuario/Downloads/football-lineup-project/football-lineup-project
+source field screenshot path: football-lineup-reference-390.png
+implementation mobile screenshot path: pisland-partido-390.png
+implementation mobile field path: pisland-partido-field-390.png
+implementation tablet screenshot path: pisland-partido-768-team-b.png
+implementation desktop screenshot path: pisland-partido-1440.png
+combined comparison evidence: pisland-partido-comparison-390.png
+viewport: mobile 390x844, tablet 768x900, desktop 1440x1000
+state: Partido section; Equipo A default, Equipos B/C/D selected, and keyboard focus state tested
 
 **Findings**
 - No actionable P0/P1/P2 findings.
 
+**Full-view Comparison Evidence**
+- `pisland-partido-390.png` confirms that the Partido heading, tabs, field, and surrounding Pisland background form one responsive section without horizontal overflow.
+- `pisland-partido-768-team-b.png` confirms the selected Equipo B state, full 11-player formation, and tablet spacing.
+- `pisland-partido-1440.png` confirms the centered 820x1025 field, desktop hierarchy, and maximum card sizing.
+
+**Focused Region Comparison Evidence**
+- `pisland-partido-comparison-390.png` places the reference field and integrated Equipo A field in the same image. The 4:5 pitch geometry, formation coordinates, card artwork, yellow/black palette, ratings, positions, names, and six-stat layout match the reference. The integrated field is intentionally narrower inside the Pisland section shell to preserve mobile padding and avoid overflow.
+
 **Required Fidelity Surfaces**
-- Fonts and typography: implementation uses Anybody for display, Space Mono for labels, and Hanken Grotesk for body. Hierarchy matches the Stitch direction: heavy italic uppercase titles, compact monospace labels, and readable body copy. Spanish localization changes line breaks but preserves the visual weight.
-- Spacing and layout rhythm: mobile 390px keeps the same stacked rhythm: fixed nav, logo hero, large countdown, latest-news cards, graffiti CTA, and footer. Desktop expands the news cards into the same bento pattern without horizontal overflow.
-- Colors and visual tokens: implementation maps the Stitch palette to CSS tokens: dark olive background, neon yellow primary, muted olive outlines, aqua CTA accent, hard shadows, glow, and glass cards.
-- Image quality and asset fidelity: Stitch logos, news images, and the Josh full-background image were copied into local assets. The implementation uses `assets/pisland-full-background-josh.png` as the fixed background image from the Stitch project.
-- Copy and content: app-specific copy is intentionally localized to Spanish per request. Section meaning and CTA hierarchy match the Stitch screen.
+- Fonts and typography: the player cards retain the reference Arial treatment while the Partido heading and tabs use the existing Pisland Anybody/Space Mono hierarchy. Text remains readable at the intended card size and does not overflow its masks.
+- Spacing and layout rhythm: the field keeps a 4:5 ratio at all tested widths. Measured sizes are 342x427.5 at 390px, 685.94x857.42 at 768px, and 820x1025 at 1440px. All card rectangles remain within the pitch bounds.
+- Colors and visual tokens: the field and card artwork preserve the reference black and `#fffc00`; the section shell, outlines, focus state, shadows, and backdrop reuse the existing Pisland tokens.
+- Image quality and asset fidelity: `assets/player-card-template.png` is a byte-identical copy of the supplied 1086x1448 source asset. It remains sharp at the maximum rendered width of 118px and is not replaced by CSS or placeholder artwork.
+- Copy and content: the section is labeled Partido, tabs cover Equipos A-D, and the four independent 11-player datasets use the requested Jugador A1-A11 through Jugador D1-D11 naming.
 
-**Open Questions**
-- None blocking. The Stitch source screenshot is low resolution, so exact pixel matching is limited; the HTML/CSS reference and visual comparison were used together.
+**Interactions And Accessibility Tested**
+- Mouse selection switches between Equipos A-D with exactly one visible panel and 11 cards per team.
+- Arrow keys and Home/End move focus and selection across all four teams; the selected tab has `tabindex="0"`, inactive tabs have `tabindex="-1"`, and all tab/panel ARIA relationships are valid.
+- The team selector uses four columns on desktop and a 2x2 grid on mobile without horizontal overflow.
+- The mobile navigation opens, reports `aria-expanded="true"`, navigates to `#partido`, and closes again.
+- The Alineaciones news card navigates to `#partido`, where Partido becomes the active navigation item.
+- Player cards expose keyboard focus and spoken labels containing name, position, rating, and statistics.
+- The page has no horizontal overflow at 390, 768, or 1440px.
+- Browser console: 0 errors. One pre-existing Spotify iframe warning remains because `allow` takes precedence over `allowfullscreen`.
 
-**Implementation Checklist**
-- Replaced current home page with the Full Background Josh structure.
-- Converted Stitch/Tailwind styling into static CSS.
-- Localized copy to Spanish.
-- Added local Stitch assets.
-- Added functional countdown and modal interactions.
-- Verified no console warnings/errors on the implemented page after reload.
-- Verified no horizontal overflow at 390px and 1440px.
+**Comparison History**
+- Initial visual pass: no P0/P1/P2 differences found. The integrated field matches the supplied reference while intentionally adopting the existing Pisland section container and tabs.
 
 **Follow-up Polish**
 - No blocking follow-up polish.
 
-patches made since previous QA pass: shifted hero content upward on mobile/desktop, added a favicon link to remove the local 404, and replaced the background with the Stitch `josh_sin_logo.png` asset saved as `assets/pisland-full-background-josh.png`.
 final result: passed
