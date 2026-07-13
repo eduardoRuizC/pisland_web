@@ -7,6 +7,8 @@ const closeModalButton = document.querySelector("[data-close-modal]");
 const trailerModal = document.querySelector("[data-trailer-modal]");
 const closeTrailerModalButton = document.querySelector("[data-close-trailer-modal]");
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+const navToggle = document.querySelector("[data-nav-toggle]");
+const navMenu = document.querySelector("[data-nav-links]");
 const eventTimeZone = "Europe/Madrid";
 const attendanceCount = document.querySelector("[data-attendance-count]");
 const attendanceButton = document.querySelector("[data-attendance-button]");
@@ -227,7 +229,8 @@ function openInitialTrailerModal() {
 }
 
 function syncActiveNav() {
-  const current = [...document.querySelectorAll("main section[id]")]
+  const current = [...document.querySelectorAll("main [id]")]
+    .filter((section) => section.matches("header, section"))
     .filter((section) => section.getBoundingClientRect().top <= 140)
     .at(-1);
 
@@ -236,6 +239,19 @@ function syncActiveNav() {
   navLinks.forEach((link) => {
     link.classList.toggle("active", link.getAttribute("href") === `#${current.id}`);
   });
+}
+
+function setNavOpen(isOpen) {
+  if (!navToggle || !navMenu) return;
+
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+  navToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
+  navMenu.classList.toggle("is-open", isOpen);
+}
+
+function toggleNav() {
+  if (!navToggle) return;
+  setNavOpen(navToggle.getAttribute("aria-expanded") !== "true");
 }
 
 updateCountdown();
@@ -249,6 +265,17 @@ document.addEventListener("click", (event) => {
   const closeButton = event.target.closest("[data-close-modal]");
   const openTrailerButton = event.target.closest("[data-open-trailer-modal]");
   const closeTrailerButton = event.target.closest("[data-close-trailer-modal]");
+
+  if (event.target.closest("[data-nav-toggle]")) {
+    toggleNav();
+    return;
+  }
+
+  if (event.target.closest(".nav-links a")) {
+    setNavOpen(false);
+  } else if (navMenu?.classList.contains("is-open") && !event.target.closest(".top-nav")) {
+    setNavOpen(false);
+  }
 
   if (openButton) {
     openModal(openButton.dataset.openModal);
@@ -264,6 +291,13 @@ document.addEventListener("click", (event) => {
 
   if (closeTrailerButton) {
     closeTrailerModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navMenu?.classList.contains("is-open")) {
+    setNavOpen(false);
+    navToggle?.focus();
   }
 });
 
@@ -313,3 +347,9 @@ if (attendanceButton) {
 }
 
 window.addEventListener("scroll", syncActiveNav, { passive: true });
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 720) {
+    setNavOpen(false);
+  }
+});
