@@ -13,6 +13,12 @@
 - When commands are added, derive verification steps from committed project files such as `package.json`, lockfiles, Makefiles, or framework config.
 - If dependencies must be installed or network access is required, ask for approval first.
 
+## Test Artifacts
+
+- Save every screenshot and test report in the project-level `capturas/` directory.
+- This rule applies to manual checks, browser tests, responsive reviews, and automatically generated test artifacts.
+- Create `capturas/` if it does not exist; do not save screenshots or test reports in the repository root or in temporary directories.
+
 ## Frontend Work
 
 - Build the actual usable experience first; avoid placeholder landing pages unless explicitly requested.

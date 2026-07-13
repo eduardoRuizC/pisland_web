@@ -2,7 +2,7 @@ import { initAttendance } from "./components/attendance-counter.js";
 import { initCountdown } from "./components/countdown.js";
 import { initMatch } from "./components/match/match.js";
 import { initNavigation } from "./components/navigation.js";
-import { initTrailerModal } from "./components/trailer-modal.js";
+import { initTrailerModal } from "./components/trailer-modal.js?v=2";
 import { createAttendanceService } from "./services/attendance-service.js";
 
 const cleanups = [];
