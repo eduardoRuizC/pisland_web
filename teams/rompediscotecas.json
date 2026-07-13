@@ -17,7 +17,8 @@
         "DEF": 40,
         "PHY": 87
       },
-      "image": "assets/teams/player-placeholder.svg",
+      "fieldImage": "assets/players/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
       "description": "Jugador A1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en SHO (94) y PAC (92), aportando fijar centrales, atacar el area y finalizar jugadas.",
       "active": false
     },
@@ -35,8 +36,9 @@
         "DEF": 80,
         "PHY": 82
       },
-      "image": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en PAS (91) y DRI (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
+      "fieldImage": "assets/teams/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
+      "description": "Jugador A4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en PAS (91) y DRI (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
       "active": false
     },
     {
@@ -53,8 +55,9 @@
         "DEF": 39,
         "PHY": 74
       },
-      "image": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en PAC (93) y DRI (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
+      "fieldImage": "assets/teams/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
+      "description": "Jugador A3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en PAC (93) y DRI (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
       "active": false
     },
     {
@@ -71,8 +74,9 @@
         "DEF": 91,
         "PHY": 89
       },
-      "image": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en DEF (91) y PHY (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
+      "fieldImage": "assets/teams/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
+      "description": "Jugador A8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en DEF (91) y PHY (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
       "active": false
     },
     {
@@ -89,8 +93,9 @@
         "DEF": 90,
         "PHY": 88
       },
-      "image": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en DEF (90) y PHY (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
+      "fieldImage": "assets/teams/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
+      "description": "Jugador A9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en DEF (90) y PHY (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
       "active": false
     },
     {
@@ -107,8 +112,9 @@
         "VEL": 62,
         "POS": 90
       },
-      "image": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
+      "fieldImage": "assets/teams/player-placeholder.svg",
+      "detailImage": "assets/teams/player-placeholder.svg",
+      "description": "Jugador A11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
       "active": false
     }
   ]

@@ -107,7 +107,7 @@ export function createPlayerDialog(options = {}) {
   const barsButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Barras");
   barsButton.type = "button";
   barsButton.setAttribute("aria-pressed", "true");
-  const hexbinButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Hexbin");
+  const hexbinButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Hexágono");
   hexbinButton.type = "button";
   hexbinButton.setAttribute("aria-pressed", "false");
   statsHeader.append(statsTitle, statsToggle);
@@ -133,7 +133,7 @@ export function createPlayerDialog(options = {}) {
     imageFallback.setAttribute("aria-label", `Imagen no disponible de ${currentPlayer?.name ?? "jugador"}`);
   };
   const handleImageError = () => {
-    console.error(`No se pudo cargar la foto del jugador: ${currentPlayer?.image ?? "ruta desconocida"}`);
+    console.error(`No se pudo cargar la foto del jugador: ${currentPlayer?.detailImage ?? currentPlayer?.image ?? "ruta desconocida"}`);
     showImageFallback();
   };
   const close = () => {
@@ -173,11 +173,20 @@ export function createPlayerDialog(options = {}) {
     ratingValue.textContent = String(player.rating);
     positionValue.textContent = player.position;
     description.textContent = player.description;
-    image.hidden = false;
-    imageFallback.hidden = true;
-    image.alt = `Foto de ${player.name}`;
     image.removeAttribute("src");
-    image.src = player.image;
+    const detailImagePath = typeof player.detailImage === "string"
+      ? player.detailImage.trim()
+      : typeof player.image === "string"
+        ? player.image.trim()
+        : "";
+    if (detailImagePath !== "") {
+      image.hidden = false;
+      imageFallback.hidden = true;
+      image.alt = `Foto de ${player.name}`;
+      image.src = detailImagePath;
+    } else {
+      showImageFallback();
+    }
 
     const players = currentPlayers;
     const previousPlayer = players[(currentIndex - 1 + players.length) % players.length];

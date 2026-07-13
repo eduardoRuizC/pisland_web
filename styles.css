@@ -1158,10 +1158,10 @@ img {
 }
 
 .lineup-card__mask--header {
-  top: 16%;
-  left: 13%;
-  width: 27%;
-  height: 25%;
+  top: 8%;
+  left: 8%;
+  width: 29%;
+  height: 22%;
   border-radius: 3px;
 }
 
@@ -1188,9 +1188,9 @@ img {
 }
 
 .lineup-card__rating {
-  top: 18%;
-  left: 14%;
-  width: 25%;
+  top: 10%;
+  left: 9%;
+  width: 27%;
   font-size: clamp(12px, 2.6vw, 25px);
   font-weight: 900;
   line-height: 1;
@@ -1198,9 +1198,9 @@ img {
 }
 
 .lineup-card__position {
-  top: 31%;
-  left: 14%;
-  width: 25%;
+  top: 22%;
+  left: 9%;
+  width: 27%;
   font-size: clamp(6px, 1.1vw, 12px);
   font-weight: 900;
   text-align: center;

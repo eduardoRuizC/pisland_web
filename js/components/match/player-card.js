@@ -1,10 +1,18 @@
 export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
   const imagePath = options.imagePath ?? "assets/player-card-template.png";
+  const placeholderImagePath = options.placeholderImagePath ?? "assets/players/player-placeholder.svg";
   const card = documentRef.createElement("div");
   const isActive = player.active;
   const trigger = documentRef.createElement(isActive ? "button" : "div");
   const stats = Object.entries(player.stats).slice(0, 6);
+  const customImagePath = typeof player.fieldImage === "string"
+    ? player.fieldImage.trim()
+    : typeof player.image === "string"
+      ? player.image.trim()
+      : "";
+  const hasCustomImage = isActive && customImagePath !== "" && customImagePath !== placeholderImagePath;
+  const fieldImagePath = hasCustomImage ? customImagePath : imagePath;
 
   card.className = "lineup-card";
   card.dataset.position = player.position;
@@ -32,13 +40,19 @@ export function createPlayerCard(player, options = {}) {
 
   const art = documentRef.createElement("img");
   art.className = "lineup-card__art";
-  art.src = imagePath;
+  art.src = fieldImagePath;
   art.alt = "";
   art.setAttribute("aria-hidden", "true");
   art.addEventListener("error", () => {
-    console.error(`No se pudo cargar la plantilla de jugador: ${imagePath}`);
-    card.classList.add("lineup-card--image-error");
-  }, { once: true });
+    if (art.src.endsWith(imagePath)) {
+      console.error(`No se pudo cargar la plantilla de jugador: ${imagePath}`);
+      card.classList.add("lineup-card--image-error");
+      return;
+    }
+
+    console.error(`No se pudo cargar la foto del jugador en el campo: ${fieldImagePath}`);
+    art.src = imagePath;
+  });
   trigger.append(art);
 
   ["header", "name", "stats"].forEach((name) => {

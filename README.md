@@ -163,6 +163,7 @@ name in the detail dialog. A player has this shape:
   "y": 15,
   "active": true,
   "image": "assets/teams/player-placeholder.svg",
+  "detailImage": "assets/teams/player-placeholder.svg",
   "description": "Atacante vertical que destaca por su velocidad y definición.",
   "stats": { "PAC": 92, "SHO": 94, "PAS": 83 }
 }
@@ -172,18 +173,27 @@ Coordinates `x` and `y` are percentages from 0 to 100. Statistics must be
 numeric; the card and detail dialog display the first six in the order written
 in the JSON. The current teams use a six-player reduced football formation:
 `POR`, two `DFC`, `MI`, `MD` and `DC`, laid out as 1-2-2-1 from the goalkeeper
-toward the opponent goal. The detail dialog can represent them as horizontal
-bars or as a hexagonal radar chart on a 0–100 visual scale; values outside that
-range remain visible as text while the graphic is clamped to the scale. Its lateral arrows
+toward the opponent goal. The detail dialog can represent them as
+horizontal bars or as a hexagonal radar chart on a 0–100 visual scale; values
+outside that range remain visible as text while the graphic is clamped to the
+scale. Its lateral arrows
 and the keyboard left/right arrows
 cycle through only the active players of the selected team. Set `active` to
 `false` to keep the card template and player position visible while replacing
 its rating, name and statistic values with `?`; statistic keys such as `PAC`,
 `SHO` and `PAS` remain visible. The card becomes non-interactive and its detail remains
-unavailable. `image` is a path relative to the site root and
-`description` is the detailed text displayed when the player card is activated.
-All three fields are required. Replace the shared placeholder path with each
-real player photo when it becomes available.
+unavailable. `fieldImage` and `detailImage` are paths relative to the site root:
+`fieldImage` is used in the pitch card, and `detailImage` is used in the player
+detail dialog. `description` is the detailed text displayed when the player card
+is activated.
+
+`description` and `active` are required. `fieldImage` and `detailImage` are
+optional strings: active players with a real `fieldImage` path use it in the
+field card, while inactive players, empty field image values and the shared
+placeholder path keep the original card template in the field view. The dialog
+uses `detailImage` when it is available and shows its visual fallback otherwise.
+Replace the shared placeholder path with each real player photo when it becomes
+available.
 
 To add another team:
 

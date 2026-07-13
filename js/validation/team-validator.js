@@ -34,8 +34,16 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
 
   assertNonEmptyString(player.name, `El nombre del jugador ${index + 1}`);
   assertNonEmptyString(player.position, `La posición del jugador ${index + 1}`);
-  assertNonEmptyString(player.image, `La imagen del jugador ${index + 1}`);
   assertNonEmptyString(player.description, `La descripción del jugador ${index + 1}`);
+  if (player.fieldImage !== undefined && typeof player.fieldImage !== "string") {
+    throw new TypeError(`La imagen de campo del jugador ${index + 1} debe ser texto si se define.`);
+  }
+  if (player.detailImage !== undefined && typeof player.detailImage !== "string") {
+    throw new TypeError(`La imagen de detalle del jugador ${index + 1} debe ser texto si se define.`);
+  }
+  if (player.image !== undefined && typeof player.image !== "string") {
+    throw new TypeError(`La imagen del jugador ${index + 1} debe ser texto si se define.`);
+  }
   if (typeof player.active !== "boolean") {
     throw new TypeError(`El estado activo del jugador ${index + 1} de ${teamName} debe ser booleano.`);
   }
