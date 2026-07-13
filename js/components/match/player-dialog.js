@@ -1,3 +1,5 @@
+import { createStatsHexbin } from "./stats-hexbin.js";
+
 let dialogSequence = 0;
 
 function appendText(documentRef, parent, tagName, className, text) {
@@ -27,6 +29,7 @@ export function createPlayerDialog(options = {}) {
   const contentId = `player-dialog-content-${instanceId}`;
   let currentPlayer;
   let currentTeam;
+  let currentPlayers = [];
   let currentIndex = 0;
   let lastTrigger;
 
@@ -83,11 +86,27 @@ export function createPlayerDialog(options = {}) {
   const statsSection = documentRef.createElement("section");
   statsSection.className = "player-dialog__stats-section";
   statsSection.setAttribute("aria-labelledby", statsTitleId);
+  const statsHeader = documentRef.createElement("div");
+  statsHeader.className = "player-dialog__stats-header";
   const statsTitle = appendText(documentRef, statsSection, "h3", "player-dialog__stats-title", "Estadísticas");
   statsTitle.id = statsTitleId;
+  const statsToggle = documentRef.createElement("div");
+  statsToggle.className = "player-dialog__stats-toggle";
+  statsToggle.setAttribute("role", "group");
+  statsToggle.setAttribute("aria-label", "Formato de estadísticas");
+  const barsButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Barras");
+  barsButton.type = "button";
+  barsButton.setAttribute("aria-pressed", "true");
+  const hexbinButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Hexbin");
+  hexbinButton.type = "button";
+  hexbinButton.setAttribute("aria-pressed", "false");
+  statsHeader.append(statsTitle, statsToggle);
   const statsGrid = documentRef.createElement("div");
   statsGrid.className = "player-dialog__stats";
-  statsSection.append(statsGrid);
+  const hexbin = documentRef.createElement("div");
+  hexbin.className = "player-dialog__hexbin";
+  hexbin.hidden = true;
+  statsSection.replaceChildren(statsHeader, statsGrid, hexbin);
   body.append(statsSection);
   const announcement = appendText(documentRef, body, "p", "sr-only", "");
   announcement.setAttribute("aria-live", "polite");
@@ -117,6 +136,18 @@ export function createPlayerDialog(options = {}) {
     documentRef.body.classList.remove("modal-open");
     if (lastTrigger?.isConnected) lastTrigger.focus();
   };
+  const handleScroll = () => {
+    dialog.classList.toggle("player-dialog--scrolled", scroll.scrollTop > 40);
+  };
+  const setStatsView = (view) => {
+    const showBars = view === "bars";
+    statsGrid.hidden = !showBars;
+    hexbin.hidden = showBars;
+    barsButton.setAttribute("aria-pressed", String(showBars));
+    hexbinButton.setAttribute("aria-pressed", String(!showBars));
+  };
+  const handleBarsClick = () => setStatsView("bars");
+  const handleHexbinClick = () => setStatsView("hexbin");
 
   const renderPlayer = (player, announce = false) => {
     currentPlayer = player;
@@ -131,11 +162,14 @@ export function createPlayerDialog(options = {}) {
     image.removeAttribute("src");
     image.src = player.image;
 
-    const players = currentTeam.players;
+    const players = currentPlayers;
     const previousPlayer = players[(currentIndex - 1 + players.length) % players.length];
     const nextPlayer = players[(currentIndex + 1) % players.length];
-    previousButton.setAttribute("aria-label", `Jugador anterior: ${previousPlayer.name}`);
-    nextButton.setAttribute("aria-label", `Jugador siguiente: ${nextPlayer.name}`);
+    const canNavigate = players.length > 1;
+    previousButton.disabled = !canNavigate;
+    nextButton.disabled = !canNavigate;
+    previousButton.setAttribute("aria-label", canNavigate ? `Jugador anterior: ${previousPlayer.name}` : "No hay otro jugador activo");
+    nextButton.setAttribute("aria-label", canNavigate ? `Jugador siguiente: ${nextPlayer.name}` : "No hay otro jugador activo");
 
     const stats = Object.entries(player.stats).slice(0, 6).map(([label, value]) => {
       const stat = documentRef.createElement("div");
@@ -161,13 +195,14 @@ export function createPlayerDialog(options = {}) {
       return stat;
     });
     statsGrid.replaceChildren(...stats);
+    hexbin.replaceChildren(createStatsHexbin(player.stats, { documentRef }));
     if (announce) announcement.textContent = `${player.name}, ${player.position}, valoración ${player.rating}`;
   };
 
   const navigate = (offset) => {
-    if (!currentTeam?.players.length) return;
-    currentIndex = (currentIndex + offset + currentTeam.players.length) % currentTeam.players.length;
-    renderPlayer(currentTeam.players[currentIndex], true);
+    if (currentPlayers.length < 2) return;
+    currentIndex = (currentIndex + offset + currentPlayers.length) % currentPlayers.length;
+    renderPlayer(currentPlayers[currentIndex], true);
     scroll.scrollTop = 0;
   };
 
@@ -184,35 +219,47 @@ export function createPlayerDialog(options = {}) {
   const handleNextClick = () => navigate(1);
 
   image.addEventListener("error", handleImageError);
+  barsButton.addEventListener("click", handleBarsClick);
+  hexbinButton.addEventListener("click", handleHexbinClick);
   closeButton.addEventListener("click", close);
   previousButton.addEventListener("click", handlePreviousClick);
   nextButton.addEventListener("click", handleNextClick);
   dialog.addEventListener("click", handleBackdropClick);
   dialog.addEventListener("close", handleClose);
   dialog.addEventListener("keydown", handleKeydown);
+  scroll.addEventListener("scroll", handleScroll, { passive: true });
 
   const open = (player, team, trigger) => {
+    if (!player.active) return false;
     currentTeam = team;
-    const selectedIndex = team.players.findIndex((candidate) => candidate === player || candidate.name === player.name);
+    currentPlayers = team.players.filter((candidate) => candidate.active);
+    const selectedIndex = currentPlayers.findIndex((candidate) => candidate === player || candidate.name === player.name);
+    if (selectedIndex < 0) return false;
     currentIndex = Math.max(0, selectedIndex);
     lastTrigger = trigger ?? documentRef.activeElement;
     announcement.textContent = "";
-    renderPlayer(team.players[currentIndex]);
+    scroll.scrollTop = 0;
+    dialog.classList.remove("player-dialog--scrolled");
+    renderPlayer(currentPlayers[currentIndex]);
 
     if (typeof dialog.showModal === "function" && !dialog.open) {
       dialog.showModal();
       documentRef.body.classList.add("modal-open");
     }
+    return true;
   };
 
   const destroy = () => {
     image.removeEventListener("error", handleImageError);
+    barsButton.removeEventListener("click", handleBarsClick);
+    hexbinButton.removeEventListener("click", handleHexbinClick);
     closeButton.removeEventListener("click", close);
     previousButton.removeEventListener("click", handlePreviousClick);
     nextButton.removeEventListener("click", handleNextClick);
     dialog.removeEventListener("click", handleBackdropClick);
     dialog.removeEventListener("close", handleClose);
     dialog.removeEventListener("keydown", handleKeydown);
+    scroll.removeEventListener("scroll", handleScroll);
     if (dialog.open) dialog.close();
     dialog.remove();
   };

@@ -2,20 +2,28 @@ export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
   const imagePath = options.imagePath ?? "assets/player-card-template.png";
   const card = documentRef.createElement("div");
-  const trigger = documentRef.createElement("button");
+  const isActive = player.active;
+  const trigger = documentRef.createElement(isActive ? "button" : "div");
   const stats = Object.entries(player.stats).slice(0, 6);
 
   card.className = "lineup-card";
   card.style.left = `${player.x}%`;
   card.style.top = `${player.y}%`;
   card.setAttribute("role", "listitem");
-  trigger.className = "lineup-card__trigger";
-  trigger.type = "button";
-  trigger.setAttribute(
-    "aria-label",
-    `Ver detalles de ${player.name}, ${player.position}, valoración ${player.rating}`,
-  );
-  trigger.addEventListener("click", () => options.onSelect?.(player, trigger));
+  if (isActive) {
+    trigger.className = "lineup-card__trigger";
+    trigger.type = "button";
+    trigger.setAttribute(
+      "aria-label",
+      `Ver detalles de ${player.name}, ${player.position}, valoración ${player.rating}`,
+    );
+    trigger.addEventListener("click", () => options.onSelect?.(player, trigger));
+  } else {
+    card.classList.add("lineup-card--inactive");
+    trigger.className = "lineup-card__inactive";
+    trigger.setAttribute("role", "img");
+    trigger.setAttribute("aria-label", "Jugador inactivo, detalles no disponibles");
+  }
   card.append(trigger);
 
   const art = documentRef.createElement("img");
@@ -42,9 +50,9 @@ export function createPlayerCard(player, options = {}) {
     node.textContent = String(value);
     trigger.append(node);
   };
-  appendText("lineup-card__rating", player.rating);
-  appendText("lineup-card__position", player.position);
-  appendText("lineup-card__name", player.name);
+  appendText("lineup-card__rating", isActive ? player.rating : "?");
+  appendText("lineup-card__position", isActive ? player.position : "?");
+  appendText("lineup-card__name", isActive ? player.name : "?");
 
   const statsNode = documentRef.createElement("div");
   statsNode.className = "lineup-card__stats";
@@ -56,7 +64,7 @@ export function createPlayerCard(player, options = {}) {
     labelNode.textContent = label;
     const valueNode = documentRef.createElement("span");
     valueNode.className = "lineup-card__stat-value";
-    valueNode.textContent = String(value);
+    valueNode.textContent = isActive ? String(value) : "?";
     stat.append(labelNode, valueNode);
     statsNode.append(stat);
   });
