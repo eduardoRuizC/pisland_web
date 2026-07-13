@@ -2,16 +2,192 @@
   "id": "team-c",
   "name": "Equipo C",
   "players": [
-    { "name": "Jugador C1", "position": "DC", "rating": 90, "x": 50, "y": 15, "stats": { "PAC": 92, "SHO": 94, "PAS": 83, "DRI": 91, "DEF": 40, "PHY": 87 } },
-    { "name": "Jugador C2", "position": "EI", "rating": 88, "x": 18, "y": 29, "stats": { "PAC": 95, "SHO": 86, "PAS": 84, "DRI": 93, "DEF": 35, "PHY": 72 } },
-    { "name": "Jugador C3", "position": "ED", "rating": 89, "x": 82, "y": 29, "stats": { "PAC": 93, "SHO": 88, "PAS": 87, "DRI": 92, "DEF": 39, "PHY": 74 } },
-    { "name": "Jugador C4", "position": "MC", "rating": 87, "x": 25, "y": 51, "stats": { "PAC": 78, "SHO": 82, "PAS": 91, "DRI": 87, "DEF": 80, "PHY": 82 } },
-    { "name": "Jugador C5", "position": "MCD", "rating": 88, "x": 50, "y": 56, "stats": { "PAC": 75, "SHO": 72, "PAS": 88, "DRI": 83, "DEF": 92, "PHY": 89 } },
-    { "name": "Jugador C6", "position": "MC", "rating": 86, "x": 75, "y": 51, "stats": { "PAC": 80, "SHO": 84, "PAS": 89, "DRI": 88, "DEF": 76, "PHY": 79 } },
-    { "name": "Jugador C7", "position": "LI", "rating": 84, "x": 13, "y": 75, "stats": { "PAC": 91, "SHO": 69, "PAS": 82, "DRI": 85, "DEF": 81, "PHY": 78 } },
-    { "name": "Jugador C8", "position": "DFC", "rating": 87, "x": 38, "y": 77, "stats": { "PAC": 78, "SHO": 50, "PAS": 74, "DRI": 70, "DEF": 91, "PHY": 89 } },
-    { "name": "Jugador C9", "position": "DFC", "rating": 86, "x": 62, "y": 77, "stats": { "PAC": 76, "SHO": 53, "PAS": 73, "DRI": 69, "DEF": 90, "PHY": 88 } },
-    { "name": "Jugador C10", "position": "LD", "rating": 85, "x": 87, "y": 75, "stats": { "PAC": 90, "SHO": 70, "PAS": 83, "DRI": 84, "DEF": 82, "PHY": 80 } },
-    { "name": "Jugador C11", "position": "POR", "rating": 89, "x": 50, "y": 91, "stats": { "EST": 89, "MAN": 88, "SAQ": 85, "REF": 92, "VEL": 62, "POS": 90 } }
+    {
+      "name": "Jugador C1",
+      "position": "DC",
+      "rating": 90,
+      "x": 50,
+      "y": 15,
+      "stats": {
+        "PAC": 92,
+        "SHO": 94,
+        "PAS": 83,
+        "DRI": 91,
+        "DEF": 40,
+        "PHY": 87
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C1 es un delantero de referencia de Equipo C. Destaca especialmente en SHO (94) y PAC (92), aportando amenaza constante cerca del área."
+    },
+    {
+      "name": "Jugador C2",
+      "position": "EI",
+      "rating": 88,
+      "x": 18,
+      "y": 29,
+      "stats": {
+        "PAC": 95,
+        "SHO": 86,
+        "PAS": 84,
+        "DRI": 93,
+        "DEF": 35,
+        "PHY": 72
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C2 es un extremo izquierdo vertical de Equipo C. Destaca especialmente en PAC (95) y DRI (93), aportando desborde y profundidad desde la banda."
+    },
+    {
+      "name": "Jugador C3",
+      "position": "ED",
+      "rating": 89,
+      "x": 82,
+      "y": 29,
+      "stats": {
+        "PAC": 93,
+        "SHO": 88,
+        "PAS": 87,
+        "DRI": 92,
+        "DEF": 39,
+        "PHY": 74
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C3 es un extremo derecho creativo de Equipo C. Destaca especialmente en PAC (93) y DRI (92), aportando desequilibrio y último pase desde la banda."
+    },
+    {
+      "name": "Jugador C4",
+      "position": "MC",
+      "rating": 87,
+      "x": 25,
+      "y": 51,
+      "stats": {
+        "PAC": 78,
+        "SHO": 82,
+        "PAS": 91,
+        "DRI": 87,
+        "DEF": 80,
+        "PHY": 82
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C4 es un centrocampista todoterreno de Equipo C. Destaca especialmente en PAS (91) y DRI (87), aportando ritmo, asociación y llegada desde segunda línea."
+    },
+    {
+      "name": "Jugador C5",
+      "position": "MCD",
+      "rating": 88,
+      "x": 50,
+      "y": 56,
+      "stats": {
+        "PAC": 75,
+        "SHO": 72,
+        "PAS": 88,
+        "DRI": 83,
+        "DEF": 92,
+        "PHY": 89
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C5 es un mediocentro defensivo de Equipo C. Destaca especialmente en DEF (92) y PHY (89), aportando equilibrio táctico y protección por delante de la defensa."
+    },
+    {
+      "name": "Jugador C6",
+      "position": "MC",
+      "rating": 86,
+      "x": 75,
+      "y": 51,
+      "stats": {
+        "PAC": 80,
+        "SHO": 84,
+        "PAS": 89,
+        "DRI": 88,
+        "DEF": 76,
+        "PHY": 79
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C6 es un centrocampista todoterreno de Equipo C. Destaca especialmente en PAS (89) y DRI (88), aportando ritmo, asociación y llegada desde segunda línea."
+    },
+    {
+      "name": "Jugador C7",
+      "position": "LI",
+      "rating": 84,
+      "x": 13,
+      "y": 75,
+      "stats": {
+        "PAC": 91,
+        "SHO": 69,
+        "PAS": 82,
+        "DRI": 85,
+        "DEF": 81,
+        "PHY": 78
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C7 es un lateral izquierdo de largo recorrido de Equipo C. Destaca especialmente en PAC (91) y DRI (85), aportando amplitud ofensiva y solidez en el repliegue."
+    },
+    {
+      "name": "Jugador C8",
+      "position": "DFC",
+      "rating": 87,
+      "x": 38,
+      "y": 77,
+      "stats": {
+        "PAC": 78,
+        "SHO": 50,
+        "PAS": 74,
+        "DRI": 70,
+        "DEF": 91,
+        "PHY": 89
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C8 es un defensa central de Equipo C. Destaca especialmente en DEF (91) y PHY (89), aportando contundencia, colocación y dominio de los duelos."
+    },
+    {
+      "name": "Jugador C9",
+      "position": "DFC",
+      "rating": 86,
+      "x": 62,
+      "y": 77,
+      "stats": {
+        "PAC": 76,
+        "SHO": 53,
+        "PAS": 73,
+        "DRI": 69,
+        "DEF": 90,
+        "PHY": 88
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C9 es un defensa central de Equipo C. Destaca especialmente en DEF (90) y PHY (88), aportando contundencia, colocación y dominio de los duelos."
+    },
+    {
+      "name": "Jugador C10",
+      "position": "LD",
+      "rating": 85,
+      "x": 87,
+      "y": 75,
+      "stats": {
+        "PAC": 90,
+        "SHO": 70,
+        "PAS": 83,
+        "DRI": 84,
+        "DEF": 82,
+        "PHY": 80
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C10 es un lateral derecho de largo recorrido de Equipo C. Destaca especialmente en PAC (90) y DRI (84), aportando recorrido exterior y fiabilidad defensiva."
+    },
+    {
+      "name": "Jugador C11",
+      "position": "POR",
+      "rating": 89,
+      "x": 50,
+      "y": 91,
+      "stats": {
+        "EST": 89,
+        "MAN": 88,
+        "SAQ": 85,
+        "REF": 92,
+        "VEL": 62,
+        "POS": 90
+      },
+      "image": "assets/players/player-placeholder.svg",
+      "description": "Jugador C11 es un portero seguro bajo palos de Equipo C. Destaca especialmente en REF (92) y POS (90), aportando reflejos, colocación y seguridad en momentos decisivos."
+    }
   ]
 }

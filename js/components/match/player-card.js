@@ -1,18 +1,22 @@
 export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
   const imagePath = options.imagePath ?? "assets/player-card-template.png";
-  const card = documentRef.createElement("article");
+  const card = documentRef.createElement("div");
+  const trigger = documentRef.createElement("button");
   const stats = Object.entries(player.stats).slice(0, 6);
 
   card.className = "lineup-card";
   card.style.left = `${player.x}%`;
   card.style.top = `${player.y}%`;
   card.setAttribute("role", "listitem");
-  card.tabIndex = 0;
-  card.setAttribute(
+  trigger.className = "lineup-card__trigger";
+  trigger.type = "button";
+  trigger.setAttribute(
     "aria-label",
-    `${player.name}, ${player.position}, valoración ${player.rating}. ${stats.map(([label, value]) => `${label} ${value}`).join(", ")}`,
+    `Ver detalles de ${player.name}, ${player.position}, valoración ${player.rating}`,
   );
+  trigger.addEventListener("click", () => options.onSelect?.(player, trigger));
+  card.append(trigger);
 
   const art = documentRef.createElement("img");
   art.className = "lineup-card__art";
@@ -23,20 +27,20 @@ export function createPlayerCard(player, options = {}) {
     console.error(`No se pudo cargar la plantilla de jugador: ${imagePath}`);
     card.classList.add("lineup-card--image-error");
   }, { once: true });
-  card.append(art);
+  trigger.append(art);
 
   ["header", "name", "stats"].forEach((name) => {
     const mask = documentRef.createElement("span");
     mask.className = `lineup-card__mask lineup-card__mask--${name}`;
     mask.setAttribute("aria-hidden", "true");
-    card.append(mask);
+    trigger.append(mask);
   });
 
   const appendText = (className, value) => {
     const node = documentRef.createElement("span");
     node.className = className;
     node.textContent = String(value);
-    card.append(node);
+    trigger.append(node);
   };
   appendText("lineup-card__rating", player.rating);
   appendText("lineup-card__position", player.position);
@@ -56,7 +60,7 @@ export function createPlayerCard(player, options = {}) {
     stat.append(labelNode, valueNode);
     statsNode.append(stat);
   });
-  card.append(statsNode);
+  trigger.append(statsNode);
 
   return card;
 }

@@ -33,7 +33,7 @@ Development notes:
 - Edit page structure in `index.html`.
 - Edit visual styles and responsive behavior in `styles.css`.
 - Edit application behavior in the modules under `js/`.
-- Edit team names, players, positions and statistics in `teams/`.
+- Edit team names, players, photos, descriptions, positions and statistics in `teams/`.
 - Keep static assets in `assets/` and reference them with relative paths.
 - There is no compile step; refresh the browser after changes.
 
@@ -43,7 +43,7 @@ Development notes:
 js/
   app.js                    Application orchestrator
   components/               Navigation, countdown, attendance and trailer
-  components/match/         Match, tabs, pitch and player-card components
+  components/match/         Match, tabs, pitch, player cards and detail dialog
   services/                 Supabase access and concurrent team loading
   validation/               Pure manifest, team and player validation
 teams/
@@ -67,12 +67,21 @@ player has this shape:
   "rating": 90,
   "x": 50,
   "y": 15,
+  "image": "assets/players/player-placeholder.svg",
+  "description": "Atacante vertical que destaca por su velocidad y definición.",
   "stats": { "PAC": 92, "SHO": 94, "PAS": 83 }
 }
 ```
 
 Coordinates `x` and `y` are percentages from 0 to 100. Statistics must be
-numeric; the card displays the first six in the order written in the JSON.
+numeric; the card and detail dialog display the first six in the order written
+in the JSON. The detail dialog represents them as horizontal bars on a 0–100
+visual scale; values outside that range remain visible as text while the bar is
+clamped to the scale. Its lateral arrows and the keyboard left/right arrows
+cycle through the players of the selected team. `image` is a path relative to
+the site root and `description` is the detailed text displayed when the player
+card is activated. Both fields are required. Replace the shared placeholder
+path with each real player photo when it becomes available.
 
 To add another team:
 

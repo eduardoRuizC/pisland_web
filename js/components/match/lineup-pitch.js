@@ -22,7 +22,11 @@ export function createLineupPitch(team, options = {}) {
   });
 
   team.players.forEach((player) => {
-    pitch.append(createPlayerCard(player, { ...options, documentRef }));
+    pitch.append(createPlayerCard(player, {
+      ...options,
+      documentRef,
+      onSelect: (selectedPlayer, trigger) => options.onPlayerSelect?.(selectedPlayer, team, trigger),
+    }));
   });
   return pitch;
 }

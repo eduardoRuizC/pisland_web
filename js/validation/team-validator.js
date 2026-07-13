@@ -34,6 +34,8 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
 
   assertNonEmptyString(player.name, `El nombre del jugador ${index + 1}`);
   assertNonEmptyString(player.position, `La posición del jugador ${index + 1}`);
+  assertNonEmptyString(player.image, `La imagen del jugador ${index + 1}`);
+  assertNonEmptyString(player.description, `La descripción del jugador ${index + 1}`);
 
   if (!Number.isFinite(player.rating)) {
     throw new TypeError(`La valoración del jugador ${index + 1} de ${teamName} debe ser numérica.`);

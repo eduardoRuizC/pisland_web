@@ -1,5 +1,6 @@
 import { loadTeams } from "../../services/team-repository.js";
 import { createLineupPitch } from "./lineup-pitch.js";
+import { createPlayerDialog } from "./player-dialog.js";
 import { createTeamTabs } from "./team-tabs.js";
 
 function createPanel(team, options) {
@@ -35,6 +36,7 @@ export async function initMatch(root, options = {}) {
   const status = root.querySelector("[data-match-status]") ?? documentRef.createElement("p");
   const content = root.querySelector("[data-match-content]") ?? documentRef.createElement("div");
   let tabsController;
+  let playerDialogController;
 
   if (!status.isConnected) {
     status.className = "match-status";
@@ -56,7 +58,14 @@ export async function initMatch(root, options = {}) {
       throw new Error("Ningún equipo válido pudo cargarse.");
     }
 
-    const panels = teams.map((team) => createPanel(team, { documentRef, imagePath }));
+    playerDialogController = createPlayerDialog({ documentRef });
+    const panels = teams.map((team) => createPanel(team, {
+      documentRef,
+      imagePath,
+      onPlayerSelect: (player, selectedTeam, trigger) => {
+        playerDialogController.open(player, selectedTeam, trigger);
+      },
+    }));
     const selectPanel = (team) => {
       panels.forEach((panel) => {
         panel.hidden = panel.dataset.teamPanel !== team.id;
@@ -66,7 +75,7 @@ export async function initMatch(root, options = {}) {
     panels.forEach((panel, index) => {
       panel.hidden = index !== 0;
     });
-    content.replaceChildren(tabsController.element, ...panels);
+    content.replaceChildren(tabsController.element, ...panels, playerDialogController.element);
 
     if (errors.length > 0) {
       const names = errors.map(({ filename }) => filename).join(", ");
@@ -84,5 +93,8 @@ export async function initMatch(root, options = {}) {
     console.error("Error al cargar Partido:", error);
   }
 
-  return () => tabsController?.destroy();
+  return () => {
+    tabsController?.destroy();
+    playerDialogController?.destroy();
+  };
 }
