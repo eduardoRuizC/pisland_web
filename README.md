@@ -28,11 +28,18 @@ Opening `index.html` directly with a `file://` URL is not supported. Native ES
 modules and the team JSON files require an HTTP server. GitHub Pages already
 serves the project over HTTP.
 
+Run the dependency-free Node tests with:
+
+```bash
+node --experimental-default-type=module --test tests/*.test.js
+```
+
 Development notes:
 
 - Edit page structure in `index.html`.
 - Edit visual styles and responsive behavior in `styles.css`.
 - Edit application behavior in the modules under `js/`.
+- Edit news content and ordering in `news/`.
 - Edit team names, players, photos, descriptions, positions and statistics in `teams/`.
 - Keep static assets in `assets/` and reference them with relative paths.
 - There is no compile step; refresh the browser after changes.
@@ -42,10 +49,13 @@ Development notes:
 ```text
 js/
   app.js                    Application orchestrator
-  components/               Navigation, countdown, attendance and trailer
+  components/               Navigation, news, countdown, attendance and trailer
   components/match/         Match, tabs, pitch, player cards and detail dialog
-  services/                 Supabase access and concurrent team loading
-  validation/               Pure manifest, team and player validation
+  services/                 Supabase access and concurrent JSON loading
+  validation/               Pure news, manifest, team and player validation
+news/
+  index.json                Ordered news manifest
+  alineaciones.json ...     One independent data file per news item
 teams/
   index.json                Ordered team manifest
   team-a.json ...           One independent data file per team
@@ -54,6 +64,44 @@ teams/
 The browser loads `js/app.js` as the only module entry point. Components do not
 query the page when imported: their initializers receive their roots and options
 explicitly, and return cleanup functions for their listeners and timers.
+
+## Editing news
+
+Only the JSON files listed in `news/index.json` are loaded. Their order in the
+`news` array is the display order and represents proximity; files left outside
+the manifest never appear on the site.
+
+Each news file has this shape:
+
+```json
+{
+  "id": "alineaciones",
+  "title": "Alineaciones",
+  "description": "Nueva sección de alineaciones de los equipos e invitados.",
+  "label": "Soon",
+  "icon": "groups",
+  "href": "#partido"
+}
+```
+
+`id`, `title` and `description` are required. `href` is optional and can be an
+internal anchor, a relative link or an HTTP(S) URL. Without it, the card is
+informational and is not rendered as a link. File names and IDs use lowercase
+letters, numbers and hyphens, and must be unique. `label` is optional and shows
+a short highlighted status, such as `Soon`, above the news title. `icon` is
+optional and contains a Google Material Symbols name such as `groups`,
+`sports_soccer` or `emoji_events`; when omitted, it defaults to `newspaper`.
+
+To add a news item:
+
+1. Create its JSON file inside `news/`.
+2. Add the filename to the desired position in the `news` array in
+   `news/index.json`.
+3. Optionally set its `icon` field to the desired Material Symbols name.
+
+The first item on the first page is featured using the fixed
+`assets/secret.png` image declared in `index.html`. The first page displays up
+to three items; later pages display up to four.
 
 ## Editing teams
 

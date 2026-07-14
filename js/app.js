@@ -2,6 +2,7 @@ import { initAttendance } from "./components/attendance-counter.js";
 import { initCountdown } from "./components/countdown.js";
 import { initMatch } from "./components/match/match.js";
 import { initNavigation } from "./components/navigation.js";
+import { initNewsSection } from "./components/news-section.js";
 import { initTrailerModal } from "./components/trailer-modal.js?v=2";
 import { createAttendanceService } from "./services/attendance-service.js";
 
@@ -33,6 +34,10 @@ safelyInit("el contador de asistencia", () => initAttendance(document.querySelec
   }),
 }));
 safelyInit("el modal del tráiler", () => initTrailerModal(document.querySelector("[data-trailer-modal]")));
+
+initNewsSection(document.querySelector("[data-news-root]"))
+  .then(register)
+  .catch((error) => console.error("No se pudo iniciar Próximos Chismes:", error));
 
 initMatch(document.querySelector("[data-match-root]"))
   .then(register)

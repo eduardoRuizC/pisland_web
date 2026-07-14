@@ -24,7 +24,7 @@
       rel="stylesheet"
     >
     <link rel="preload" href="assets/pisland-hero-logo.png" as="image">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
   </head>
   <body>
     <div class="fixed-bg" aria-hidden="true"></div>
@@ -126,41 +126,49 @@
         </div>
       </section>
 
-      <section class="news-section" id="lineup" aria-labelledby="news-title">
+      <section
+        class="news-section"
+        id="lineup"
+        aria-labelledby="news-title"
+        data-news-root
+        data-manifest-url="news/index.json"
+      >
         <div class="section-inner">
           <div class="section-heading">
             <h2 id="news-title">Próximos Chismes</h2>
             <span aria-hidden="true"></span>
           </div>
 
-          <div class="news-grid">
-            <a class="news-card featured-card lineup-news-card" href="#partido">
-              <div class="media-frame">
-                <img
-                  src="assets/secret.png"
-                  alt="Sello confidencial de las alineaciones"
-                >
-              </div>
-              <div class="card-body">
-                <h3>Alineaciones</h3>
-                <p>
-                  Nueva sección de alineaciones de los equipos e invitados.
-                </p>
-                <span class="lineup-news-card__cta" aria-hidden="true">
-                  Ver partido
-                  <span class="material-symbols-outlined">arrow_forward</span>
-                </span>
-              </div>
-            </a>
+          <p class="news-status" role="status" aria-live="polite" data-news-status>
+            Cargando noticias…
+          </p>
+          <div class="news-grid" data-news-grid></div>
 
-            <article class="news-card mini-card">
-              <span class="material-symbols-outlined card-icon" aria-hidden="true">checkroom</span>
-              <h3>Dress Code</h3>
-              <p>
-                Nueva sección de vestimenta y estilo para la party.
-              </p>
-            </article>
-          </div>
+          <nav class="news-pagination" aria-label="Paginación de noticias" data-news-pagination hidden>
+            <button class="news-pagination__control" type="button" data-news-previous>
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              Anterior
+            </button>
+            <div class="news-pagination__pages" data-news-pages></div>
+            <button class="news-pagination__control" type="button" data-news-next>
+              Siguiente
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </button>
+          </nav>
+          <p class="sr-only" aria-live="polite" data-news-page-status></p>
+
+          <noscript>
+            <p class="news-status is-error">Activa JavaScript para ver las noticias.</p>
+          </noscript>
+
+          <template data-news-featured-media>
+            <div class="media-frame">
+              <img
+                src="assets/secret.png"
+                alt="Sello confidencial de las noticias de Pisland"
+              >
+            </div>
+          </template>
         </div>
       </section>
 
@@ -267,6 +275,6 @@
     </dialog>
 
     <script src="config.js?v=1"></script>
-    <script type="module" src="js/app.js?v=2"></script>
+    <script type="module" src="js/app.js?v=3"></script>
   </body>
 </html>
