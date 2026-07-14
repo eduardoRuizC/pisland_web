@@ -3,7 +3,7 @@ import { initCountdown } from "./components/countdown.js";
 import { initMatch } from "./components/match/match.js";
 import { initNavigation } from "./components/navigation.js";
 import { initNewsSection } from "./components/news-section.js";
-import { initTrailerModal } from "./components/trailer-modal.js?v=2";
+import { initExternalTrailerModal } from "./components/trailer-modal.js?v=3";
 import { createAttendanceService } from "./services/attendance-service.js";
 
 const cleanups = [];
@@ -33,7 +33,9 @@ safelyInit("el contador de asistencia", () => initAttendance(document.querySelec
     eventId: "pisland-2026",
   }),
 }));
-safelyInit("el modal del tráiler", () => initTrailerModal(document.querySelector("[data-trailer-modal]")));
+initExternalTrailerModal(document.querySelector("[data-trailer-modal-host]"))
+  .then(register)
+  .catch((error) => console.error("No se pudo iniciar el diálogo de bienvenida:", error));
 
 initNewsSection(document.querySelector("[data-news-root]"))
   .then(register)

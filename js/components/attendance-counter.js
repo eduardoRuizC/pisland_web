@@ -30,7 +30,7 @@ export function initAttendance(root, options = {}) {
       return;
     }
     try {
-      setStatus("Cargando asistentes...");
+      setStatus("Cargando mmvs...");
       const count = await service.getCount();
       if (!destroyed) {
         setCount(count);

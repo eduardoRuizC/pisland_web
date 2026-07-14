@@ -53,6 +53,9 @@ js/
   components/match/         Match, tabs, pitch, player cards and detail dialog
   services/                 Supabase access and concurrent JSON loading
   validation/               Pure news, manifest, team and player validation
+dialogs/
+  welcome-v1.html           Original welcome dialog version
+  partido-v1.html           Partido section announcement version
 news/
   index.json                Ordered news manifest
   alineaciones.json ...     One independent data file per news item
@@ -64,6 +67,36 @@ teams/
 The browser loads `js/app.js` as the only module entry point. Components do not
 query the page when imported: their initializers receive their roots and options
 explicitly, and return cleanup functions for their listeners and timers.
+
+## Versioning the welcome dialog
+
+`index.html` selects the welcome dialog version through its host:
+
+```html
+<div
+  data-trailer-modal-host
+  data-dialog-src="dialogs/welcome-v1.html"
+></div>
+```
+
+To publish a new version, copy `dialogs/welcome-v1.html` to a new lowercase,
+hyphenated filename such as `welcome-v2.html`, edit that fragment, and change
+only `data-dialog-src` in `index.html` to point to it. The selected version is
+loaded asynchronously on each page load and then opened automatically. If the
+file is missing or invalid, the rest of the page remains usable and a
+descriptive error is written to the browser console.
+
+Each version must contain exactly one root
+`<dialog data-trailer-modal>` element. It must define `aria-labelledby` with the
+ID of a non-empty heading inside the dialog and include at least one control
+with `data-close-trailer-modal`. Use `data-close-trailer-modal` on any additional
+button or link that should close it. Existing controls elsewhere on the page
+can reopen it with `data-open-trailer-modal`.
+
+Version files are HTML fragments: do not add `<html>`, `<head>`, `<body>`,
+`<style>` or `<script>`. Dialog styles remain in `styles.css`, and its behavior
+remains in `js/components/trailer-modal.js`. The path must refer to a local file
+served from the same site.
 
 ## Editing news
 
