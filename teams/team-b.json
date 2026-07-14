@@ -7,7 +7,7 @@
       "position": "DC",
       "rating": 90,
       "x": 50,
-      "y": 15,
+      "y": 18,
       "stats": {
         "PAC": 92,
         "SHO": 94,
@@ -17,51 +17,15 @@
         "PHY": 87
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B1 es un delantero de referencia de Equipo B. Destaca especialmente en SHO (94) y PAC (92), aportando amenaza constante cerca del área.",
-      "active": true
-    },
-    {
-      "name": "Jugador B2",
-      "position": "EI",
-      "rating": 88,
-      "x": 18,
-      "y": 29,
-      "stats": {
-        "PAC": 95,
-        "SHO": 86,
-        "PAS": 84,
-        "DRI": 93,
-        "DEF": 35,
-        "PHY": 72
-      },
-      "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B2 es un extremo izquierdo vertical de Equipo B. Destaca especialmente en PAC (95) y DRI (93), aportando desborde y profundidad desde la banda.",
-      "active": true
-    },
-    {
-      "name": "Jugador B3",
-      "position": "ED",
-      "rating": 89,
-      "x": 82,
-      "y": 29,
-      "stats": {
-        "PAC": 93,
-        "SHO": 88,
-        "PAS": 87,
-        "DRI": 92,
-        "DEF": 39,
-        "PHY": 74
-      },
-      "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B3 es un extremo derecho creativo de Equipo B. Destaca especialmente en PAC (93) y DRI (92), aportando desequilibrio y último pase desde la banda.",
+      "description": "Jugador B1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en SHO (94) y PAC (92), aportando fijar centrales, atacar el area y finalizar jugadas.",
       "active": true
     },
     {
       "name": "Jugador B4",
-      "position": "MC",
+      "position": "MI",
       "rating": 87,
-      "x": 25,
-      "y": 51,
+      "x": 30,
+      "y": 52,
       "stats": {
         "PAC": 78,
         "SHO": 82,
@@ -71,69 +35,33 @@
         "PHY": 82
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B4 es un centrocampista todoterreno de Equipo B. Destaca especialmente en PAS (91) y DRI (87), aportando ritmo, asociación y llegada desde segunda línea.",
+      "description": "Jugador B4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en PAS (91) y DRI (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
       "active": true
     },
     {
-      "name": "Jugador B5",
-      "position": "MCD",
-      "rating": 88,
-      "x": 50,
-      "y": 56,
+      "name": "Jugador B3",
+      "position": "MD",
+      "rating": 89,
+      "x": 70,
+      "y": 52,
       "stats": {
-        "PAC": 75,
-        "SHO": 72,
-        "PAS": 88,
-        "DRI": 83,
-        "DEF": 92,
-        "PHY": 89
+        "PAC": 93,
+        "SHO": 88,
+        "PAS": 87,
+        "DRI": 92,
+        "DEF": 39,
+        "PHY": 74
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B5 es un mediocentro defensivo de Equipo B. Destaca especialmente en DEF (92) y PHY (89), aportando equilibrio táctico y protección por delante de la defensa.",
-      "active": true
-    },
-    {
-      "name": "Jugador B6",
-      "position": "MC",
-      "rating": 86,
-      "x": 75,
-      "y": 51,
-      "stats": {
-        "PAC": 80,
-        "SHO": 84,
-        "PAS": 89,
-        "DRI": 88,
-        "DEF": 76,
-        "PHY": 79
-      },
-      "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B6 es un centrocampista todoterreno de Equipo B. Destaca especialmente en PAS (89) y DRI (88), aportando ritmo, asociación y llegada desde segunda línea.",
-      "active": true
-    },
-    {
-      "name": "Jugador B7",
-      "position": "LI",
-      "rating": 84,
-      "x": 13,
-      "y": 75,
-      "stats": {
-        "PAC": 91,
-        "SHO": 69,
-        "PAS": 82,
-        "DRI": 85,
-        "DEF": 81,
-        "PHY": 78
-      },
-      "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B7 es un lateral izquierdo de largo recorrido de Equipo B. Destaca especialmente en PAC (91) y DRI (85), aportando amplitud ofensiva y solidez en el repliegue.",
+      "description": "Jugador B3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en PAC (93) y DRI (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
       "active": true
     },
     {
       "name": "Jugador B8",
       "position": "DFC",
       "rating": 87,
-      "x": 38,
-      "y": 77,
+      "x": 20,
+      "y": 75,
       "stats": {
         "PAC": 78,
         "SHO": 50,
@@ -143,15 +71,15 @@
         "PHY": 89
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B8 es un defensa central de Equipo B. Destaca especialmente en DEF (91) y PHY (89), aportando contundencia, colocación y dominio de los duelos.",
+      "description": "Jugador B8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en DEF (91) y PHY (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
       "active": true
     },
     {
       "name": "Jugador B9",
       "position": "DFC",
       "rating": 86,
-      "x": 62,
-      "y": 77,
+      "x": 80,
+      "y": 75,
       "stats": {
         "PAC": 76,
         "SHO": 53,
@@ -161,25 +89,7 @@
         "PHY": 88
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B9 es un defensa central de Equipo B. Destaca especialmente en DEF (90) y PHY (88), aportando contundencia, colocación y dominio de los duelos.",
-      "active": true
-    },
-    {
-      "name": "Jugador B10",
-      "position": "LD",
-      "rating": 85,
-      "x": 87,
-      "y": 75,
-      "stats": {
-        "PAC": 90,
-        "SHO": 70,
-        "PAS": 83,
-        "DRI": 84,
-        "DEF": 82,
-        "PHY": 80
-      },
-      "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B10 es un lateral derecho de largo recorrido de Equipo B. Destaca especialmente en PAC (90) y DRI (84), aportando recorrido exterior y fiabilidad defensiva.",
+      "description": "Jugador B9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en DEF (90) y PHY (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
       "active": true
     },
     {
@@ -187,7 +97,7 @@
       "position": "POR",
       "rating": 89,
       "x": 50,
-      "y": 91,
+      "y": 90,
       "stats": {
         "EST": 89,
         "MAN": 88,
@@ -197,7 +107,7 @@
         "POS": 90
       },
       "image": "assets/players/player-placeholder.svg",
-      "description": "Jugador B11 es un portero seguro bajo palos de Equipo B. Destaca especialmente en REF (92) y POS (90), aportando reflejos, colocación y seguridad en momentos decisivos.",
+      "description": "Jugador B11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
       "active": true
     }
   ]

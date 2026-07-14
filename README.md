@@ -76,9 +76,11 @@ player has this shape:
 
 Coordinates `x` and `y` are percentages from 0 to 100. Statistics must be
 numeric; the card and detail dialog display the first six in the order written
-in the JSON. The detail dialog can represent them as horizontal bars or as a
-hexagonal radar chart on a 0–100 visual scale; values outside that range remain
-visible as text while the graphic is clamped to the scale. Its lateral arrows
+in the JSON. The current teams use a six-player reduced football formation:
+`POR`, two `DFC`, `MI`, `MD` and `DC`, laid out as 1-2-2-1 from the goalkeeper
+toward the opponent goal. The detail dialog can represent them as horizontal
+bars or as a hexagonal radar chart on a 0–100 visual scale; values outside that
+range remain visible as text while the graphic is clamped to the scale. Its lateral arrows
 and the keyboard left/right arrows
 cycle through only the active players of the selected team. Set `active` to
 `false` to keep the card template visible while replacing its rating, position,
