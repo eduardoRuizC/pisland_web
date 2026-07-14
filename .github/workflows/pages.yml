@@ -31,8 +31,8 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           mkdir -p _site
-          cp index.html styles.css script.js .nojekyll _site/
-          cp -R assets _site/assets
+          cp index.html styles.css .nojekyll _site/
+          cp -R assets dialogs js news teams _site/
           cat > _site/config.js <<EOF
           window.PISLAND_CONFIG = {
             supabaseUrl: "${SUPABASE_URL}",
