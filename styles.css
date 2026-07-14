@@ -948,7 +948,7 @@ img {
 .lineup-card {
   position: absolute;
   z-index: 5;
-  width: clamp(46px, 14.4%, 118px);
+  width: clamp(58px, 18.5%, 152px);
   aspect-ratio: 3 / 4;
   color: var(--lineup-yellow);
   font-family: Arial, Helvetica, sans-serif;
@@ -1816,6 +1816,34 @@ img {
 }
 
 @media (max-width: 620px) {
+  .lineup-card {
+    width: clamp(64px, 22%, 105px);
+  }
+
+  .lineup-card[data-position="POR"] {
+    margin-top: -3%;
+  }
+
+  .lineup-card__rating {
+    font-size: clamp(14px, 3.4vw, 20px);
+  }
+
+  .lineup-card__position {
+    font-size: clamp(7px, 1.8vw, 11px);
+  }
+
+  .lineup-card__name {
+    font-size: clamp(6px, 1.4vw, 9px);
+  }
+
+  .lineup-card__stat-label {
+    font-size: clamp(3.5px, 0.9vw, 5px);
+  }
+
+  .lineup-card__stat-value {
+    font-size: clamp(5px, 1.2vw, 7px);
+  }
+
   .team-tabs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

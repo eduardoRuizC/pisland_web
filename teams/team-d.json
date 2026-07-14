@@ -1,6 +1,6 @@
 {
   "id": "team-d",
-  "name": "Equipo D",
+  "name": "Equipo ?",
   "players": [
     {
       "name": "Jugador D1",
@@ -18,7 +18,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en SHO (94) y PAC (92), aportando fijar centrales, atacar el area y finalizar jugadas.",
-      "active": true
+      "active": false
     },
     {
       "name": "Jugador D4",
@@ -36,7 +36,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en PAS (91) y DRI (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
-      "active": true
+      "active": false
     },
     {
       "name": "Jugador D3",
@@ -54,7 +54,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en PAC (93) y DRI (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
-      "active": true
+      "active": false
     },
     {
       "name": "Jugador D8",
@@ -72,7 +72,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en DEF (91) y PHY (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
-      "active": true
+      "active": false
     },
     {
       "name": "Jugador D9",
@@ -90,7 +90,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en DEF (90) y PHY (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
-      "active": true
+      "active": false
     },
     {
       "name": "Jugador D11",
@@ -108,7 +108,7 @@
       },
       "image": "assets/players/player-placeholder.svg",
       "description": "Jugador D11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
-      "active": true
+      "active": false
     }
   ]
 }

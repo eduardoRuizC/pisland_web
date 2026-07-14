@@ -83,9 +83,9 @@ bars or as a hexagonal radar chart on a 0–100 visual scale; values outside tha
 range remain visible as text while the graphic is clamped to the scale. Its lateral arrows
 and the keyboard left/right arrows
 cycle through only the active players of the selected team. Set `active` to
-`false` to keep the card template visible while replacing its rating, position,
-name and statistic values with `?`; statistic keys such as `PAC`, `SHO` and
-`PAS` remain visible. The card becomes non-interactive and its detail remains
+`false` to keep the card template and player position visible while replacing
+its rating, name and statistic values with `?`; statistic keys such as `PAC`,
+`SHO` and `PAS` remain visible. The card becomes non-interactive and its detail remains
 unavailable. `image` is a path relative to the site root and
 `description` is the detailed text displayed when the player card is activated.
 All three fields are required. Replace the shared placeholder path with each

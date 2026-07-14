@@ -49,9 +49,9 @@
       </button>
       <div class="nav-links" id="nav-links" aria-label="Secciones" data-nav-links>
         <a href="#inicio">Inicio</a>
+        <a href="#partido">Partido</a>
         <a href="#lineup">Chismes</a>
         <a href="#trailer">Trailer</a>
-        <a href="#partido">Partido</a>
         <a href="#musica">Música</a>
       </div>
     </nav>
@@ -97,10 +97,34 @@
           </section>
         </div>
 
-        <a class="scroll-cue" href="#lineup" aria-label="Bajar a ultimas noticias">
+        <a class="scroll-cue" href="#partido" aria-label="Bajar a la sección Partido">
           <span class="material-symbols-outlined" aria-hidden="true">keyboard_double_arrow_down</span>
         </a>
       </header>
+
+      <section class="match-section" id="partido" aria-labelledby="match-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2 id="match-title">Partido</h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div
+            class="match-shell"
+            data-match-root
+            data-manifest-url="teams/index.json"
+            data-player-card-image="assets/player-card-template.png"
+          >
+            <p class="match-status" role="status" aria-live="polite" data-match-status>
+              Cargando alineaciones…
+            </p>
+            <div data-match-content></div>
+            <noscript>
+              <p class="match-status is-error">Activa JavaScript para ver las alineaciones.</p>
+            </noscript>
+          </div>
+        </div>
+      </section>
 
       <section class="news-section" id="lineup" aria-labelledby="news-title">
         <div class="section-inner">
@@ -155,30 +179,6 @@
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
           ></iframe>
-          </div>
-        </div>
-      </section>
-
-      <section class="match-section" id="partido" aria-labelledby="match-title">
-        <div class="section-inner">
-          <div class="section-heading">
-            <h2 id="match-title">Partido</h2>
-            <span aria-hidden="true"></span>
-          </div>
-
-          <div
-            class="match-shell"
-            data-match-root
-            data-manifest-url="teams/index.json"
-            data-player-card-image="assets/player-card-template.png"
-          >
-            <p class="match-status" role="status" aria-live="polite" data-match-status>
-              Cargando alineaciones…
-            </p>
-            <div data-match-content></div>
-            <noscript>
-              <p class="match-status is-error">Activa JavaScript para ver las alineaciones.</p>
-            </noscript>
           </div>
         </div>
       </section>

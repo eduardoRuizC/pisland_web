@@ -7,6 +7,7 @@ export function createPlayerCard(player, options = {}) {
   const stats = Object.entries(player.stats).slice(0, 6);
 
   card.className = "lineup-card";
+  card.dataset.position = player.position;
   card.style.left = `${player.x}%`;
   card.style.top = `${player.y}%`;
   card.setAttribute("role", "listitem");
@@ -22,7 +23,10 @@ export function createPlayerCard(player, options = {}) {
     card.classList.add("lineup-card--inactive");
     trigger.className = "lineup-card__inactive";
     trigger.setAttribute("role", "img");
-    trigger.setAttribute("aria-label", "Jugador inactivo, detalles no disponibles");
+    trigger.setAttribute(
+      "aria-label",
+      `Jugador inactivo, posición ${player.position}, detalles no disponibles`,
+    );
   }
   card.append(trigger);
 
@@ -51,7 +55,7 @@ export function createPlayerCard(player, options = {}) {
     trigger.append(node);
   };
   appendText("lineup-card__rating", isActive ? player.rating : "?");
-  appendText("lineup-card__position", isActive ? player.position : "?");
+  appendText("lineup-card__position", player.position);
   appendText("lineup-card__name", isActive ? player.name : "?");
 
   const statsNode = documentRef.createElement("div");
