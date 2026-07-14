@@ -1,5 +1,6 @@
 import { initAttendance } from "./components/attendance-counter.js";
 import { initCountdown } from "./components/countdown.js";
+import { initDressCodeSection } from "./components/dress-code-section.js";
 import { initMatch, isMatchTeamDeepLink } from "./components/match/match.js?v=16";
 import { initNavigation } from "./components/navigation.js";
 import { initNewsSection } from "./components/news-section.js";
@@ -37,11 +38,15 @@ initExternalTrailerModal(document.querySelector("[data-trailer-modal-host]"), {
   autoOpen: !isMatchTeamDeepLink(window.location),
 })
   .then(register)
-  .catch((error) => console.error("No se pudo iniciar el diálogo de bienvenida:", error));
+  .catch((error) => console.error("No se pudo iniciar el aviso principal:", error));
 
 initNewsSection(document.querySelector("[data-news-root]"))
   .then(register)
   .catch((error) => console.error("No se pudo iniciar Próximos Chismes:", error));
+
+initDressCodeSection(document.querySelector("[data-dress-code-root]"))
+  .then(register)
+  .catch((error) => console.error("No se pudo iniciar Dress Code:", error));
 
 initMatch(document.querySelector("[data-match-root]"))
   .then(register)

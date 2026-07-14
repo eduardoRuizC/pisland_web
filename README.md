@@ -59,6 +59,7 @@ dialogs/
   equipos-v1.html           Team reveal video announcement version
   capitan-*-v1.html         One daily captain announcement per team
   jugadores-v1.html         Four-player announcement template
+  dress-code-v1.html        Dress Code section announcement version
 news/
   index.json                Ordered news manifest
   alineaciones.json ...     One independent data file per news item
@@ -78,7 +79,7 @@ explicitly, and return cleanup functions for their listeners and timers.
 ```html
 <div
   data-trailer-modal-host
-  data-dialog-src="dialogs/capitan-rompediscotecas-v1.html?v=2"
+  data-dialog-src="dialogs/dress-code-v1.html"
 ></div>
 ```
 

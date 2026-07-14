@@ -236,6 +236,7 @@ img {
 }
 
 .hero,
+.dress-code-section,
 .news-section,
 .trailer-section,
 .match-section,
@@ -275,6 +276,7 @@ img {
 }
 
 .countdown-card,
+.dress-code-card,
 .news-card,
 .cta-panel {
   border: 2px solid rgba(148, 146, 119, 0.78);
@@ -451,6 +453,7 @@ img {
   font-size: 42px;
 }
 
+.dress-code-section,
 .news-section,
 .trailer-section,
 .match-section,
@@ -460,6 +463,7 @@ img {
   overflow: hidden;
 }
 
+.dress-code-section,
 .news-section,
 .trailer-section,
 .match-section,
@@ -507,6 +511,196 @@ img {
   flex: 1;
   margin-bottom: 14px;
   background: rgba(73, 72, 49, 0.68);
+}
+
+.dress-code-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+
+.dress-code-status {
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  border: 2px solid var(--outline-variant);
+  background: rgba(20, 20, 8, 0.9);
+  color: var(--muted);
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.dress-code-status[hidden] {
+  display: none;
+}
+
+.dress-code-status.is-empty {
+  border-color: var(--aqua);
+  color: var(--aqua);
+}
+
+.dress-code-status.is-error {
+  border-color: #ff5c5c;
+  color: #ffb3b3;
+}
+
+.dress-code-card {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  padding: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  color: var(--neon);
+  cursor: zoom-in;
+  text-align: left;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.dress-code-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(241, 232, 0, 0.14), transparent 48%);
+  transition: opacity 180ms ease;
+}
+
+.dress-code-card:hover,
+.dress-code-card:focus-visible {
+  border-color: var(--neon);
+  box-shadow: var(--shadow-neon);
+  transform: translateY(-4px);
+}
+
+.dress-code-card:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 4px;
+}
+
+.dress-code-card:hover::after,
+.dress-code-card:focus-visible::after {
+  opacity: 0;
+}
+
+.dress-code-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) contrast(1.04);
+  transition: filter 300ms ease, transform 600ms ease;
+}
+
+.dress-code-card img[hidden],
+.dress-code-dialog__image[hidden] {
+  display: none;
+}
+
+.dress-code-card:hover img,
+.dress-code-card:focus-visible img {
+  filter: saturate(1.04) contrast(1.04);
+  transform: scale(1.04);
+}
+
+.dress-code-card__fallback {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+  padding: 24px;
+  background:
+    repeating-linear-gradient(-12deg, transparent 0 22px, rgba(241, 232, 0, 0.08) 22px 25px),
+    #090900;
+  font-family: "Space Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.dress-code-card__fallback:not([hidden]) {
+  display: grid;
+}
+
+.dress-code-card__fallback .material-symbols-outlined {
+  font-size: clamp(64px, 13vw, 110px);
+}
+
+.dress-code-card.is-image-error {
+  border-color: var(--danger);
+}
+
+.dress-code-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 6vw, 48px);
+}
+
+.dress-code-pagination[hidden] {
+  display: none;
+}
+
+.dress-code-pagination__pages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dress-code-pagination button {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 2px solid rgba(148, 146, 119, 0.78);
+  background: rgba(20, 20, 8, 0.82);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.dress-code-pagination button:hover,
+.dress-code-pagination button:focus-visible,
+.dress-code-pagination button[aria-current="page"] {
+  border-color: var(--neon);
+  background: var(--neon);
+  color: var(--black);
+}
+
+.dress-code-pagination button:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 3px;
+  transform: translateY(-2px);
+}
+
+.dress-code-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
+}
+
+.dress-code-pagination button:disabled:hover {
+  border-color: rgba(148, 146, 119, 0.78);
+  background: rgba(20, 20, 8, 0.82);
+  color: var(--ink);
+}
+
+.dress-code-pagination__control .material-symbols-outlined {
+  font-size: 19px;
 }
 
 .news-grid {
@@ -1704,6 +1898,144 @@ img {
   transform: translateY(-50%);
 }
 
+.dress-code-dialog {
+  width: min(1100px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid var(--neon);
+  background: #050500;
+  color: var(--ink);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.82), var(--shadow-neon);
+}
+
+.dress-code-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.dress-code-dialog__media,
+.dress-code-dialog__image,
+.dress-code-dialog__fallback {
+  width: 100%;
+  height: min(82dvh, 780px);
+}
+
+.dress-code-dialog__media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(241, 232, 0, 0.08), transparent 58%),
+    #050500;
+}
+
+.dress-code-dialog__image {
+  object-fit: contain;
+}
+
+.dress-code-dialog__fallback {
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  background:
+    repeating-linear-gradient(-12deg, transparent 0 28px, rgba(241, 232, 0, 0.07) 28px 31px),
+    #090900;
+  color: var(--neon);
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.dress-code-dialog__fallback:not([hidden]) {
+  display: grid;
+}
+
+.dress-code-dialog__fallback .material-symbols-outlined {
+  font-size: clamp(90px, 18vw, 180px);
+}
+
+.dress-code-dialog__close,
+.dress-code-dialog__nav {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid var(--neon);
+  background: rgba(15, 15, 4, 0.92);
+  color: var(--neon);
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000, 0 0 16px rgba(241, 232, 0, 0.36);
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+
+.dress-code-dialog__close {
+  top: 12px;
+  right: 12px;
+  width: 46px;
+  height: 46px;
+  background: var(--neon);
+  color: var(--black);
+}
+
+.dress-code-dialog__nav {
+  top: 50%;
+  width: 52px;
+  height: 64px;
+  transform: translateY(-50%);
+}
+
+.dress-code-dialog__nav--previous {
+  left: 12px;
+}
+
+.dress-code-dialog__nav--next {
+  right: 12px;
+}
+
+.dress-code-dialog__close .material-symbols-outlined,
+.dress-code-dialog__nav .material-symbols-outlined {
+  font-size: 34px;
+}
+
+.dress-code-dialog__close:hover,
+.dress-code-dialog__close:focus-visible,
+.dress-code-dialog__nav:hover,
+.dress-code-dialog__nav:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 3px;
+  background: var(--neon);
+  color: #000;
+  box-shadow: 2px 2px 0 #000, 0 0 22px rgba(241, 232, 0, 0.58);
+}
+
+.dress-code-dialog__close:hover,
+.dress-code-dialog__close:focus-visible {
+  transform: translate(2px, 2px);
+}
+
+.dress-code-dialog__nav:hover,
+.dress-code-dialog__nav:focus-visible {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.dress-code-dialog__nav:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.dress-code-dialog__nav:disabled:hover {
+  outline: 0;
+  background: rgba(15, 15, 4, 0.92);
+  color: var(--neon);
+  transform: translateY(-50%);
+}
+
 .trailer-embed {
   position: relative;
   overflow: hidden;
@@ -2239,7 +2571,7 @@ img {
 
 @media (min-width: 720px) {
   .nav-logo {
-    width: 126px;
+    width: clamp(110px, 14vw, 126px);
   }
 
   .nav-toggle {
@@ -2251,7 +2583,7 @@ img {
     display: flex;
     visibility: visible;
     align-items: center;
-    gap: clamp(20px, 3vw, 34px);
+    gap: clamp(12px, 2vw, 30px);
     padding: 0;
     border: 0;
     background: transparent;
@@ -2275,6 +2607,21 @@ img {
 
   .news-grid {
     gap: 28px;
+  }
+
+  .dress-code-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(210px, 1fr);
+    grid-template-rows: repeat(2, clamp(180px, 24vw, 310px));
+    gap: 28px;
+  }
+
+  .dress-code-card {
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .dress-code-card.is-featured {
+    grid-row: 1 / span 2;
   }
 
   .news-grid.is-first-page {
@@ -2515,6 +2862,34 @@ img {
 
   .player-dialog__scroll {
     max-height: calc(100dvh - 26px);
+  }
+
+  .dress-code-card {
+    min-height: 290px;
+  }
+
+  .dress-code-dialog {
+    width: calc(100% - 20px);
+    max-height: calc(100dvh - 20px);
+  }
+
+  .dress-code-dialog__media,
+  .dress-code-dialog__image,
+  .dress-code-dialog__fallback {
+    height: min(78dvh, 640px);
+  }
+
+  .dress-code-dialog__nav {
+    width: 44px;
+    height: 54px;
+  }
+
+  .dress-code-dialog__nav--previous {
+    left: 8px;
+  }
+
+  .dress-code-dialog__nav--next {
+    right: 8px;
   }
 
   .cta-panel {
