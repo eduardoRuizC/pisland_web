@@ -1619,6 +1619,26 @@ img {
   backdrop-filter: blur(14px);
 }
 
+.music-embed__description {
+  max-width: 820px;
+  margin: 0;
+  padding: clamp(18px, 4vw, 28px) clamp(14px, 4vw, 28px) 0;
+  color: var(--ink);
+  font-size: clamp(17px, 2.4vw, 20px);
+}
+
+.music-embed__cta {
+  width: fit-content;
+  margin: 20px clamp(14px, 4vw, 28px) clamp(24px, 5vw, 34px);
+  padding-inline: clamp(22px, 5vw, 32px);
+  text-align: center;
+}
+
+.music-embed__cta:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 4px;
+}
+
 .music-embed iframe {
   display: block;
   width: 100%;
