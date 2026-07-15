@@ -2,6 +2,8 @@ export function initTrailerModal(dialog, options = {}) {
   if (!dialog) return () => {};
   const documentRef = options.documentRef ?? dialog.ownerDocument;
   const closeButtons = Array.from(dialog.querySelectorAll("[data-close-trailer-modal]"));
+  const mediaElements = Array.from(dialog.querySelectorAll("video, audio"));
+  const pauseMedia = () => mediaElements.forEach((media) => media.pause());
 
   const open = () => {
     if (typeof dialog.showModal === "function" && !dialog.open) {
@@ -10,6 +12,7 @@ export function initTrailerModal(dialog, options = {}) {
     }
   };
   const close = () => {
+    pauseMedia();
     if (dialog.open) dialog.close();
     documentRef.body.classList.remove("modal-open");
   };
@@ -17,6 +20,7 @@ export function initTrailerModal(dialog, options = {}) {
     if (event.target === dialog) close();
   };
   const handleClose = () => {
+    pauseMedia();
     documentRef.body.classList.remove("modal-open");
   };
   const handleDocumentClick = (event) => {
@@ -34,6 +38,7 @@ export function initTrailerModal(dialog, options = {}) {
     dialog.removeEventListener("click", handleDialogClick);
     dialog.removeEventListener("close", handleClose);
     documentRef.removeEventListener("click", handleDocumentClick);
+    pauseMedia();
     documentRef.body.classList.remove("modal-open");
   };
 }

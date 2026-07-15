@@ -941,18 +941,28 @@ img {
 
 .team-tab {
   min-height: 54px;
-  padding: 10px 16px;
+  padding: 10px 8px;
+  overflow: hidden;
   border: 2px solid var(--outline-variant);
   background: rgba(20, 20, 8, 0.92);
   color: var(--muted);
   cursor: pointer;
   font-family: "Anybody", ui-sans-serif, sans-serif;
-  font-size: clamp(17px, 3.5vw, 24px);
   font-style: italic;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   transition: border-color 160ms ease, background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.team-tab__label {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  font-size: 24px;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .team-tab:hover {
@@ -989,6 +999,44 @@ img {
     radial-gradient(circle at center, rgba(255, 252, 0, 0.05), transparent 48%),
     #000;
   box-shadow: 0 0 24px rgba(255, 252, 0, 0.22), inset 0 0 35px rgba(255, 252, 0, 0.04);
+}
+
+.team-logo {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 2px solid rgba(255, 252, 0, 0.82);
+  background: #000;
+  box-shadow: 0 0 14px rgba(255, 252, 0, 0.34);
+}
+
+.team-logo__image,
+.team-logo__fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.team-logo__image {
+  display: block;
+  object-fit: contain;
+}
+
+.team-logo__fallback:not([hidden]) {
+  display: grid;
+  place-items: center;
+  color: var(--lineup-yellow, var(--neon));
+  font-family: "Anybody", ui-sans-serif, sans-serif;
+  font-size: clamp(20px, 5vw, 34px);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.team-logo--pitch {
+  position: absolute;
+  z-index: 4;
+  top: clamp(8px, 2.2%, 16px);
+  left: clamp(8px, 2.2%, 16px);
+  width: clamp(88px, 28%, 150px);
+  pointer-events: none;
 }
 
 .match-pitch__halfway-line {
@@ -1297,7 +1345,24 @@ img {
   text-transform: uppercase;
 }
 
+.player-dialog__identity {
+  min-width: 0;
+}
+
+.player-dialog__team-logo-slot {
+  align-self: stretch;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+}
+
+.team-logo--dialog {
+  width: 100%;
+  height: 100%;
+}
+
 .player-dialog__title {
+  min-width: 0;
   margin: 0;
   color: #fff;
   font-family: "Anybody", ui-sans-serif, sans-serif;
@@ -1310,15 +1375,18 @@ img {
 }
 
 .player-dialog__summary {
-  display: flex;
-  flex-wrap: wrap;
+  --player-summary-item-height: clamp(81px, calc(54px + 4.5vw), 95px);
+  display: grid;
+  grid-template-columns: var(--player-summary-item-height) repeat(2, minmax(0, 1fr));
+  grid-auto-rows: var(--player-summary-item-height);
+  align-items: stretch;
   gap: 12px;
   margin: 28px 0;
 }
 
 .player-dialog__rating,
 .player-dialog__position {
-  min-width: 126px;
+  min-width: 0;
   display: grid;
   padding: 14px 18px;
   border: 2px solid var(--outline-variant);
@@ -1600,13 +1668,18 @@ img {
   backdrop-filter: blur(14px);
 }
 
-.trailer-embed iframe {
+.trailer-embed iframe,
+.trailer-embed video {
   display: block;
   width: 100%;
   height: 100%;
   border: 0;
   border-radius: 10px;
   background: #080808;
+}
+
+.trailer-embed video {
+  object-fit: contain;
 }
 
 .music-embed {
@@ -1855,6 +1928,12 @@ img {
   margin: 24px var(--trailer-modal-gutter) var(--trailer-modal-gutter);
 }
 
+.trailer-modal .announcement-video {
+  width: min(360px, calc(100% - var(--trailer-modal-gutter) - var(--trailer-modal-gutter)));
+  aspect-ratio: 9 / 16;
+  margin: 24px auto var(--trailer-modal-gutter);
+}
+
 .trailer-modal p {
   color: var(--muted);
 }
@@ -1959,6 +2038,12 @@ img {
   }
 }
 
+@media (max-width: 900px) {
+  .team-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 620px) {
   .lineup-card {
     width: clamp(64px, 22%, 105px);
@@ -1986,10 +2071,6 @@ img {
 
   .lineup-card__stat-value {
     font-size: clamp(5px, 1.2vw, 7px);
-  }
-
-  .team-tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .player-dialog__layout {
@@ -2065,6 +2146,12 @@ img {
   .player-dialog--scrolled .player-dialog__nav {
     opacity: 0;
     pointer-events: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .team-tabs {
+    grid-template-columns: 1fr;
   }
 }
 

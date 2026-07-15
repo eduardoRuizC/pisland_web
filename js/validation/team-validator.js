@@ -74,6 +74,7 @@ export function validateTeam(team) {
     throw new TypeError(`El id "${team.id}" solo puede usar minúsculas, números y guiones.`);
   }
   assertNonEmptyString(team.name, "El nombre del equipo");
+  assertNonEmptyString(team.logo, `El logo de ${team.name}`);
 
   if (!Array.isArray(team.players) || team.players.length === 0) {
     throw new TypeError(`El equipo ${team.name} debe incluir jugadores.`);

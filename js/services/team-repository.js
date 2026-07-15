@@ -1,7 +1,10 @@
 import { validateManifest, validateTeam } from "../validation/team-validator.js";
 
 async function fetchJson(url, fetchImpl) {
-  const response = await fetchImpl(url, { headers: { Accept: "application/json" } });
+  const response = await fetchImpl(url, {
+    cache: "no-store",
+    headers: { Accept: "application/json" },
+  });
   if (!response.ok) {
     throw new Error(`La petición a ${url} devolvió ${response.status}.`);
   }
