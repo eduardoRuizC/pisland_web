@@ -217,7 +217,7 @@ this static site.
 
 GitHub Pages is published from `master` through two workflows:
 
-- `Deploy GitHub Pages - Scheduled` publishes every day at 14:00 in the
+- `Deploy GitHub Pages - Scheduled` publishes every day at 14:05 in the
   `Europe/Madrid` timezone, through July 25, 2026 (inclusive).
 - `Deploy GitHub Pages - Manual Fix` can be started from the Actions tab with
   **Run workflow** to publish an urgent fix. It only deploys when `master` is
