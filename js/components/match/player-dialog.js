@@ -1,4 +1,5 @@
 import { createStatsHexbin } from "./stats-hexbin.js";
+import { createTeamLogo } from "./team-logo.js";
 
 let dialogSequence = 0;
 
@@ -32,6 +33,7 @@ export function createPlayerDialog(options = {}) {
   let currentPlayers = [];
   let currentIndex = 0;
   let lastTrigger;
+  let renderedTeamId;
 
   dialog.className = "player-dialog";
   dialog.dataset.playerDialog = "";
@@ -63,8 +65,16 @@ export function createPlayerDialog(options = {}) {
   appendText(documentRef, nextButton, "span", "material-symbols-outlined", "chevron_right").setAttribute("aria-hidden", "true");
 
   const teamName = appendText(documentRef, body, "p", "player-dialog__team", "");
-  const heading = appendText(documentRef, body, "h2", "player-dialog__title", "");
+  const identity = documentRef.createElement("div");
+  const teamLogoSlot = documentRef.createElement("div");
+  const heading = documentRef.createElement("h2");
+  identity.className = "player-dialog__identity";
+  teamLogoSlot.className = "player-dialog__team-logo-slot";
+  teamLogoSlot.dataset.playerDialogTeamLogo = "";
+  heading.className = "player-dialog__title";
   heading.id = titleId;
+  identity.append(heading);
+  body.append(identity);
 
   const summary = documentRef.createElement("div");
   summary.className = "player-dialog__summary";
@@ -78,7 +88,7 @@ export function createPlayerDialog(options = {}) {
   position.setAttribute("aria-label", "Posición");
   const positionValue = appendText(documentRef, position, "strong", "player-dialog__position-value", "");
   appendText(documentRef, position, "span", "player-dialog__position-label", "Posición");
-  summary.append(rating, position);
+  summary.append(teamLogoSlot, rating, position);
   body.append(summary);
 
   const description = appendText(documentRef, body, "p", "player-dialog__description", "");
@@ -152,6 +162,13 @@ export function createPlayerDialog(options = {}) {
   const renderPlayer = (player, announce = false) => {
     currentPlayer = player;
     teamName.textContent = currentTeam.name;
+    if (renderedTeamId !== currentTeam.id) {
+      teamLogoSlot.replaceChildren(createTeamLogo(currentTeam, {
+        documentRef,
+        variant: "dialog",
+      }));
+      renderedTeamId = currentTeam.id;
+    }
     heading.textContent = player.name;
     ratingValue.textContent = String(player.rating);
     positionValue.textContent = player.position;

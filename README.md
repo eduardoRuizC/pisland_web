@@ -56,6 +56,7 @@ js/
 dialogs/
   welcome-v1.html           Original welcome dialog version
   partido-v1.html           Partido section announcement version
+  equipos-v1.html           Team reveal video announcement version
 news/
   index.json                Ordered news manifest
   alineaciones.json ...     One independent data file per news item
@@ -75,7 +76,7 @@ explicitly, and return cleanup functions for their listeners and timers.
 ```html
 <div
   data-trailer-modal-host
-  data-dialog-src="dialogs/welcome-v1.html"
+  data-dialog-src="dialogs/equipos-v1.html"
 ></div>
 ```
 
@@ -138,8 +139,20 @@ to three items; later pages display up to four.
 
 ## Editing teams
 
-Each file in `teams/` contains `id`, `name` and a non-empty `players` array. A
-player has this shape:
+Each file in `teams/` contains `id`, `name`, `logo` and a non-empty `players`
+array. `logo` is a required path relative to the site root. For example, the
+Rompediscotecas metadata starts with:
+
+```json
+{
+  "id": "team-a",
+  "name": "Rompediscotecas",
+  "logo": "assets/teams/rompediscotecas/rompediscotecas-logo.png"
+}
+```
+
+The logo is displayed in the top-left corner of the pitch and beside the player
+name in the detail dialog. A player has this shape:
 
 ```json
 {
@@ -149,7 +162,7 @@ player has this shape:
   "x": 50,
   "y": 15,
   "active": true,
-  "image": "assets/players/player-placeholder.svg",
+  "image": "assets/teams/player-placeholder.svg",
   "description": "Atacante vertical que destaca por su velocidad y definición.",
   "stats": { "PAC": 92, "SHO": 94, "PAS": 83 }
 }
@@ -174,8 +187,10 @@ real player photo when it becomes available.
 
 To add another team:
 
-1. Copy one team file and give it a unique `id`, display `name` and player data.
-2. Save it in `teams/` with a lowercase kebab-case `.json` filename.
+1. Copy one team file and give it a unique `id`, display `name`, `logo` path and
+   player data.
+2. Save its logo in `assets/teams/<team-slug>/` and its data in `teams/` with a
+   lowercase kebab-case `.json` filename.
 3. Add that filename to the ordered `teams` array in `teams/index.json`.
 
 Team files load concurrently. If one is invalid or unavailable, the valid teams

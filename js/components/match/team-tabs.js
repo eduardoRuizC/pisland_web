@@ -1,3 +1,5 @@
+import { fitText } from "../../utils/text-fit.js";
+
 export function createTeamTabs(teams, options = {}) {
   const documentRef = options.documentRef ?? document;
   const onSelect = options.onSelect ?? (() => {});
@@ -6,8 +8,10 @@ export function createTeamTabs(teams, options = {}) {
   tablist.setAttribute("role", "tablist");
   tablist.setAttribute("aria-label", options.label ?? "Alineaciones del partido");
 
+  const textFitCleanups = [];
   const tabs = teams.map((team, index) => {
     const tab = documentRef.createElement("button");
+    const label = documentRef.createElement("span");
     tab.className = "team-tab";
     tab.id = `${team.id}-tab`;
     tab.type = "button";
@@ -16,8 +20,16 @@ export function createTeamTabs(teams, options = {}) {
     tab.setAttribute("aria-selected", String(index === 0));
     tab.tabIndex = index === 0 ? 0 : -1;
     tab.dataset.teamId = team.id;
-    tab.textContent = team.name;
+    label.className = "team-tab__label";
+    label.textContent = team.name;
+    tab.append(label);
     tablist.append(tab);
+    textFitCleanups.push(fitText(label, {
+      container: tablist,
+      minFontSize: 12,
+      maxFontSize: 24,
+      windowRef: documentRef.defaultView,
+    }));
     return tab;
   });
 
@@ -60,6 +72,7 @@ export function createTeamTabs(teams, options = {}) {
     destroy() {
       tablist.removeEventListener("click", handleClick);
       tablist.removeEventListener("keydown", handleKeydown);
+      textFitCleanups.forEach((cleanup) => cleanup());
     },
   };
 }

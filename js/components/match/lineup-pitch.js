@@ -1,4 +1,5 @@
 import { createPlayerCard } from "./player-card.js";
+import { createTeamLogo } from "./team-logo.js";
 
 export function createLineupPitch(team, options = {}) {
   const documentRef = options.documentRef ?? document;
@@ -6,6 +7,7 @@ export function createLineupPitch(team, options = {}) {
   pitch.className = "match-pitch";
   pitch.setAttribute("role", "list");
   pitch.setAttribute("aria-label", `Jugadores de ${team.name} sobre el campo`);
+  pitch.append(createTeamLogo(team, { documentRef, variant: "pitch", decorative: true }));
 
   [
     "match-pitch__halfway-line",
