@@ -1,3 +1,5 @@
+import { createCaptainBadge } from "./captain-badge.js";
+
 export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
   const imagePath = options.imagePath ?? "assets/player-card-template.png";
@@ -13,6 +15,7 @@ export function createPlayerCard(player, options = {}) {
       : "";
   const hasCustomImage = isActive && customImagePath !== "" && customImagePath !== placeholderImagePath;
   const fieldImagePath = hasCustomImage ? customImagePath : imagePath;
+  const showCaptainBadge = isActive && player.captain;
 
   card.className = "lineup-card";
   card.dataset.position = player.position;
@@ -24,7 +27,7 @@ export function createPlayerCard(player, options = {}) {
     trigger.type = "button";
     trigger.setAttribute(
       "aria-label",
-      `Ver detalles de ${player.name}, ${player.position}, valoración ${player.rating}`,
+      `Ver detalles de ${player.name}${player.captain ? ", capitán" : ""}, ${player.position}, valoración ${player.rating}`,
     );
     trigger.addEventListener("click", () => options.onSelect?.(player, trigger));
   } else {
@@ -35,6 +38,9 @@ export function createPlayerCard(player, options = {}) {
       "aria-label",
       `Jugador inactivo, posición ${player.position}, detalles no disponibles`,
     );
+  }
+  if (showCaptainBadge) {
+    card.append(createCaptainBadge({ documentRef, variant: "field" }));
   }
   card.append(trigger);
 

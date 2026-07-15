@@ -5,6 +5,7 @@
   "players": [
     {
       "name": "Jugador B1",
+      "captain": false,
       "position": "DC",
       "rating": 90,
       "x": 50,
@@ -24,6 +25,7 @@
     },
     {
       "name": "Jugador B4",
+      "captain": false,
       "position": "MI",
       "rating": 87,
       "x": 30,
@@ -43,6 +45,7 @@
     },
     {
       "name": "Jugador B3",
+      "captain": false,
       "position": "MD",
       "rating": 89,
       "x": 70,
@@ -62,6 +65,7 @@
     },
     {
       "name": "Jugador B8",
+      "captain": false,
       "position": "DFC",
       "rating": 87,
       "x": 20,
@@ -81,6 +85,7 @@
     },
     {
       "name": "Jugador B9",
+      "captain": false,
       "position": "DFC",
       "rating": 86,
       "x": 80,
@@ -99,7 +104,8 @@
       "active": false
     },
     {
-      "name": "Jugador B11",
+      "name": "Genesis",
+      "captain": true,
       "position": "POR",
       "rating": 89,
       "x": 50,
@@ -112,10 +118,10 @@
         "VEL": 62,
         "POS": 90
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
-      "active": false
+      "fieldImage": "assets/teams/bichotas/geensinfondo.png",
+      "detailImage": "assets/teams/bichotas/geen.png",
+      "description": "Genesis ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
+      "active": true
     }
   ]
 }

@@ -1,7 +1,7 @@
-import { loadTeams } from "../../services/team-repository.js";
-import { createLineupPitch } from "./lineup-pitch.js";
-import { createPlayerDialog } from "./player-dialog.js";
-import { createTeamTabs } from "./team-tabs.js?v=4";
+import { loadTeams } from "../../services/team-repository.js?v=2";
+import { createLineupPitch } from "./lineup-pitch.js?v=3";
+import { createPlayerDialog } from "./player-dialog.js?v=9";
+import { createTeamTabs } from "./team-tabs.js?v=10";
 
 function createPanel(team, options) {
   const documentRef = options.documentRef;

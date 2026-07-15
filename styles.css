@@ -1113,6 +1113,27 @@ img {
   transition: transform 160ms ease, filter 160ms ease;
 }
 
+.captain-badge {
+  color: var(--lineup-yellow, var(--neon));
+  font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+  pointer-events: none;
+  user-select: none;
+}
+
+.captain-badge[hidden] {
+  display: none;
+}
+
+.captain-badge--field {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 50%;
+  font-size: clamp(20px, 4.5vw, 40px);
+  filter: drop-shadow(0 2px 0 #000) drop-shadow(0 0 5px rgba(255, 252, 0, 0.88));
+  transform: translate(-50%, -55%);
+}
+
 .lineup-card:not(.lineup-card--inactive):hover,
 .lineup-card:focus-within {
   z-index: 50;
@@ -1347,6 +1368,16 @@ img {
 
 .player-dialog__identity {
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 18px);
+}
+
+.captain-badge--dialog {
+  flex: 0 0 auto;
+  color: var(--neon);
+  font-size: clamp(38px, 6vw, 58px);
+  filter: drop-shadow(0 0 8px rgba(241, 232, 0, 0.62));
 }
 
 .player-dialog__team-logo-slot {
@@ -1362,6 +1393,7 @@ img {
 }
 
 .player-dialog__title {
+  flex: 1 1 auto;
   min-width: 0;
   margin: 0;
   color: #fff;
@@ -1422,6 +1454,8 @@ img {
   margin: 0;
   color: var(--muted);
   font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .player-dialog__stats-section {

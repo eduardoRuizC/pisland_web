@@ -1,5 +1,7 @@
 import { createStatsHexbin } from "./stats-hexbin.js";
 import { createTeamLogo } from "./team-logo.js";
+import { createCaptainBadge } from "./captain-badge.js";
+import { fitText } from "../../utils/text-fit.js?v=7";
 
 let dialogSequence = 0;
 
@@ -67,13 +69,14 @@ export function createPlayerDialog(options = {}) {
   const teamName = appendText(documentRef, body, "p", "player-dialog__team", "");
   const identity = documentRef.createElement("div");
   const teamLogoSlot = documentRef.createElement("div");
+  const captainBadge = createCaptainBadge({ documentRef, variant: "dialog", hidden: true });
   const heading = documentRef.createElement("h2");
   identity.className = "player-dialog__identity";
   teamLogoSlot.className = "player-dialog__team-logo-slot";
   teamLogoSlot.dataset.playerDialogTeamLogo = "";
   heading.className = "player-dialog__title";
   heading.id = titleId;
-  identity.append(heading);
+  identity.append(captainBadge, heading);
   body.append(identity);
 
   const summary = documentRef.createElement("div");
@@ -127,6 +130,24 @@ export function createPlayerDialog(options = {}) {
   scroll.append(layout);
   dialog.append(previousButton, nextButton, closeButton, scroll);
 
+  const windowRef = documentRef.defaultView;
+  const headingTextFitCleanup = fitText(heading, {
+    container: identity,
+    minFontSize: 28,
+    maxFontSize: () => Math.min(72, Math.max(42, (windowRef?.innerWidth ?? 600) * 0.07)),
+    maxLines: 3,
+    preferSingleLine: true,
+    inlineSafetyMargin: 8,
+    windowRef,
+  });
+  const descriptionTextFitCleanup = fitText(description, {
+    container: body,
+    minFontSize: 14,
+    maxFontSize: () => Math.min(19, Math.max(16, (windowRef?.innerWidth ?? 800) * 0.02)),
+    maxLines: 7,
+    windowRef,
+  });
+
   const showImageFallback = () => {
     image.hidden = true;
     imageFallback.hidden = false;
@@ -170,9 +191,13 @@ export function createPlayerDialog(options = {}) {
       renderedTeamId = currentTeam.id;
     }
     heading.textContent = player.name;
+    heading.setAttribute("aria-label", player.captain ? `${player.name}, capitán` : player.name);
+    captainBadge.hidden = !player.captain;
     ratingValue.textContent = String(player.rating);
     positionValue.textContent = player.position;
     description.textContent = player.description;
+    headingTextFitCleanup.fit();
+    descriptionTextFitCleanup.fit();
     image.removeAttribute("src");
     const detailImagePath = typeof player.detailImage === "string"
       ? player.detailImage.trim()
@@ -222,7 +247,9 @@ export function createPlayerDialog(options = {}) {
     });
     statsGrid.replaceChildren(...stats);
     hexbin.replaceChildren(createStatsHexbin(player.stats, { documentRef }));
-    if (announce) announcement.textContent = `${player.name}, ${player.position}, valoración ${player.rating}`;
+    if (announce) {
+      announcement.textContent = `${player.name}${player.captain ? ", capitán" : ""}, ${player.position}, valoración ${player.rating}`;
+    }
   };
 
   const navigate = (offset) => {
@@ -271,6 +298,12 @@ export function createPlayerDialog(options = {}) {
     if (typeof dialog.showModal === "function" && !dialog.open) {
       dialog.showModal();
       documentRef.body.classList.add("modal-open");
+      headingTextFitCleanup.fit();
+      descriptionTextFitCleanup.fit();
+      windowRef?.requestAnimationFrame?.(() => {
+        headingTextFitCleanup.fit();
+        descriptionTextFitCleanup.fit();
+      });
     }
     return true;
   };
@@ -286,6 +319,8 @@ export function createPlayerDialog(options = {}) {
     dialog.removeEventListener("close", handleClose);
     dialog.removeEventListener("keydown", handleKeydown);
     scroll.removeEventListener("scroll", handleScroll);
+    headingTextFitCleanup();
+    descriptionTextFitCleanup();
     if (dialog.open) dialog.close();
     dialog.remove();
   };

@@ -151,8 +151,8 @@ Rompediscotecas metadata starts with:
 }
 ```
 
-The logo is displayed in the top-left corner of the pitch and beside the player
-name in the detail dialog. A player has this shape:
+The logo is displayed in the top-left corner of the pitch and in the summary of
+the player detail dialog. A player has this shape:
 
 ```json
 {
@@ -162,6 +162,7 @@ name in the detail dialog. A player has this shape:
   "x": 50,
   "y": 15,
   "active": true,
+  "captain": true,
   "image": "assets/teams/player-placeholder.svg",
   "detailImage": "assets/teams/player-placeholder.svg",
   "description": "Atacante vertical que destaca por su velocidad y definición.",
@@ -178,7 +179,11 @@ horizontal bars or as a hexagonal radar chart on a 0–100 visual scale; values
 outside that range remain visible as text while the graphic is clamped to the
 scale. Its lateral arrows
 and the keyboard left/right arrows
-cycle through only the active players of the selected team. Set `active` to
+cycle through only the active players of the selected team. Every player must
+define `captain` as a boolean and every team must have exactly one player with
+`captain: true`. Active captains show a crown above their field card and to the
+left of their name in the detail dialog; an inactive captain keeps that crown
+hidden until activated. Set `active` to
 `false` to keep the card template and player position visible while replacing
 its rating, name and statistic values with `?`; statistic keys such as `PAC`,
 `SHO` and `PAS` remain visible. The card becomes non-interactive and its detail remains
@@ -187,7 +192,7 @@ unavailable. `fieldImage` and `detailImage` are paths relative to the site root:
 detail dialog. `description` is the detailed text displayed when the player card
 is activated.
 
-`description` and `active` are required. `fieldImage` and `detailImage` are
+`description`, `active` and `captain` are required. `fieldImage` and `detailImage` are
 optional strings: active players with a real `fieldImage` path use it in the
 field card, while inactive players, empty field image values and the shared
 placeholder path keep the original card template in the field view. The dialog

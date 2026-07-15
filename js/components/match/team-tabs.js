@@ -1,4 +1,4 @@
-import { fitText } from "../../utils/text-fit.js";
+import { fitText } from "../../utils/text-fit.js?v=7";
 
 export function createTeamTabs(teams, options = {}) {
   const documentRef = options.documentRef ?? document;

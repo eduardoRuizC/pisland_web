@@ -47,6 +47,9 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
   if (typeof player.active !== "boolean") {
     throw new TypeError(`El estado activo del jugador ${index + 1} de ${teamName} debe ser booleano.`);
   }
+  if (typeof player.captain !== "boolean") {
+    throw new TypeError(`El estado de capitán del jugador ${index + 1} de ${teamName} debe ser booleano.`);
+  }
 
   if (!Number.isFinite(player.rating)) {
     throw new TypeError(`La valoración del jugador ${index + 1} de ${teamName} debe ser numérica.`);
@@ -89,5 +92,9 @@ export function validateTeam(team) {
   }
 
   team.players.forEach((player, index) => validatePlayer(player, index, team.name));
+  const captains = team.players.filter((player) => player.captain);
+  if (captains.length !== 1) {
+    throw new Error(`El equipo ${team.name} debe tener exactamente un capitán.`);
+  }
   return team;
 }

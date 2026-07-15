@@ -1,4 +1,4 @@
-import { validateManifest, validateTeam } from "../validation/team-validator.js";
+import { validateManifest, validateTeam } from "../validation/team-validator.js?v=2";
 
 async function fetchJson(url, fetchImpl) {
   const response = await fetchImpl(url, {
