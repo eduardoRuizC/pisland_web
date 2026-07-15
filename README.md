@@ -200,6 +200,16 @@ this static site.
 
 ## GitHub Pages
 
-The workflow in `.github/workflows/pages.yml` deploys this static site on pushes
-to `master`. In GitHub, set Pages source to GitHub Actions if it is not already
-enabled.
+GitHub Pages is published from `master` through two workflows:
+
+- `Deploy GitHub Pages - Scheduled` publishes every day at 14:00 in the
+  `Europe/Madrid` timezone, through July 25, 2026 (inclusive).
+- `Deploy GitHub Pages - Manual Fix` can be started from the Actions tab with
+  **Run workflow** to publish an urgent fix. It only deploys when `master` is
+  selected.
+
+Pushing to `master` does not deploy immediately. Changes remain pending until
+the next scheduled deployment or a manual fix deployment. The manual workflow
+continues to work after the scheduled deployment window ends.
+
+In GitHub, set Pages source to GitHub Actions if it is not already enabled.
