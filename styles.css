@@ -1957,6 +1957,52 @@ img {
   margin: 22px var(--trailer-modal-gutter) 28px;
 }
 
+.captain-announcement__logo-frame {
+  display: grid;
+  width: clamp(136px, 38vw, 220px);
+  aspect-ratio: 1;
+  place-items: center;
+  margin: var(--trailer-modal-gutter) auto 22px;
+  padding: clamp(12px, 3vw, 20px);
+  border: 3px solid var(--neon);
+  background: #080808;
+  box-shadow: 8px 8px 0 #000, 0 0 30px rgba(241, 232, 0, 0.3);
+  transform: rotate(-1deg);
+}
+
+.captain-announcement__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.captain-announcement .section-heading {
+  margin-bottom: 14px;
+  padding: 0 var(--trailer-modal-gutter);
+}
+
+.captain-announcement h2 {
+  min-width: 0;
+  max-width: 100%;
+  font-size: clamp(31px, 8vw, 56px);
+  overflow-wrap: anywhere;
+}
+
+.captain-announcement__captain {
+  color: #fff;
+  font-weight: 900;
+}
+
+.captain-announcement .trailer-modal-link {
+  display: flex;
+  width: auto;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .trailer-modal .trailer-embed {
   width: calc(100% - var(--trailer-modal-gutter) - var(--trailer-modal-gutter));
   margin: 24px var(--trailer-modal-gutter) var(--trailer-modal-gutter);

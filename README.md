@@ -57,35 +57,49 @@ dialogs/
   welcome-v1.html           Original welcome dialog version
   partido-v1.html           Partido section announcement version
   equipos-v1.html           Team reveal video announcement version
+  capitan-*-v1.html         One daily captain announcement per team
 news/
   index.json                Ordered news manifest
   alineaciones.json ...     One independent data file per news item
 teams/
   index.json                Ordered team manifest
-  team-a.json ...           One independent data file per team
+  rompediscotecas.json ...  One independent data file per team
 ```
 
 The browser loads `js/app.js` as the only module entry point. Components do not
 query the page when imported: their initializers receive their roots and options
 explicitly, and return cleanup functions for their listeners and timers.
 
-## Versioning the welcome dialog
+## Publishing dialogs and captain announcements
 
 `index.html` selects the welcome dialog version through its host:
 
 ```html
 <div
   data-trailer-modal-host
-  data-dialog-src="dialogs/equipos-v1.html"
+  data-dialog-src="dialogs/capitan-rompediscotecas-v1.html"
 ></div>
 ```
 
-To publish a new version, copy `dialogs/welcome-v1.html` to a new lowercase,
-hyphenated filename such as `welcome-v2.html`, edit that fragment, and change
-only `data-dialog-src` in `index.html` to point to it. The selected version is
-loaded asynchronously on each page load and then opened automatically. If the
-file is missing or invalid, the rest of the page remains usable and a
-descriptive error is written to the browser console.
+The four captain announcements are published manually, one per day, in the
+same order as `teams/index.json`:
+
+1. `capitan-rompediscotecas-v1.html` — Jugador A1
+2. `capitan-gargolas-v1.html` — Jugador C1
+3. `capitan-bichotas-v1.html` — Genesis
+4. `capitan-sangre-nueva-v1.html` — Jugador D1
+
+To publish the next announcement, change only `data-dialog-src` in `index.html`
+to the corresponding file. The selected version is loaded asynchronously on
+each page load and then opened automatically. If the file is missing or
+invalid, the rest of the page remains usable and a descriptive error is
+written to the browser console.
+
+Captain CTAs use shareable links in the format
+`?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and
+`team-d`. A valid ID selects that team's tab after the manifest loads. An
+unknown ID leaves the first valid team selected. Opening a Partido deep link
+does not display the daily announcement over the requested lineup.
 
 Each version must contain exactly one root
 `<dialog data-trailer-modal>` element. It must define `aria-labelledby` with the
@@ -134,8 +148,8 @@ To add a news item:
 3. Optionally set its `icon` field to the desired Material Symbols name.
 
 The first item on the first page is featured using the fixed
-`assets/secret.png` image declared in `index.html`. The first page displays up
-to three items; later pages display up to four.
+`assets/player-card-blank.png` image declared in `index.html`. The first page
+displays up to three items; later pages display up to four.
 
 ## Editing teams
 
