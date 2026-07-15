@@ -1,0 +1,100 @@
+<dialog
+  class="trailer-modal player-announcement"
+  aria-labelledby="jugadores-modal-title"
+  aria-describedby="jugadores-modal-description"
+  data-trailer-modal
+>
+  <button class="modal-close" type="button" aria-label="Cerrar anuncio de nuevos jugadores" data-close-trailer-modal>
+    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+  </button>
+  <div class="trailer-modal-content">
+    <div class="section-heading">
+      <h2 id="jugadores-modal-title" data-fit-dialog-title>Nuevos jugadores</h2>
+      <span aria-hidden="true"></span>
+    </div>
+    <p class="trailer-modal-copy player-announcement__intro" id="jugadores-modal-description">
+      Cuatro equipos, cuatro nuevos fichajes. Cada equipo suma un nuevo jugador para la batalla de Pisland.
+    </p>
+    <div class="player-announcement__grid" aria-label="Un nuevo jugador por equipo">
+      <article class="player-announcement__card" data-player-slot="team-a">
+        <div class="player-announcement__media">
+          <img
+            class="player-announcement__image"
+            src="assets/teams/player-placeholder.svg"
+            alt="Retrato provisional del nuevo jugador de Rompediscotecas"
+            data-player-image
+          >
+          <img
+            class="player-announcement__team-logo"
+            src="assets/teams/rompediscotecas/rompediscotecas-logo.png"
+            alt="Logo de Rompediscotecas"
+          >
+        </div>
+        <div class="player-announcement__details">
+          <p class="player-announcement__team">Rompediscotecas</p>
+          <p class="player-announcement__name" data-player-name>Jugador por revelar</p>
+        </div>
+      </article>
+      <article class="player-announcement__card" data-player-slot="team-c">
+        <div class="player-announcement__media">
+          <img
+            class="player-announcement__image"
+            src="assets/teams/player-placeholder.svg"
+            alt="Retrato provisional del nuevo jugador de Gárgolas"
+            data-player-image
+          >
+          <img
+            class="player-announcement__team-logo"
+            src="assets/teams/gargolas/gargolas-logo.png"
+            alt="Logo de Gárgolas"
+          >
+        </div>
+        <div class="player-announcement__details">
+          <p class="player-announcement__team">Gárgolas</p>
+          <p class="player-announcement__name" data-player-name>Jugador por revelar</p>
+        </div>
+      </article>
+      <article class="player-announcement__card" data-player-slot="team-b">
+        <div class="player-announcement__media">
+          <img
+            class="player-announcement__image"
+            src="assets/teams/player-placeholder.svg"
+            alt="Retrato provisional del nuevo jugador de Bichotas"
+            data-player-image
+          >
+          <img
+            class="player-announcement__team-logo"
+            src="assets/teams/bichotas/bichotas-logo.png"
+            alt="Logo de Bichotas"
+          >
+        </div>
+        <div class="player-announcement__details">
+          <p class="player-announcement__team">Bichotas</p>
+          <p class="player-announcement__name" data-player-name>Jugador por revelar</p>
+        </div>
+      </article>
+      <article class="player-announcement__card" data-player-slot="team-d">
+        <div class="player-announcement__media">
+          <img
+            class="player-announcement__image"
+            src="assets/teams/player-placeholder.svg"
+            alt="Retrato provisional del nuevo jugador de Sangre Nueva"
+            data-player-image
+          >
+          <img
+            class="player-announcement__team-logo"
+            src="assets/teams/sangre-nueva/sangre-nueva-logo.png"
+            alt="Logo de Sangre Nueva"
+          >
+        </div>
+        <div class="player-announcement__details">
+          <p class="player-announcement__team">Sangre Nueva</p>
+          <p class="player-announcement__name" data-player-name>Jugador por revelar</p>
+        </div>
+      </article>
+    </div>
+    <a class="attendance-button trailer-modal-link" href="#partido" data-close-trailer-modal>
+      Ver jugadores en Partido
+    </a>
+  </div>
+</dialog>
