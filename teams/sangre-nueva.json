@@ -5,7 +5,7 @@
   "players": [
     {
       "name": "Jugador D1",
-      "captain": true,
+      "captain": false,
       "position": "DC",
       "rating": 90,
       "x": 50,
@@ -84,39 +84,39 @@
       "active": false
     },
     {
-      "name": "Jugador D9",
-      "captain": false,
+      "name": "Paola",
+      "captain": true,
       "position": "DFC",
-      "rating": 86,
       "x": 80,
       "y": 75,
+      "rating": 81,
       "stats": {
-        "VN": 76,
-        "PR": 53,
-        "CA": 73,
-        "MS": 69,
-        "UE": 90,
+        "VN": 98,
+        "PR": 98,
+        "CA": 58,
+        "MS": 68,
+        "UE": 78,
         "PC": 88
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador D9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo D. Destaca especialmente en UE (90) y PC (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
-      "active": false
+      "fieldImage": "assets/teams/sangre-nueva/paolasinfondo.png",
+      "detailImage": "assets/teams/sangre-nueva/paola.png",
+      "description": "Un muro dentro del terreno, esta lejos de los focos y de los focos mediáticos, eso no quiere decir que no sea importante en la noche. Su forma de detener fácilmente hasta el jugador más experimentado a echo que sea una pieza clave en su equipo, un equipo joven lleno de energía el cual ayuda mucho con su experticia.",
+      "active": true
     },
     {
       "name": "Jugador D11",
       "captain": false,
       "position": "POR",
-      "rating": 89,
+      "rating": 81,
       "x": 50,
       "y": 90,
       "stats": {
-        "VN": 89,
-        "PR": 88,
-        "CA": 85,
-        "MS": 92,
-        "UE": 62,
-        "PC": 90
+        "VN": 98,
+        "PR": 98,
+        "CA": 58,
+        "MS": 68,
+        "UE": 78,
+        "PC": 88
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
