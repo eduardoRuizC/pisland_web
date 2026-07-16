@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: "*/3 * * * *"
       timezone: "Europe/Madrid"
+  workflow_dispatch:
+    inputs:
+      manual_deployment:
+        description: Allow deployment outside the scheduled date window
+        required: false
+        type: boolean
+        default: true
+
   workflow_call:
     inputs:
       manual_deployment:
