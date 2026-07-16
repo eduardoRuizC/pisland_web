@@ -1,7 +1,18 @@
-import { loadTeams } from "../../services/team-repository.js";
-import { createLineupPitch } from "./lineup-pitch.js";
-import { createPlayerDialog } from "./player-dialog.js";
-import { createTeamTabs } from "./team-tabs.js?v=4";
+import { loadTeams } from "../../services/team-repository.js?v=3";
+import { createLineupPitch } from "./lineup-pitch.js?v=4";
+import { createPlayerDialog } from "./player-dialog.js?v=11";
+import { createTeamTabs } from "./team-tabs.js?v=10";
+
+export function getRequestedTeamId(locationRef) {
+  if (!locationRef) return "";
+
+  const params = new URLSearchParams(locationRef.search ?? "");
+  return params.get("team")?.trim() ?? "";
+}
+
+export function isMatchTeamDeepLink(locationRef) {
+  return locationRef?.hash === "#partido" && getRequestedTeamId(locationRef) !== "";
+}
 
 function createPanel(team, options) {
   const documentRef = options.documentRef;
@@ -30,9 +41,10 @@ export async function initMatch(root, options = {}) {
   if (!root) return () => {};
 
   const documentRef = options.documentRef ?? root.ownerDocument;
-  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json";
+  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json?v=2";
   const imagePath = options.imagePath ?? root.dataset.playerCardImage ?? "assets/player-card-template.png";
   const loadTeamsImpl = options.loadTeamsImpl ?? loadTeams;
+  const locationRef = options.locationRef ?? documentRef.defaultView?.location;
   const status = root.querySelector("[data-match-status]") ?? documentRef.createElement("p");
   const content = root.querySelector("[data-match-content]") ?? documentRef.createElement("div");
   let tabsController;
@@ -76,6 +88,11 @@ export async function initMatch(root, options = {}) {
       panel.hidden = index !== 0;
     });
     content.replaceChildren(tabsController.element, ...panels, playerDialogController.element);
+
+    const requestedTeamId = getRequestedTeamId(locationRef);
+    if (teams.some((team) => team.id === requestedTeamId)) {
+      tabsController.select(requestedTeamId);
+    }
 
     if (errors.length > 0) {
       const names = errors.map(({ filename }) => filename).join(", ");

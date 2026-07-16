@@ -25,6 +25,13 @@
 - Keep UI responsive across mobile and desktop.
 - Match any established design system or component conventions before introducing new patterns.
 
+## Cache Busting
+
+- Every change to a browser-consumed local asset must also change that asset's public URL so previously cached copies cannot hide the update. This applies to CSS, JavaScript and its imported modules, JSON/data files, images, fonts, dialogs, and other static resources.
+- Use or increment a version query parameter such as `?v=N` at every HTML, CSS, JavaScript import, or fetch reference to the changed asset. If the reference is part of a dependency chain, propagate the version bump through each importer up to `index.html` (for example: changed module -> importing module -> `js/app.js` -> its `<script>` tag).
+- When a resource format or validator does not allow a query parameter, use a versioned filename and update every reference instead.
+- Before finishing a change, search all references to each modified asset and verify that no unchanged URL can still serve the old cached content. Do not remove existing cache-busting parameters.
+
 ## Safety
 
 - Do not run destructive Git or filesystem commands unless explicitly requested.

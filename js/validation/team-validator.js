@@ -1,3 +1,5 @@
+import { PLAYER_STAT_KEYS } from "../utils/player-stats.js?v=1";
+
 function isPlainObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
@@ -15,7 +17,7 @@ export function validateManifest(manifest) {
 
   const filenames = new Set();
   manifest.teams.forEach((filename, index) => {
-    if (typeof filename !== "string" || !/^[a-z0-9][a-z0-9-]*\.json$/u.test(filename)) {
+    if (typeof filename !== "string" || !/^[a-z0-9][a-z0-9-]*\.json(?:\?v=\d+)?$/u.test(filename)) {
       throw new TypeError(`La entrada ${index + 1} del manifest no es un nombre JSON válido.`);
     }
     if (filenames.has(filename)) {
@@ -34,10 +36,21 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
 
   assertNonEmptyString(player.name, `El nombre del jugador ${index + 1}`);
   assertNonEmptyString(player.position, `La posición del jugador ${index + 1}`);
-  assertNonEmptyString(player.image, `La imagen del jugador ${index + 1}`);
   assertNonEmptyString(player.description, `La descripción del jugador ${index + 1}`);
+  if (player.fieldImage !== undefined && typeof player.fieldImage !== "string") {
+    throw new TypeError(`La imagen de campo del jugador ${index + 1} debe ser texto si se define.`);
+  }
+  if (player.detailImage !== undefined && typeof player.detailImage !== "string") {
+    throw new TypeError(`La imagen de detalle del jugador ${index + 1} debe ser texto si se define.`);
+  }
+  if (player.image !== undefined && typeof player.image !== "string") {
+    throw new TypeError(`La imagen del jugador ${index + 1} debe ser texto si se define.`);
+  }
   if (typeof player.active !== "boolean") {
     throw new TypeError(`El estado activo del jugador ${index + 1} de ${teamName} debe ser booleano.`);
+  }
+  if (typeof player.captain !== "boolean") {
+    throw new TypeError(`El estado de capitán del jugador ${index + 1} de ${teamName} debe ser booleano.`);
   }
 
   if (!Number.isFinite(player.rating)) {
@@ -50,12 +63,21 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
     }
   }
 
-  if (!isPlainObject(player.stats) || Object.keys(player.stats).length === 0) {
+  if (!isPlainObject(player.stats)) {
     throw new TypeError(`Las estadísticas del jugador ${index + 1} de ${teamName} no son válidas.`);
   }
 
-  Object.entries(player.stats).forEach(([label, value]) => {
-    assertNonEmptyString(label, `La etiqueta estadística del jugador ${index + 1}`);
+  const statKeys = Object.keys(player.stats);
+  const hasExactStats = statKeys.length === PLAYER_STAT_KEYS.length
+    && PLAYER_STAT_KEYS.every((key) => statKeys.includes(key));
+  if (!hasExactStats) {
+    throw new TypeError(
+      `Las estadísticas del jugador ${index + 1} de ${teamName} deben ser ${PLAYER_STAT_KEYS.join(", ")}.`,
+    );
+  }
+
+  PLAYER_STAT_KEYS.forEach((label) => {
+    const value = player.stats[label];
     if (!Number.isFinite(value)) {
       throw new TypeError(`La estadística ${label} del jugador ${index + 1} debe ser numérica.`);
     }
@@ -81,5 +103,9 @@ export function validateTeam(team) {
   }
 
   team.players.forEach((player, index) => validatePlayer(player, index, team.name));
+  const captains = team.players.filter((player) => player.captain);
+  if (captains.length !== 1) {
+    throw new Error(`El equipo ${team.name} debe tener exactamente un capitán.`);
+  }
   return team;
 }

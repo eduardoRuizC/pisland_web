@@ -1,8 +1,18 @@
+import { fitText } from "../utils/text-fit.js?v=7";
+
 export function initTrailerModal(dialog, options = {}) {
   if (!dialog) return () => {};
   const documentRef = options.documentRef ?? dialog.ownerDocument;
   const closeButtons = Array.from(dialog.querySelectorAll("[data-close-trailer-modal]"));
   const mediaElements = Array.from(dialog.querySelectorAll("video, audio"));
+  const titleFitCleanups = Array.from(dialog.querySelectorAll("[data-fit-dialog-title]"))
+    .map((title) => fitText(title, {
+      container: title.parentElement,
+      minFontSize: 17,
+      maxFontSize: 56,
+      maxLines: 2,
+      windowRef: documentRef.defaultView,
+    }));
   const pauseMedia = () => mediaElements.forEach((media) => media.pause());
 
   const open = () => {
@@ -38,6 +48,7 @@ export function initTrailerModal(dialog, options = {}) {
     dialog.removeEventListener("click", handleDialogClick);
     dialog.removeEventListener("close", handleClose);
     documentRef.removeEventListener("click", handleDocumentClick);
+    titleFitCleanups.forEach((cleanup) => cleanup());
     pauseMedia();
     documentRef.body.classList.remove("modal-open");
   };

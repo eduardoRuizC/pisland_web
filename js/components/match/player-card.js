@@ -1,10 +1,22 @@
+import { createCaptainBadge } from "./captain-badge.js";
+import { getPlayerStatEntries } from "../../utils/player-stats.js?v=1";
+
 export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
   const imagePath = options.imagePath ?? "assets/player-card-template.png";
+  const placeholderImagePath = options.placeholderImagePath ?? "assets/players/player-placeholder.svg";
   const card = documentRef.createElement("div");
   const isActive = player.active;
   const trigger = documentRef.createElement(isActive ? "button" : "div");
-  const stats = Object.entries(player.stats).slice(0, 6);
+  const stats = getPlayerStatEntries(player.stats);
+  const customImagePath = typeof player.fieldImage === "string"
+    ? player.fieldImage.trim()
+    : typeof player.image === "string"
+      ? player.image.trim()
+      : "";
+  const hasCustomImage = isActive && customImagePath !== "" && customImagePath !== placeholderImagePath;
+  const fieldImagePath = hasCustomImage ? customImagePath : imagePath;
+  const showCaptainBadge = isActive && player.captain;
 
   card.className = "lineup-card";
   card.dataset.position = player.position;
@@ -16,7 +28,7 @@ export function createPlayerCard(player, options = {}) {
     trigger.type = "button";
     trigger.setAttribute(
       "aria-label",
-      `Ver detalles de ${player.name}, ${player.position}, valoración ${player.rating}`,
+      `Ver detalles de ${player.name}${player.captain ? ", capitán" : ""}, ${player.position}, valoración ${player.rating}`,
     );
     trigger.addEventListener("click", () => options.onSelect?.(player, trigger));
   } else {
@@ -28,17 +40,26 @@ export function createPlayerCard(player, options = {}) {
       `Jugador inactivo, posición ${player.position}, detalles no disponibles`,
     );
   }
+  if (showCaptainBadge) {
+    card.append(createCaptainBadge({ documentRef, variant: "field" }));
+  }
   card.append(trigger);
 
   const art = documentRef.createElement("img");
   art.className = "lineup-card__art";
-  art.src = imagePath;
+  art.src = fieldImagePath;
   art.alt = "";
   art.setAttribute("aria-hidden", "true");
   art.addEventListener("error", () => {
-    console.error(`No se pudo cargar la plantilla de jugador: ${imagePath}`);
-    card.classList.add("lineup-card--image-error");
-  }, { once: true });
+    if (art.src.endsWith(imagePath)) {
+      console.error(`No se pudo cargar la plantilla de jugador: ${imagePath}`);
+      card.classList.add("lineup-card--image-error");
+      return;
+    }
+
+    console.error(`No se pudo cargar la foto del jugador en el campo: ${fieldImagePath}`);
+    art.src = imagePath;
+  });
   trigger.append(art);
 
   ["header", "name", "stats"].forEach((name) => {
@@ -60,12 +81,12 @@ export function createPlayerCard(player, options = {}) {
 
   const statsNode = documentRef.createElement("div");
   statsNode.className = "lineup-card__stats";
-  stats.forEach(([label, value]) => {
+  stats.forEach(({ key, value }) => {
     const stat = documentRef.createElement("div");
     stat.className = "lineup-card__stat";
     const labelNode = documentRef.createElement("span");
     labelNode.className = "lineup-card__stat-label";
-    labelNode.textContent = label;
+    labelNode.textContent = key;
     const valueNode = documentRef.createElement("span");
     valueNode.className = "lineup-card__stat-value";
     valueNode.textContent = isActive ? String(value) : "?";

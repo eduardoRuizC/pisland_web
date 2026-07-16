@@ -1,5 +1,8 @@
-import { createStatsHexbin } from "./stats-hexbin.js";
+import { createStatsHexbin } from "./stats-hexbin.js?v=2";
 import { createTeamLogo } from "./team-logo.js";
+import { createCaptainBadge } from "./captain-badge.js";
+import { fitText } from "../../utils/text-fit.js?v=7";
+import { getPlayerStatEntries } from "../../utils/player-stats.js?v=1";
 
 let dialogSequence = 0;
 
@@ -67,13 +70,14 @@ export function createPlayerDialog(options = {}) {
   const teamName = appendText(documentRef, body, "p", "player-dialog__team", "");
   const identity = documentRef.createElement("div");
   const teamLogoSlot = documentRef.createElement("div");
+  const captainBadge = createCaptainBadge({ documentRef, variant: "dialog", hidden: true });
   const heading = documentRef.createElement("h2");
   identity.className = "player-dialog__identity";
   teamLogoSlot.className = "player-dialog__team-logo-slot";
   teamLogoSlot.dataset.playerDialogTeamLogo = "";
   heading.className = "player-dialog__title";
   heading.id = titleId;
-  identity.append(heading);
+  identity.append(captainBadge, heading);
   body.append(identity);
 
   const summary = documentRef.createElement("div");
@@ -107,16 +111,21 @@ export function createPlayerDialog(options = {}) {
   const barsButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Barras");
   barsButton.type = "button";
   barsButton.setAttribute("aria-pressed", "true");
-  const hexbinButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Hexbin");
+  const hexbinButton = appendText(documentRef, statsToggle, "button", "player-dialog__stats-toggle-button", "Hexágono");
   hexbinButton.type = "button";
   hexbinButton.setAttribute("aria-pressed", "false");
   statsHeader.append(statsTitle, statsToggle);
+  const statsViews = documentRef.createElement("div");
+  statsViews.className = "player-dialog__stats-views";
   const statsGrid = documentRef.createElement("div");
-  statsGrid.className = "player-dialog__stats";
+  statsGrid.className = "player-dialog__stats player-dialog__stats-view";
+  statsGrid.setAttribute("aria-hidden", "false");
   const hexbin = documentRef.createElement("div");
-  hexbin.className = "player-dialog__hexbin";
+  hexbin.className = "player-dialog__hexbin player-dialog__stats-view";
+  hexbin.setAttribute("aria-hidden", "true");
   hexbin.hidden = true;
-  statsSection.replaceChildren(statsHeader, statsGrid, hexbin);
+  statsViews.append(statsGrid, hexbin);
+  statsSection.replaceChildren(statsHeader, statsViews);
   body.append(statsSection);
   const announcement = appendText(documentRef, body, "p", "sr-only", "");
   announcement.setAttribute("aria-live", "polite");
@@ -127,13 +136,60 @@ export function createPlayerDialog(options = {}) {
   scroll.append(layout);
   dialog.append(previousButton, nextButton, closeButton, scroll);
 
+  const windowRef = documentRef.defaultView;
+  const measureStatsViewHeight = (view) => {
+    const wasHidden = view.hidden;
+    const previousStyles = {
+      position: view.style.position,
+      visibility: view.style.visibility,
+      pointerEvents: view.style.pointerEvents,
+      width: view.style.width,
+      height: view.style.height,
+    };
+    view.hidden = false;
+    view.style.position = "absolute";
+    view.style.visibility = "hidden";
+    view.style.pointerEvents = "none";
+    view.style.width = "100%";
+    view.style.height = "auto";
+    const height = view.getBoundingClientRect().height;
+    Object.assign(view.style, previousStyles);
+    view.hidden = wasHidden;
+    return height;
+  };
+  const syncStatsViewHeight = () => {
+    if (!dialog.open || statsViews.clientWidth === 0) return;
+    const height = Math.max(
+      measureStatsViewHeight(statsGrid),
+      measureStatsViewHeight(hexbin),
+    );
+    if (height > 0) statsViews.style.height = `${Math.ceil(height)}px`;
+  };
+  const handleResize = () => syncStatsViewHeight();
+  const headingTextFitCleanup = fitText(heading, {
+    container: identity,
+    minFontSize: 28,
+    maxFontSize: () => Math.min(72, Math.max(42, (windowRef?.innerWidth ?? 600) * 0.07)),
+    maxLines: 3,
+    preferSingleLine: true,
+    inlineSafetyMargin: 8,
+    windowRef,
+  });
+  const descriptionTextFitCleanup = fitText(description, {
+    container: body,
+    minFontSize: 14,
+    maxFontSize: () => Math.min(19, Math.max(16, (windowRef?.innerWidth ?? 800) * 0.02)),
+    maxLines: 7,
+    windowRef,
+  });
+
   const showImageFallback = () => {
     image.hidden = true;
     imageFallback.hidden = false;
     imageFallback.setAttribute("aria-label", `Imagen no disponible de ${currentPlayer?.name ?? "jugador"}`);
   };
   const handleImageError = () => {
-    console.error(`No se pudo cargar la foto del jugador: ${currentPlayer?.image ?? "ruta desconocida"}`);
+    console.error(`No se pudo cargar la foto del jugador: ${currentPlayer?.detailImage ?? currentPlayer?.image ?? "ruta desconocida"}`);
     showImageFallback();
   };
   const close = () => {
@@ -151,8 +207,11 @@ export function createPlayerDialog(options = {}) {
   };
   const setStatsView = (view) => {
     const showBars = view === "bars";
+    syncStatsViewHeight();
     statsGrid.hidden = !showBars;
     hexbin.hidden = showBars;
+    statsGrid.setAttribute("aria-hidden", String(!showBars));
+    hexbin.setAttribute("aria-hidden", String(showBars));
     barsButton.setAttribute("aria-pressed", String(showBars));
     hexbinButton.setAttribute("aria-pressed", String(!showBars));
   };
@@ -170,14 +229,27 @@ export function createPlayerDialog(options = {}) {
       renderedTeamId = currentTeam.id;
     }
     heading.textContent = player.name;
+    heading.setAttribute("aria-label", player.captain ? `${player.name}, capitán` : player.name);
+    captainBadge.hidden = !player.captain;
     ratingValue.textContent = String(player.rating);
     positionValue.textContent = player.position;
     description.textContent = player.description;
-    image.hidden = false;
-    imageFallback.hidden = true;
-    image.alt = `Foto de ${player.name}`;
+    headingTextFitCleanup.fit();
+    descriptionTextFitCleanup.fit();
     image.removeAttribute("src");
-    image.src = player.image;
+    const detailImagePath = typeof player.detailImage === "string"
+      ? player.detailImage.trim()
+      : typeof player.image === "string"
+        ? player.image.trim()
+        : "";
+    if (detailImagePath !== "") {
+      image.hidden = false;
+      imageFallback.hidden = true;
+      image.alt = `Foto de ${player.name}`;
+      image.src = detailImagePath;
+    } else {
+      showImageFallback();
+    }
 
     const players = currentPlayers;
     const previousPlayer = players[(currentIndex - 1 + players.length) % players.length];
@@ -188,7 +260,7 @@ export function createPlayerDialog(options = {}) {
     previousButton.setAttribute("aria-label", canNavigate ? `Jugador anterior: ${previousPlayer.name}` : "No hay otro jugador activo");
     nextButton.setAttribute("aria-label", canNavigate ? `Jugador siguiente: ${nextPlayer.name}` : "No hay otro jugador activo");
 
-    const stats = Object.entries(player.stats).slice(0, 6).map(([label, value]) => {
+    const stats = getPlayerStatEntries(player.stats).map(({ label, value }) => {
       const stat = documentRef.createElement("div");
       const header = documentRef.createElement("div");
       const chart = documentRef.createElement("div");
@@ -213,7 +285,10 @@ export function createPlayerDialog(options = {}) {
     });
     statsGrid.replaceChildren(...stats);
     hexbin.replaceChildren(createStatsHexbin(player.stats, { documentRef }));
-    if (announce) announcement.textContent = `${player.name}, ${player.position}, valoración ${player.rating}`;
+    if (dialog.open) windowRef?.requestAnimationFrame?.(syncStatsViewHeight);
+    if (announce) {
+      announcement.textContent = `${player.name}${player.captain ? ", capitán" : ""}, ${player.position}, valoración ${player.rating}`;
+    }
   };
 
   const navigate = (offset) => {
@@ -245,6 +320,7 @@ export function createPlayerDialog(options = {}) {
   dialog.addEventListener("close", handleClose);
   dialog.addEventListener("keydown", handleKeydown);
   scroll.addEventListener("scroll", handleScroll, { passive: true });
+  windowRef?.addEventListener("resize", handleResize);
 
   const open = (player, team, trigger) => {
     if (!player.active) return false;
@@ -262,6 +338,14 @@ export function createPlayerDialog(options = {}) {
     if (typeof dialog.showModal === "function" && !dialog.open) {
       dialog.showModal();
       documentRef.body.classList.add("modal-open");
+      headingTextFitCleanup.fit();
+      descriptionTextFitCleanup.fit();
+      windowRef?.requestAnimationFrame?.(() => {
+        headingTextFitCleanup.fit();
+        descriptionTextFitCleanup.fit();
+        syncStatsViewHeight();
+      });
+      documentRef.fonts?.ready?.then(syncStatsViewHeight);
     }
     return true;
   };
@@ -277,6 +361,9 @@ export function createPlayerDialog(options = {}) {
     dialog.removeEventListener("close", handleClose);
     dialog.removeEventListener("keydown", handleKeydown);
     scroll.removeEventListener("scroll", handleScroll);
+    windowRef?.removeEventListener("resize", handleResize);
+    headingTextFitCleanup();
+    descriptionTextFitCleanup();
     if (dialog.open) dialog.close();
     dialog.remove();
   };
