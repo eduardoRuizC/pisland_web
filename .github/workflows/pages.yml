@@ -2,7 +2,7 @@ name: Deploy GitHub Pages - Scheduled
 
 on:
   schedule:
-    - cron: "*/3 * * * *"
+    - cron: "*/1 * * * *"
       timezone: "Europe/Madrid"
   workflow_dispatch:
     inputs:
