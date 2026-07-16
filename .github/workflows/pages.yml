@@ -4,21 +4,8 @@ on:
   schedule:
     - cron: "*/5 * * * *"
       timezone: "Europe/Madrid"
-  workflow_dispatch:
-    inputs:
-      date:
-        description: 'Date to run the workflow'
-        required: true
-        type: string
-        default: 'in 1 hour'
 
-  workflow_call:
-    inputs:
-      manual_deployment:
-        description: Allow deployment outside the scheduled date window
-        required: false
-        type: boolean
-        default: false
+  workflow_dispatch:
 
 permissions:
   contents: read
