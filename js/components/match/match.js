@@ -1,6 +1,6 @@
-import { loadTeams } from "../../services/team-repository.js?v=2";
-import { createLineupPitch } from "./lineup-pitch.js?v=3";
-import { createPlayerDialog } from "./player-dialog.js?v=9";
+import { loadTeams } from "../../services/team-repository.js?v=3";
+import { createLineupPitch } from "./lineup-pitch.js?v=4";
+import { createPlayerDialog } from "./player-dialog.js?v=11";
 import { createTeamTabs } from "./team-tabs.js?v=10";
 
 export function getRequestedTeamId(locationRef) {
@@ -41,7 +41,7 @@ export async function initMatch(root, options = {}) {
   if (!root) return () => {};
 
   const documentRef = options.documentRef ?? root.ownerDocument;
-  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json";
+  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json?v=2";
   const imagePath = options.imagePath ?? root.dataset.playerCardImage ?? "assets/player-card-template.png";
   const loadTeamsImpl = options.loadTeamsImpl ?? loadTeams;
   const locationRef = options.locationRef ?? documentRef.defaultView?.location;

@@ -1,3 +1,5 @@
+import { getPlayerStatEntries } from "../../utils/player-stats.js?v=1";
+
 let hexbinSequence = 0;
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -26,8 +28,7 @@ function getPolygonPoints(radius) {
 
 export function createStatsHexbin(stats, options = {}) {
   const documentRef = options.documentRef ?? document;
-  const entries = Object.entries(stats).slice(0, AXIS_COUNT);
-  const axes = Array.from({ length: AXIS_COUNT }, (_, index) => entries[index] ?? ["", 0]);
+  const axes = getPlayerStatEntries(stats).slice(0, AXIS_COUNT);
   const instanceId = ++hexbinSequence;
   const titleId = `stats-hexbin-title-${instanceId}`;
   const descriptionId = `stats-hexbin-description-${instanceId}`;
@@ -41,8 +42,7 @@ export function createStatsHexbin(stats, options = {}) {
   const description = createSvgNode(documentRef, "desc", { id: descriptionId });
   title.textContent = "Gráfico hexagonal de estadísticas";
   description.textContent = axes
-    .filter(([label]) => label)
-    .map(([label, value]) => `${label}: ${value} de 100`)
+    .map(({ label, value }) => `${label}: ${value} de 100`)
     .join(", ");
   svg.append(title, description);
 
@@ -66,7 +66,7 @@ export function createStatsHexbin(stats, options = {}) {
     }));
   });
 
-  const valuePoints = axes.map(([, value], index) => {
+  const valuePoints = axes.map(({ value }, index) => {
     const normalizedValue = Math.min(100, Math.max(0, Number(value))) / 100;
     const point = getPoint(index, 94 * normalizedValue);
     return `${point.x},${point.y}`;
@@ -84,8 +84,7 @@ export function createStatsHexbin(stats, options = {}) {
     "aria-hidden": "true",
   }));
 
-  axes.forEach(([label, value], index) => {
-    if (!label) return;
+  axes.forEach(({ key, value }, index) => {
     const point = getPoint(index, 124);
     const text = createSvgNode(documentRef, "text", {
       class: "player-dialog__hexbin-label",
@@ -96,7 +95,7 @@ export function createStatsHexbin(stats, options = {}) {
     });
     const labelNode = createSvgNode(documentRef, "tspan", { x: point.x });
     const valueNode = createSvgNode(documentRef, "tspan", { x: point.x, dy: 17 });
-    labelNode.textContent = label;
+    labelNode.textContent = key;
     valueNode.classList.add("player-dialog__hexbin-label-value");
     valueNode.textContent = String(value);
     text.append(labelNode, valueNode);

@@ -78,7 +78,7 @@ explicitly, and return cleanup functions for their listeners and timers.
 ```html
 <div
   data-trailer-modal-host
-  data-dialog-src="dialogs/capitan-rompediscotecas-v1.html"
+  data-dialog-src="dialogs/capitan-rompediscotecas-v1.html?v=2"
 ></div>
 ```
 
@@ -91,19 +91,26 @@ same order as `teams/index.json`:
 4. `capitan-sangre-nueva-v1.html` — Jugador D1
 
 To publish the next announcement, change only `data-dialog-src` in `index.html`
-to the corresponding file. The selected version is loaded asynchronously on
-each page load and then opened automatically. If the file is missing or
-invalid, the rest of the page remains usable and a descriptive error is
-written to the browser console.
+to the corresponding file with the `?v=2` cache version. The selected version
+is loaded asynchronously on each page load and then opened automatically. If
+the file is missing or invalid, the rest of the page remains usable and a
+descriptive error is written to the browser console.
+
+Each captain dialog includes a vertical 9:16 YouTube Short placeholder. To add
+the final video, set the iframe `src` to
+`https://www.youtube-nocookie.com/embed/SHORT_ID` and remove its
+`tabindex="-1"`. The placeholder is hidden automatically as soon as the iframe
+has a `src` attribute. Increment the dialog query version in `index.html` when
+editing the currently published dialog.
 
 `dialogs/jugadores-v1.html` is the reusable announcement for player drops. It
 contains one editable `data-player-slot` for each team, in the same order as
-`teams/index.json`. Before publishing it, replace each provisional image marked
-with `data-player-image`, its accessible text and the adjacent
-`data-player-name`. Keep the team ID on `data-player-slot` unchanged. Activate
-the completed announcement by setting the host's `data-dialog-src` to
-`dialogs/jugadores-v1.html`; until then, the currently selected captain dialog
-remains active.
+`teams/index.json`. Before publishing it, set each `data-player-video` iframe
+`src` to `https://www.youtube-nocookie.com/embed/SHORT_ID`, remove its
+`tabindex="-1"` and replace the adjacent `data-player-name`. Keep the team ID on
+`data-player-slot` unchanged. Activate the completed announcement by setting the
+host's `data-dialog-src` to `dialogs/jugadores-v1.html?v=2`; until then, the
+currently selected captain dialog remains active.
 
 Captain CTAs use shareable links in the format
 `?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and
@@ -190,16 +197,26 @@ the player detail dialog. A player has this shape:
   "image": "assets/teams/player-placeholder.svg",
   "detailImage": "assets/teams/player-placeholder.svg",
   "description": "Atacante vertical que destaca por su velocidad y definición.",
-  "stats": { "PAC": 92, "SHO": 94, "PAS": 83 }
+  "stats": {
+    "VN": 92,
+    "PR": 94,
+    "CA": 83,
+    "MS": 91,
+    "UE": 40,
+    "PC": 87
+  }
 }
 ```
 
-Coordinates `x` and `y` are percentages from 0 to 100. Statistics must be
-numeric; the card and detail dialog display the first six in the order written
-in the JSON. The current teams use a six-player reduced football formation:
+Coordinates `x` and `y` are percentages from 0 to 100. Every player must define
+the six numeric statistics `VN` (Visión de la noche), `PR` (Perreocidad), `CA`
+(Capacidad de alcohol), `MS` (Misiones secundarias), `UE` (Unión de equipo) and
+`PC` (Picardía). They are always displayed in that order, regardless of their
+order in the JSON. The current teams use a six-player reduced football formation:
 `POR`, two `DFC`, `MI`, `MD` and `DC`, laid out as 1-2-2-1 from the goalkeeper
 toward the opponent goal. The detail dialog can represent them as
-horizontal bars or as a hexagonal radar chart on a 0–100 visual scale; values
+horizontal bars or as a hexagonal radar chart on a 0–100 visual scale. The field
+cards and hexagon use the abbreviations; the bars use the complete names. Values
 outside that range remain visible as text while the graphic is clamped to the
 scale. Its lateral arrows
 and the keyboard left/right arrows
@@ -209,8 +226,8 @@ define `captain` as a boolean and every team must have exactly one player with
 left of their name in the detail dialog; an inactive captain keeps that crown
 hidden until activated. Set `active` to
 `false` to keep the card template and player position visible while replacing
-its rating, name and statistic values with `?`; statistic keys such as `PAC`,
-`SHO` and `PAS` remain visible. The card becomes non-interactive and its detail remains
+its rating, name and statistic values with `?`; the `VN`, `PR`, `CA`, `MS`, `UE`
+and `PC` abbreviations remain visible. The card becomes non-interactive and its detail remains
 unavailable. `fieldImage` and `detailImage` are paths relative to the site root:
 `fieldImage` is used in the pitch card, and `detailImage` is used in the player
 detail dialog. `description` is the detailed text displayed when the player card

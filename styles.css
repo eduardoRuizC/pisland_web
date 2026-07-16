@@ -1517,6 +1517,14 @@ img {
   outline-offset: 3px;
 }
 
+.player-dialog__stats-views {
+  position: relative;
+}
+
+.player-dialog__stats-view {
+  min-width: 0;
+}
+
 .player-dialog__stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1538,6 +1546,7 @@ img {
 }
 
 .player-dialog__stat-value {
+  flex: 0 0 auto;
   color: var(--neon);
   font-family: "Anybody", ui-sans-serif, sans-serif;
   font-size: clamp(26px, 3.5vw, 36px);
@@ -1547,11 +1556,14 @@ img {
 }
 
 .player-dialog__stat-label {
+  min-width: 0;
   color: var(--muted);
   font-family: "Space Mono", ui-monospace, monospace;
   font-size: 12px;
   font-weight: 700;
+  line-height: 1.25;
   letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
 }
 
@@ -1577,6 +1589,8 @@ img {
 }
 
 .player-dialog__hexbin {
+  box-sizing: border-box;
+  height: 100%;
   display: grid;
   place-items: center;
   min-height: 300px;
@@ -1994,6 +2008,46 @@ img {
   font-weight: 900;
 }
 
+.captain-announcement__short {
+  position: relative;
+  width: min(280px, calc(100% - var(--trailer-modal-gutter) - var(--trailer-modal-gutter)));
+  aspect-ratio: 9 / 16;
+  margin: 24px auto 0;
+  border: 3px solid var(--neon);
+  overflow: hidden;
+  background: #080808;
+  box-shadow: 8px 8px 0 #000, 0 0 26px rgba(241, 232, 0, 0.24);
+}
+
+.captain-announcement__short iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #080808;
+}
+
+.captain-announcement__short-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  background: #080808;
+  color: var(--neon) !important;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: clamp(14px, 4vw, 18px);
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.captain-announcement__short iframe[src] + .captain-announcement__short-placeholder {
+  display: none;
+}
+
 .captain-announcement .trailer-modal-link {
   display: flex;
   width: auto;
@@ -2061,13 +2115,42 @@ img {
   min-width: 0;
 }
 
-.player-announcement__image {
+.player-announcement__video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 2px solid rgba(241, 232, 0, 0.74);
+  overflow: hidden;
+  background: #0f0f04;
+}
+
+.player-announcement__video iframe {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  border: 2px solid rgba(241, 232, 0, 0.74);
-  background: #0f0f04;
-  object-fit: cover;
+  height: 100%;
+  border: 0;
+  background: #080808;
+}
+
+.player-announcement__card .player-announcement__video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 8px;
+  background: #080808;
+  color: var(--neon);
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: clamp(9px, 2.2vw, 11px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.player-announcement__video iframe[src] + .player-announcement__video-placeholder {
+  display: none;
 }
 
 .player-announcement__team-logo {

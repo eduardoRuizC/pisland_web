@@ -11,16 +11,16 @@
       "x": 50,
       "y": 18,
       "stats": {
-        "PAC": 92,
-        "SHO": 94,
-        "PAS": 83,
-        "DRI": 91,
-        "DEF": 40,
-        "PHY": 87
+        "VN": 92,
+        "PR": 94,
+        "CA": 83,
+        "MS": 91,
+        "UE": 40,
+        "PC": 87
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en SHO (94) y PAC (92), aportando fijar centrales, atacar el area y finalizar jugadas.",
+      "description": "Jugador C1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en PR (94) y MS (91), aportando fijar centrales, atacar el area y finalizar jugadas.",
       "active": false
     },
     {
@@ -31,16 +31,16 @@
       "x": 30,
       "y": 52,
       "stats": {
-        "PAC": 78,
-        "SHO": 82,
-        "PAS": 91,
-        "DRI": 87,
-        "DEF": 80,
-        "PHY": 82
+        "VN": 78,
+        "PR": 82,
+        "CA": 91,
+        "MS": 87,
+        "UE": 80,
+        "PC": 82
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en PAS (91) y DRI (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
+      "description": "Jugador C4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en CA (91) y MS (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
       "active": false
     },
     {
@@ -51,16 +51,16 @@
       "x": 70,
       "y": 52,
       "stats": {
-        "PAC": 93,
-        "SHO": 88,
-        "PAS": 87,
-        "DRI": 92,
-        "DEF": 39,
-        "PHY": 74
+        "VN": 93,
+        "PR": 88,
+        "CA": 87,
+        "MS": 92,
+        "UE": 39,
+        "PC": 74
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en PAC (93) y DRI (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
+      "description": "Jugador C3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en VN (93) y MS (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
       "active": false
     },
     {
@@ -71,16 +71,16 @@
       "x": 20,
       "y": 75,
       "stats": {
-        "PAC": 78,
-        "SHO": 50,
-        "PAS": 74,
-        "DRI": 70,
-        "DEF": 91,
-        "PHY": 89
+        "VN": 78,
+        "PR": 50,
+        "CA": 74,
+        "MS": 70,
+        "UE": 91,
+        "PC": 89
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en DEF (91) y PHY (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
+      "description": "Jugador C8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en UE (91) y PC (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
       "active": false
     },
     {
@@ -91,16 +91,16 @@
       "x": 80,
       "y": 75,
       "stats": {
-        "PAC": 76,
-        "SHO": 53,
-        "PAS": 73,
-        "DRI": 69,
-        "DEF": 90,
-        "PHY": 88
+        "VN": 76,
+        "PR": 53,
+        "CA": 73,
+        "MS": 69,
+        "UE": 90,
+        "PC": 88
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en DEF (90) y PHY (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
+      "description": "Jugador C9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en UE (90) y PC (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
       "active": false
     },
     {
@@ -111,16 +111,16 @@
       "x": 50,
       "y": 90,
       "stats": {
-        "EST": 89,
-        "MAN": 88,
-        "SAQ": 85,
-        "REF": 92,
-        "VEL": 62,
-        "POS": 90
+        "VN": 89,
+        "PR": 88,
+        "CA": 85,
+        "MS": 92,
+        "UE": 62,
+        "PC": 90
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en REF (92) y POS (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
+      "description": "Jugador C11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en MS (92) y PC (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
       "active": false
     }
   ]

@@ -1,4 +1,4 @@
-import { createPlayerCard } from "./player-card.js?v=3";
+import { createPlayerCard } from "./player-card.js?v=4";
 import { createTeamLogo } from "./team-logo.js";
 
 export function createLineupPitch(team, options = {}) {

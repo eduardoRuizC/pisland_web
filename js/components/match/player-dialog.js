@@ -1,7 +1,8 @@
-import { createStatsHexbin } from "./stats-hexbin.js";
+import { createStatsHexbin } from "./stats-hexbin.js?v=2";
 import { createTeamLogo } from "./team-logo.js";
 import { createCaptainBadge } from "./captain-badge.js";
 import { fitText } from "../../utils/text-fit.js?v=7";
+import { getPlayerStatEntries } from "../../utils/player-stats.js?v=1";
 
 let dialogSequence = 0;
 
@@ -114,12 +115,17 @@ export function createPlayerDialog(options = {}) {
   hexbinButton.type = "button";
   hexbinButton.setAttribute("aria-pressed", "false");
   statsHeader.append(statsTitle, statsToggle);
+  const statsViews = documentRef.createElement("div");
+  statsViews.className = "player-dialog__stats-views";
   const statsGrid = documentRef.createElement("div");
-  statsGrid.className = "player-dialog__stats";
+  statsGrid.className = "player-dialog__stats player-dialog__stats-view";
+  statsGrid.setAttribute("aria-hidden", "false");
   const hexbin = documentRef.createElement("div");
-  hexbin.className = "player-dialog__hexbin";
+  hexbin.className = "player-dialog__hexbin player-dialog__stats-view";
+  hexbin.setAttribute("aria-hidden", "true");
   hexbin.hidden = true;
-  statsSection.replaceChildren(statsHeader, statsGrid, hexbin);
+  statsViews.append(statsGrid, hexbin);
+  statsSection.replaceChildren(statsHeader, statsViews);
   body.append(statsSection);
   const announcement = appendText(documentRef, body, "p", "sr-only", "");
   announcement.setAttribute("aria-live", "polite");
@@ -131,6 +137,35 @@ export function createPlayerDialog(options = {}) {
   dialog.append(previousButton, nextButton, closeButton, scroll);
 
   const windowRef = documentRef.defaultView;
+  const measureStatsViewHeight = (view) => {
+    const wasHidden = view.hidden;
+    const previousStyles = {
+      position: view.style.position,
+      visibility: view.style.visibility,
+      pointerEvents: view.style.pointerEvents,
+      width: view.style.width,
+      height: view.style.height,
+    };
+    view.hidden = false;
+    view.style.position = "absolute";
+    view.style.visibility = "hidden";
+    view.style.pointerEvents = "none";
+    view.style.width = "100%";
+    view.style.height = "auto";
+    const height = view.getBoundingClientRect().height;
+    Object.assign(view.style, previousStyles);
+    view.hidden = wasHidden;
+    return height;
+  };
+  const syncStatsViewHeight = () => {
+    if (!dialog.open || statsViews.clientWidth === 0) return;
+    const height = Math.max(
+      measureStatsViewHeight(statsGrid),
+      measureStatsViewHeight(hexbin),
+    );
+    if (height > 0) statsViews.style.height = `${Math.ceil(height)}px`;
+  };
+  const handleResize = () => syncStatsViewHeight();
   const headingTextFitCleanup = fitText(heading, {
     container: identity,
     minFontSize: 28,
@@ -172,8 +207,11 @@ export function createPlayerDialog(options = {}) {
   };
   const setStatsView = (view) => {
     const showBars = view === "bars";
+    syncStatsViewHeight();
     statsGrid.hidden = !showBars;
     hexbin.hidden = showBars;
+    statsGrid.setAttribute("aria-hidden", String(!showBars));
+    hexbin.setAttribute("aria-hidden", String(showBars));
     barsButton.setAttribute("aria-pressed", String(showBars));
     hexbinButton.setAttribute("aria-pressed", String(!showBars));
   };
@@ -222,7 +260,7 @@ export function createPlayerDialog(options = {}) {
     previousButton.setAttribute("aria-label", canNavigate ? `Jugador anterior: ${previousPlayer.name}` : "No hay otro jugador activo");
     nextButton.setAttribute("aria-label", canNavigate ? `Jugador siguiente: ${nextPlayer.name}` : "No hay otro jugador activo");
 
-    const stats = Object.entries(player.stats).slice(0, 6).map(([label, value]) => {
+    const stats = getPlayerStatEntries(player.stats).map(({ label, value }) => {
       const stat = documentRef.createElement("div");
       const header = documentRef.createElement("div");
       const chart = documentRef.createElement("div");
@@ -247,6 +285,7 @@ export function createPlayerDialog(options = {}) {
     });
     statsGrid.replaceChildren(...stats);
     hexbin.replaceChildren(createStatsHexbin(player.stats, { documentRef }));
+    if (dialog.open) windowRef?.requestAnimationFrame?.(syncStatsViewHeight);
     if (announce) {
       announcement.textContent = `${player.name}${player.captain ? ", capitán" : ""}, ${player.position}, valoración ${player.rating}`;
     }
@@ -281,6 +320,7 @@ export function createPlayerDialog(options = {}) {
   dialog.addEventListener("close", handleClose);
   dialog.addEventListener("keydown", handleKeydown);
   scroll.addEventListener("scroll", handleScroll, { passive: true });
+  windowRef?.addEventListener("resize", handleResize);
 
   const open = (player, team, trigger) => {
     if (!player.active) return false;
@@ -303,7 +343,9 @@ export function createPlayerDialog(options = {}) {
       windowRef?.requestAnimationFrame?.(() => {
         headingTextFitCleanup.fit();
         descriptionTextFitCleanup.fit();
+        syncStatsViewHeight();
       });
+      documentRef.fonts?.ready?.then(syncStatsViewHeight);
     }
     return true;
   };
@@ -319,6 +361,7 @@ export function createPlayerDialog(options = {}) {
     dialog.removeEventListener("close", handleClose);
     dialog.removeEventListener("keydown", handleKeydown);
     scroll.removeEventListener("scroll", handleScroll);
+    windowRef?.removeEventListener("resize", handleResize);
     headingTextFitCleanup();
     descriptionTextFitCleanup();
     if (dialog.open) dialog.close();

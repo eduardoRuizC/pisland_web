@@ -1,4 +1,5 @@
 import { createCaptainBadge } from "./captain-badge.js";
+import { getPlayerStatEntries } from "../../utils/player-stats.js?v=1";
 
 export function createPlayerCard(player, options = {}) {
   const documentRef = options.documentRef ?? document;
@@ -7,7 +8,7 @@ export function createPlayerCard(player, options = {}) {
   const card = documentRef.createElement("div");
   const isActive = player.active;
   const trigger = documentRef.createElement(isActive ? "button" : "div");
-  const stats = Object.entries(player.stats).slice(0, 6);
+  const stats = getPlayerStatEntries(player.stats);
   const customImagePath = typeof player.fieldImage === "string"
     ? player.fieldImage.trim()
     : typeof player.image === "string"
@@ -80,12 +81,12 @@ export function createPlayerCard(player, options = {}) {
 
   const statsNode = documentRef.createElement("div");
   statsNode.className = "lineup-card__stats";
-  stats.forEach(([label, value]) => {
+  stats.forEach(({ key, value }) => {
     const stat = documentRef.createElement("div");
     stat.className = "lineup-card__stat";
     const labelNode = documentRef.createElement("span");
     labelNode.className = "lineup-card__stat-label";
-    labelNode.textContent = label;
+    labelNode.textContent = key;
     const valueNode = documentRef.createElement("span");
     valueNode.className = "lineup-card__stat-value";
     valueNode.textContent = isActive ? String(value) : "?";

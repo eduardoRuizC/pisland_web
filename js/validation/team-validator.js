@@ -1,3 +1,5 @@
+import { PLAYER_STAT_KEYS } from "../utils/player-stats.js?v=1";
+
 function isPlainObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
@@ -15,7 +17,7 @@ export function validateManifest(manifest) {
 
   const filenames = new Set();
   manifest.teams.forEach((filename, index) => {
-    if (typeof filename !== "string" || !/^[a-z0-9][a-z0-9-]*\.json$/u.test(filename)) {
+    if (typeof filename !== "string" || !/^[a-z0-9][a-z0-9-]*\.json(?:\?v=\d+)?$/u.test(filename)) {
       throw new TypeError(`La entrada ${index + 1} del manifest no es un nombre JSON válido.`);
     }
     if (filenames.has(filename)) {
@@ -61,12 +63,21 @@ export function validatePlayer(player, index = 0, teamName = "equipo") {
     }
   }
 
-  if (!isPlainObject(player.stats) || Object.keys(player.stats).length === 0) {
+  if (!isPlainObject(player.stats)) {
     throw new TypeError(`Las estadísticas del jugador ${index + 1} de ${teamName} no son válidas.`);
   }
 
-  Object.entries(player.stats).forEach(([label, value]) => {
-    assertNonEmptyString(label, `La etiqueta estadística del jugador ${index + 1}`);
+  const statKeys = Object.keys(player.stats);
+  const hasExactStats = statKeys.length === PLAYER_STAT_KEYS.length
+    && PLAYER_STAT_KEYS.every((key) => statKeys.includes(key));
+  if (!hasExactStats) {
+    throw new TypeError(
+      `Las estadísticas del jugador ${index + 1} de ${teamName} deben ser ${PLAYER_STAT_KEYS.join(", ")}.`,
+    );
+  }
+
+  PLAYER_STAT_KEYS.forEach((label) => {
+    const value = player.stats[label];
     if (!Number.isFinite(value)) {
       throw new TypeError(`La estadística ${label} del jugador ${index + 1} debe ser numérica.`);
     }
