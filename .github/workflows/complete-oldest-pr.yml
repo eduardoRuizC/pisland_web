@@ -1,0 +1,295 @@
+name: Complete oldest pull request
+
+on:
+  schedule:
+    - cron: "5 14 * * *"
+      timezone: "Europe/Madrid"
+
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: complete-oldest-pull-request
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  GH_REPO: ${{ github.repository }}
+  TARGET_BRANCH: master
+  PAGES_WORKFLOW: pages.yml
+
+jobs:
+  complete-oldest-pr:
+    name: Approve and merge oldest PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Select oldest open PR into master
+        id: select
+        run: |
+          set -euo pipefail
+
+          pr_json="$(
+            gh api --method GET "repos/${GH_REPO}/pulls" \
+              -f state=open \
+              -f base="${TARGET_BRANCH}" \
+              -f sort=created \
+              -f direction=asc \
+              -F per_page=1
+          )"
+
+          if [[ "$(jq 'length' <<<"$pr_json")" -eq 0 ]]; then
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "## No pull request to process"
+              echo
+              echo "There are no open pull requests targeting \`${TARGET_BRANCH}\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          pr_number="$(jq -r '.[0].number' <<<"$pr_json")"
+          pr_url="$(jq -r '.[0].html_url' <<<"$pr_json")"
+          head_sha="$(jq -r '.[0].head.sha' <<<"$pr_json")"
+          author="$(jq -r '.[0].user.login' <<<"$pr_json")"
+          created_at="$(jq -r '.[0].created_at' <<<"$pr_json")"
+
+          {
+            echo "found=true"
+            echo "pr_number=${pr_number}"
+            echo "pr_url=${pr_url}"
+            echo "head_sha=${head_sha}"
+            echo "author=${author}"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Oldest pull request selected"
+            echo
+            echo "- PR: [#${pr_number}](${pr_url})"
+            echo "- Created: \`${created_at}\`"
+            echo "- Author: \`${author}\`"
+            echo "- Target: \`${TARGET_BRANCH}\`"
+            echo "- Validated head: \`${head_sha}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Validate selected PR
+        if: steps.select.outputs.found == 'true'
+        env:
+          PR_NUMBER: ${{ steps.select.outputs.pr_number }}
+          PR_URL: ${{ steps.select.outputs.pr_url }}
+          SELECTED_HEAD_SHA: ${{ steps.select.outputs.head_sha }}
+          PR_AUTHOR: ${{ steps.select.outputs.author }}
+        run: |
+          set -euo pipefail
+
+          details=""
+          mergeable="UNKNOWN"
+          for attempt in 1 2 3; do
+            details="$(
+              gh pr view "$PR_NUMBER" --repo "$GH_REPO" \
+                --json headRefOid,isDraft,mergeable,reviewDecision,statusCheckRollup,url
+            )"
+            mergeable="$(jq -r '.mergeable' <<<"$details")"
+
+            if [[ "$mergeable" != "UNKNOWN" ]]; then
+              break
+            fi
+
+            if [[ "$attempt" -lt 3 ]]; then
+              sleep 5
+            fi
+          done
+
+          current_head_sha="$(jq -r '.headRefOid' <<<"$details")"
+          is_draft="$(jq -r '.isDraft' <<<"$details")"
+          review_decision="$(jq -r '.reviewDecision // ""' <<<"$details")"
+          blocked_checks="$(
+            jq -r '
+              [
+                .statusCheckRollup[]?
+                | if .__typename == "CheckRun" then
+                    select(
+                      .status != "COMPLETED"
+                      or (
+                        .conclusion != "SUCCESS"
+                        and .conclusion != "NEUTRAL"
+                        and .conclusion != "SKIPPED"
+                      )
+                    )
+                  else
+                    select(.state != "SUCCESS")
+                  end
+                | "\(.name // .context // "unnamed check") [\(.status // .state // "UNKNOWN")/\(.conclusion // "NONE")]"
+              ]
+              | join(", ")
+            ' <<<"$details"
+          )"
+
+          reasons=()
+
+          if [[ "$current_head_sha" != "$SELECTED_HEAD_SHA" ]]; then
+            reasons+=("The PR head changed after selection (${SELECTED_HEAD_SHA} -> ${current_head_sha}).")
+          fi
+
+          if [[ "$is_draft" == "true" ]]; then
+            reasons+=("The oldest PR is still a draft.")
+          fi
+
+          case "$mergeable" in
+            MERGEABLE)
+              ;;
+            CONFLICTING)
+              reasons+=("The oldest PR has merge conflicts.")
+              ;;
+            UNKNOWN)
+              reasons+=("GitHub could not determine mergeability after three attempts.")
+              ;;
+            *)
+              reasons+=("Unexpected mergeability state: ${mergeable}.")
+              ;;
+          esac
+
+          if [[ "$review_decision" == "CHANGES_REQUESTED" ]]; then
+            reasons+=("The oldest PR has an active changes-requested review.")
+          fi
+
+          if [[ -n "$blocked_checks" ]]; then
+            reasons+=("Checks are not ready: ${blocked_checks}.")
+          fi
+
+          if [[ "$PR_AUTHOR" == "github-actions[bot]" ]]; then
+            reasons+=("GitHub Actions cannot approve a PR authored by its own identity.")
+          fi
+
+          if (( ${#reasons[@]} > 0 )); then
+            {
+              echo
+              echo "### Validation blocked"
+              echo
+              for reason in "${reasons[@]}"; do
+                echo "- ${reason}"
+              done
+              echo
+              echo "No newer pull request was considered. Resolve the blockage and use a fresh manual run, or wait for the next schedule."
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            printf '::error::%s\n' "${reasons[*]}"
+            exit 1
+          fi
+
+          {
+            echo
+            echo "### Validation passed"
+            echo
+            echo "PR [#${PR_NUMBER}](${PR_URL}) is ready for automated approval and merge."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Approve validated head
+        if: steps.select.outputs.found == 'true'
+        env:
+          PR_NUMBER: ${{ steps.select.outputs.pr_number }}
+          PR_URL: ${{ steps.select.outputs.pr_url }}
+          HEAD_SHA: ${{ steps.select.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+
+          if ! review_json="$(
+            gh api --method POST "repos/${GH_REPO}/pulls/${PR_NUMBER}/reviews" \
+              -f commit_id="$HEAD_SHA" \
+              -f event=APPROVE \
+              -f body="Approved automatically by the daily oldest-PR workflow." \
+              2>&1
+          )"; then
+            {
+              echo
+              echo "### Approval failed"
+              echo
+              echo "The validated PR was not merged. Confirm that **Allow GitHub Actions to create and approve pull requests** is enabled."
+              echo
+              echo '```text'
+              echo "$review_json"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          review_url="$(jq -r '.html_url // ""' <<<"$review_json")"
+          {
+            echo
+            echo "### Approval submitted"
+            echo
+            echo "Approved [PR #${PR_NUMBER}](${PR_URL}) at head \`${HEAD_SHA}\`."
+            if [[ -n "$review_url" ]]; then
+              echo "Review: ${review_url}"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Merge approved PR
+        if: steps.select.outputs.found == 'true'
+        env:
+          PR_NUMBER: ${{ steps.select.outputs.pr_number }}
+          PR_URL: ${{ steps.select.outputs.pr_url }}
+          HEAD_SHA: ${{ steps.select.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+
+          if ! merge_output="$(
+            gh pr merge "$PR_NUMBER" --repo "$GH_REPO" \
+              --merge \
+              --match-head-commit "$HEAD_SHA" \
+              2>&1
+          )"; then
+            {
+              echo
+              echo "### Merge failed"
+              echo
+              echo "Approval was submitted, but [PR #${PR_NUMBER}](${PR_URL}) was not merged. The expected head was \`${HEAD_SHA}\`."
+              echo
+              echo '```text'
+              echo "$merge_output"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          {
+            echo
+            echo "### Merge completed"
+            echo
+            echo "Merged [PR #${PR_NUMBER}](${PR_URL}) with a merge commit. The head branch was not deleted."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Dispatch GitHub Pages deployment
+        if: steps.select.outputs.found == 'true'
+        env:
+          PR_NUMBER: ${{ steps.select.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+
+          if ! dispatch_output="$(
+            gh workflow run "$PAGES_WORKFLOW" --repo "$GH_REPO" --ref "$TARGET_BRANCH" 2>&1
+          )"; then
+            {
+              echo
+              echo "### Pages dispatch failed"
+              echo
+              echo "PR #${PR_NUMBER} was already merged and cannot be rolled back by this workflow."
+              echo "Run **Deploy GitHub Pages** manually; do not rerun this PR workflow because that could process the next PR."
+              echo
+              echo '```text'
+              echo "$dispatch_output"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          {
+            echo
+            echo "### Pages deployment requested"
+            echo
+            echo "Dispatched \`${PAGES_WORKFLOW}\` on \`${TARGET_BRANCH}\`."
+          } >> "$GITHUB_STEP_SUMMARY"
