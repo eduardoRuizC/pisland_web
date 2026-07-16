@@ -1,9 +1,9 @@
-name: Deploy GitHub Pages - Scheduled
+name: Deploy GitHub Pages
 
 on:
-  schedule:
-   - cron: "00 16 16 7 *"
-     timezone: "Europe/Madrid"
+  push:
+    branches:
+      - master
 
   workflow_dispatch:
 
@@ -23,9 +23,14 @@ jobs:
     outputs:
       enabled: ${{ steps.window.outputs.enabled }}
     steps:
-      - name: Allow manual calls or the 2026 schedule window
+      - name: Allow pushes, manual calls, or the 2026 schedule window
         id: window
         run: |
+          if [[ "$GITHUB_EVENT_NAME" != "schedule" ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           current_date="$(TZ=Europe/Madrid date +%F)"
           if [[ "$current_date" < "2026-07-15" || "$current_date" > "2026-07-25" ]]; then
             echo "Scheduled deployment is disabled for ${current_date}."
