@@ -4,24 +4,24 @@
   "logo": "assets/teams/rompediscotecas/rompediscotecas-logo.png",
   "players": [
     {
-      "name": "Jugador A1",
+      "name": "Indio",
       "captain": true,
       "position": "DC",
-      "rating": 0,
       "x": 50,
       "y": 18,
+      "rating": 90,
       "stats": {
-        "VN": 0,
-        "PR": 94,
-        "CA": 83,
-        "MS": 91,
-        "UE": 40,
-        "PC": 87
+        "VN": 82,
+        "PR": 95,
+        "CA": 86,
+        "MS": 90,
+        "UE": 94,
+        "PC": 95
       },
-      "fieldImage": "assets/players/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Rompediscotecas. Destaca especialmente en PR (94) y MS (91), aportando fijar centrales, atacar el area y finalizar jugadas.",
-      "active": false
+      "fieldImage": "assets/teams/rompediscotecas/indiosinfondo.png",
+      "detailImage": "assets/teams/rompediscotecas/javi.png",
+      "description": "El martillo de los rompediscotecas , su perreocidad es la llave para desestabilizar al equipo contrario , su picardía es la que a echo que llegue a ser un delantero desequilibrante.",
+      "active": true
     },
     {
       "name": "Jugador A4",
