@@ -21,7 +21,7 @@
       "fieldImage": "assets/teams/sangre-nueva/eriksinfondo.png",
       "detailImage": "assets/teams/sangre-nueva/erik.png",
       "description": "Erik tiene gasolina para cualquier noche y convierte cada misión secundaria en una historia digna de contar, su resistencia y ganas de aventura mantienen a Sangre Nueva en movimiento hasta el amanecer.",
-      "active": false
+      "active": true
     },
     {
       "name": "Brigitte",

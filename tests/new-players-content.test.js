@@ -25,7 +25,7 @@ test("the new-players news is valid and leads the current manifest", async () =>
 
 test("the player announcement has one ordered slot per team and is the active dialog", async () => {
   const [dialogMarkup, indexMarkup] = await Promise.all([
-    readProjectFile("dialogs/jugadores-v4.html"),
+    readProjectFile("dialogs/jugadores-v5.html"),
     readProjectFile("index.html"),
   ]);
   const slots = [...dialogMarkup.matchAll(/data-player-slot="([^"]+)"/gu)]
@@ -36,15 +36,15 @@ test("the player announcement has one ordered slot per team and is the active di
     .map((match) => match[1]);
 
   assert.deepEqual(slots, ["team-a", "team-c", "team-b", "team-d"]);
-  assert.deepEqual(playerNames, ["Nerea", "Aritz", "Marina", "Brigitte"]);
+  assert.deepEqual(playerNames, ["Diana", "Sastian", "Yanire", "Erik"]);
   assert.equal(playerImages.length, 4);
   assert.deepEqual(
     playerImages.map((image) => image.match(/\ssrc="([^"]+)"/u)?.[1]),
     [
-      "assets/teams/rompediscotecas/nereasinfondo.png",
-      "assets/teams/gargolas/aritzsinfondo.png",
-      "assets/teams/bichotas/marinasinfondo.png",
-      "assets/teams/sangre-nueva/brigitesinfondo.png",
+      "assets/player-card-template.png",
+      "assets/teams/gargolas/sastrosinfondo.png",
+      "assets/teams/bichotas/yaniresinfondo.png",
+      "assets/teams/sangre-nueva/eriksinfondo.png",
     ],
   );
   playerImages.forEach((image) => {
@@ -60,7 +60,7 @@ test("the player announcement has one ordered slot per team and is the active di
   assert.match(dialogMarkup, /data-close-trailer-modal/u);
   assert.doesNotMatch(dialogMarkup, /<(?:script|style)\b/iu);
   assert.match(indexMarkup, /data-manifest-url="news\/index\.json\?v=1"/u);
-  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v4\.html\?v=1"/u);
+  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v5\.html\?v=1"/u);
 });
 
 test("player drops accumulate while unrevealed players remain inactive", async () => {
@@ -77,10 +77,10 @@ test("player drops accumulate while unrevealed players remain inactive", async (
   assert.deepEqual(
     teams.map((team) => team.players.filter((player) => player.active).map((player) => player.name)),
     [
-      ["Indio", "Nerea", "Anuska", "Sara Hippie"],
-      ["Ivan", "Aritz", "Diana", "Pabloski"],
-      ["Iván", "Andrea", "Geen", "Marina"],
-      ["Brigitte", "Ely", "Emma", "Paola"],
+      ["Indio", "Diana", "Nerea", "Anuska", "Sara Hippie"],
+      ["Ivan", "Sastian", "Aritz", "Diana", "Pabloski"],
+      ["Iván", "Andrea", "Geen", "Yanire", "Marina"],
+      ["Erik", "Brigitte", "Ely", "Emma", "Paola"],
     ],
   );
 });

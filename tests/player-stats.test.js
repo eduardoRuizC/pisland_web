@@ -62,12 +62,12 @@ test("every team uses the new stats and versioned public data URLs", async () =>
   const manifestUrl = new URL("../teams/index.json", import.meta.url);
   const manifest = validateManifest(JSON.parse(await readFile(manifestUrl, "utf8")));
   const indexMarkup = await readFile(new URL("../index.html", import.meta.url), "utf8");
-  assert.match(indexMarkup, /data-manifest-url="teams\/index\.json\?v=13"/u);
+  assert.match(indexMarkup, /data-manifest-url="teams\/index\.json\?v=14"/u);
   assert.ok(manifest.teams.every((filename) => /\.json\?v=\d+$/u.test(filename)));
-  assert.ok(manifest.teams.includes("rompediscotecas.json?v=8"));
-  assert.ok(manifest.teams.includes("gargolas.json?v=8"));
-  assert.ok(manifest.teams.includes("bichotas.json?v=8"));
-  assert.ok(manifest.teams.includes("sangre-nueva.json?v=8"));
+  assert.ok(manifest.teams.includes("rompediscotecas.json?v=9"));
+  assert.ok(manifest.teams.includes("gargolas.json?v=9"));
+  assert.ok(manifest.teams.includes("bichotas.json?v=9"));
+  assert.ok(manifest.teams.includes("sangre-nueva.json?v=9"));
 
   for (const filename of manifest.teams) {
     const dataUrl = new URL(filename.replace(/\?.*$/u, ""), manifestUrl);

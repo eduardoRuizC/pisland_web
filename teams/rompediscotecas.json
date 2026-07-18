@@ -41,7 +41,7 @@
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
       "description": "Diana es puro perreo y picardía, una combinación explosiva que le permite romper la pista, sorprender al equipo contrario y mantener a los Rompediscotecas siempre un paso por delante.",
-      "active": false
+      "active": true
     },
     {
       "name": "Nerea",

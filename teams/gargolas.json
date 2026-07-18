@@ -41,7 +41,7 @@
       "fieldImage": "assets/teams/gargolas/sastrosinfondo.png",
       "detailImage": "assets/teams/gargolas/sastian.png",
       "description": "Sastian tiene una visión privilegiada de la noche y una capacidad de alcohol a prueba de cualquier after, dos cualidades que le permiten mantener el rumbo de Gárgolas cuando la party se vuelve impredecible.",
-      "active": false
+      "active": true
     },
     {
       "name": "Aritz",
