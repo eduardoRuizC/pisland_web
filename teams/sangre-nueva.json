@@ -81,7 +81,7 @@
       "fieldImage": "assets/teams/sangre-nueva/emmasinfondo.png",
       "detailImage": "assets/teams/sangre-nueva/emma.png",
       "description": "Emma tiene una resistencia legendaria y la picardía necesaria para escapar de cualquier lío, cuando la party se complica siempre encuentra la salida más inesperada.",
-      "active": false
+      "active": true
     },
     {
       "name": "Paola",

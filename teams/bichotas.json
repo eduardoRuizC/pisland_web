@@ -21,7 +21,7 @@
       "fieldImage": "assets/teams/bichotas/ivansinfondo.png",
       "detailImage": "assets/teams/bichotas/ivanana.png",
       "description": "Iván es el rey del perreo y la picardía de las Bichotas, capaz de revolucionar cualquier pista y encontrar siempre la jugada perfecta para poner a su equipo por delante.",
-      "active": false
+      "active": true
     },
     {
       "name": "Andrea",

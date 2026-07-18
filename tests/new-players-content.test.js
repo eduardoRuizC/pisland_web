@@ -25,7 +25,7 @@ test("the new-players news is valid and leads the current manifest", async () =>
 
 test("the player announcement has one ordered slot per team and is the active dialog", async () => {
   const [dialogMarkup, indexMarkup] = await Promise.all([
-    readProjectFile("dialogs/jugadores-v1.html"),
+    readProjectFile("dialogs/jugadores-v2.html"),
     readProjectFile("index.html"),
   ]);
   const slots = [...dialogMarkup.matchAll(/data-player-slot="([^"]+)"/gu)]
@@ -36,15 +36,15 @@ test("the player announcement has one ordered slot per team and is the active di
     .map((match) => match[1]);
 
   assert.deepEqual(slots, ["team-a", "team-c", "team-b", "team-d"]);
-  assert.deepEqual(playerNames, ["Diana", "Sastian", "Iván", "Erik"]);
+  assert.deepEqual(playerNames, ["Sara Hippie", "Diana", "Iván", "Emma"]);
   assert.equal(playerImages.length, 4);
   assert.deepEqual(
     playerImages.map((image) => image.match(/\ssrc="([^"]+)"/u)?.[1]),
     [
-      "assets/player-card-template.png",
-      "assets/teams/gargolas/sastrosinfondo.png",
+      "assets/teams/rompediscotecas/sarasinfondo.png",
+      "assets/teams/gargolas/dianasinfondo.png",
       "assets/teams/bichotas/ivansinfondo.png",
-      "assets/teams/sangre-nueva/eriksinfondo.png",
+      "assets/teams/sangre-nueva/emmasinfondo.png",
     ],
   );
   playerImages.forEach((image) => {
@@ -60,5 +60,27 @@ test("the player announcement has one ordered slot per team and is the active di
   assert.match(dialogMarkup, /data-close-trailer-modal/u);
   assert.doesNotMatch(dialogMarkup, /<(?:script|style)\b/iu);
   assert.match(indexMarkup, /data-manifest-url="news\/index\.json\?v=1"/u);
-  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v1\.html\?v=4"/u);
+  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v2\.html\?v=1"/u);
+});
+
+test("the second player drop keeps captains active and activates one new player per team", async () => {
+  const teamFiles = [
+    "teams/rompediscotecas.json",
+    "teams/gargolas.json",
+    "teams/bichotas.json",
+    "teams/sangre-nueva.json",
+  ];
+  const teams = await Promise.all(
+    teamFiles.map(async (path) => JSON.parse(await readProjectFile(path))),
+  );
+
+  assert.deepEqual(
+    teams.map((team) => team.players.filter((player) => player.active).map((player) => player.name)),
+    [
+      ["Indio", "Sara Hippie"],
+      ["Ivan", "Diana"],
+      ["Iván", "Geen"],
+      ["Emma", "Paola"],
+    ],
+  );
 });

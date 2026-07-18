@@ -58,7 +58,7 @@ dialogs/
   partido-v1.html           Partido section announcement version
   equipos-v1.html           Team reveal video announcement version
   capitan-*-v1.html         One daily captain announcement per team
-  jugadores-v1.html         Four-player announcement template
+  jugadores-v*.html         Historical four-player announcements
 news/
   index.json                Ordered news manifest
   alineaciones.json ...     One independent data file per news item
@@ -103,14 +103,16 @@ the final video, set the iframe `src` to
 has a `src` attribute. Increment the dialog query version in `index.html` when
 editing the currently published dialog.
 
-`dialogs/jugadores-v1.html` is the reusable announcement for player drops. It
+Each `dialogs/jugadores-v*.html` file preserves one player-drop announcement. It
 contains one editable `data-player-slot` for each team, in the same order as
 `teams/index.json`. Each `data-player-image` uses the player's transparent
 `fieldImage`; if that resource cannot be loaded, the dialog replaces it with
 `assets/player-card-template.png`. Keep the team ID on `data-player-slot`
-unchanged. Activate the completed announcement by setting the host's
-`data-dialog-src` to `dialogs/jugadores-v1.html?v=4`. This is the version
-currently selected in `index.html`.
+unchanged. Create the next numbered file for every four-player drop instead of
+overwriting an earlier announcement. Activate the completed announcement by
+setting the host's `data-dialog-src` to its new filename with `?v=1`. The file
+currently selected in `index.html` is `dialogs/jugadores-v2.html?v=1`; the next
+drop should use `dialogs/jugadores-v3.html?v=1`.
 
 Captain CTAs use shareable links in the format
 `?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and

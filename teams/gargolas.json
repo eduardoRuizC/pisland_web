@@ -101,7 +101,7 @@
       "fieldImage": "assets/teams/gargolas/dianasinfondo.png",
       "detailImage": "assets/teams/gargolas/dianajsoh.png",
       "description": "Diana combina una capacidad de alcohol legendaria con la picardía justa para salir airosa de cualquier situación, cuando la noche se complica siempre tiene un truco preparado.",
-      "active": false
+      "active": true
     },
     {
       "name": "Pabloski",

@@ -101,7 +101,7 @@
       "fieldImage": "assets/teams/rompediscotecas/sarasinfondo.png",
       "detailImage": "assets/teams/rompediscotecas/sara.png",
       "description": "Sara Hippie tiene una visión privilegiada de la noche y una capacidad de alcohol inagotable, dos armas con las que mantiene la calma mientras el resto de la party pierde el norte.",
-      "active": false
+      "active": true
     },
     {
       "name": "DJ Andy",
