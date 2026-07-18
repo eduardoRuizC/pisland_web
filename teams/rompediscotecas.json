@@ -81,7 +81,7 @@
       "fieldImage": "assets/teams/rompediscotecas/anasinfondo.png",
       "detailImage": "assets/teams/rompediscotecas/anuska.png",
       "description": "Anuska es los ojos y el pegamento de los Rompediscotecas, su visión de la noche y su unión de equipo consiguen que nadie se pierda y que todos lleguen juntos hasta el final.",
-      "active": false
+      "active": true
     },
     {
       "name": "Sara Hippie",

@@ -41,7 +41,7 @@
       "fieldImage": "assets/teams/bichotas/andreasinfondo.png",
       "detailImage": "assets/teams/bichotas/andrea.png",
       "description": "Andrea ve la noche antes que nadie y sabe exactamente cuándo subir el perreo. Su visión y su ritmo la convierten en una pieza impredecible capaz de cambiar el rumbo de la party.",
-      "active": false
+      "active": true
     },
     {
       "name": "Geen",

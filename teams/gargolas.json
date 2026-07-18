@@ -121,7 +121,7 @@
       "fieldImage": "assets/teams/gargolas/pabloskisinfondo.png",
       "detailImage": "assets/teams/gargolas/pabloski.png",
       "description": "Pabloski es el último en abandonar la party y el primero en reunir al equipo, su capacidad de alcohol y su espíritu de unión mantienen a Gárgolas en pie hasta que sale el sol.",
-      "active": false
+      "active": true
     }
   ]
 }
