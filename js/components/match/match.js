@@ -41,7 +41,7 @@ export async function initMatch(root, options = {}) {
   if (!root) return () => {};
 
   const documentRef = options.documentRef ?? root.ownerDocument;
-  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json?v=12";
+  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "teams/index.json?v=13";
   const imagePath = options.imagePath ?? root.dataset.playerCardImage ?? "assets/player-card-template.png";
   const loadTeamsImpl = options.loadTeamsImpl ?? loadTeams;
   const locationRef = options.locationRef ?? documentRef.defaultView?.location;

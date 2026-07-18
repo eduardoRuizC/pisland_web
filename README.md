@@ -111,8 +111,8 @@ contains one editable `data-player-slot` for each team, in the same order as
 unchanged. Create the next numbered file for every four-player drop instead of
 overwriting an earlier announcement. Activate the completed announcement by
 setting the host's `data-dialog-src` to its new filename with `?v=1`. The file
-currently selected in `index.html` is `dialogs/jugadores-v3.html?v=1`; the next
-drop should use `dialogs/jugadores-v4.html?v=1`.
+currently selected in `index.html` is `dialogs/jugadores-v4.html?v=1`; the next
+drop should use `dialogs/jugadores-v5.html?v=1`.
 
 Captain CTAs use shareable links in the format
 `?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and

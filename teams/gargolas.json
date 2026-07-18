@@ -61,7 +61,7 @@
       "fieldImage": "assets/teams/gargolas/aritzsinfondo.png",
       "detailImage": "assets/teams/gargolas/aritz.png",
       "description": "Aritz convierte cada misión secundaria en una aventura de equipo, su capacidad para mantener unidas a las Gárgolas hace que cualquier plan improvisado termine siendo una victoria compartida.",
-      "active": false
+      "active": true
     },
     {
       "name": "Carla",

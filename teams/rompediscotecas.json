@@ -61,7 +61,7 @@
       "fieldImage": "assets/teams/rompediscotecas/nereasinfondo.png",
       "detailImage": "assets/teams/rompediscotecas/nerea.png",
       "description": "Nerea ve cada giro de la noche antes que nadie y convierte cualquier misión secundaria en el plan principal, su energía mantiene viva la party y hace imposible saber cuál será su próxima aventura.",
-      "active": false
+      "active": true
     },
     {
       "name": "Anuska",

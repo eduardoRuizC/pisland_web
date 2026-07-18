@@ -41,7 +41,7 @@
       "fieldImage": "assets/teams/sangre-nueva/brigitesinfondo.png",
       "detailImage": "assets/teams/sangre-nueva/brigitte.png",
       "description": "Brigitte domina el perreo y la picardía como nadie, sabe cuándo romper la pista y cuándo sacar ese giro inesperado que deja al resto de la party sin respuesta.",
-      "active": false
+      "active": true
     },
     {
       "name": "Ely",
