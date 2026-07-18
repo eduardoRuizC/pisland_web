@@ -121,7 +121,7 @@
       "fieldImage": "assets/teams/sangre-nueva/sheilasinfondo.png",
       "detailImage": "assets/teams/sangre-nueva/sheila.png",
       "description": "Sheila lleva el perreo hasta el amanecer gracias a una capacidad de alcohol inagotable, cuando ella marca el ritmo Sangre Nueva sabe que la party todavía no ha terminado.",
-      "active": false
+      "active": true
     }
   ]
 }

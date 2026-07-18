@@ -100,7 +100,7 @@ export async function initNewsSection(root, options = {}) {
   if (!root) return () => {};
 
   const documentRef = options.documentRef ?? root.ownerDocument;
-  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "news/index.json";
+  const manifestUrl = options.manifestUrl ?? root.dataset.manifestUrl ?? "news/index.json?v=2";
   const loadNewsImpl = options.loadNewsImpl ?? loadNews;
   const status = root.querySelector("[data-news-status]");
   const grid = root.querySelector("[data-news-grid]");

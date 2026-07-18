@@ -121,7 +121,7 @@
       "fieldImage": "assets/teams/rompediscotecas/djandysinfondo.png",
       "detailImage": "assets/teams/rompediscotecas/djandy.png",
       "description": "DJ Andy convierte cada misión secundaria en el temazo de la noche, su legendaria capacidad de alcohol le permite mantener el ritmo y la cabina encendida hasta que salga el sol.",
-      "active": false
+      "active": true
     }
   ]
 }

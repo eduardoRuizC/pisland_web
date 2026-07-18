@@ -81,7 +81,7 @@
       "fieldImage": "assets/teams/gargolas/carlasinfondo.png",
       "detailImage": "assets/teams/gargolas/carla.png",
       "description": "Carla es la brújula de Gárgolas, ve la noche antes que nadie y sabe cómo mantener al equipo unido incluso cuando la party toma el rumbo más inesperado.",
-      "active": false
+      "active": true
     },
     {
       "name": "Diana",

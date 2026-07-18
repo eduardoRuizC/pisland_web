@@ -111,8 +111,9 @@ contains one editable `data-player-slot` for each team, in the same order as
 unchanged. Create the next numbered file for every four-player drop instead of
 overwriting an earlier announcement. Activate the completed announcement by
 setting the host's `data-dialog-src` to its new filename with `?v=1`. The file
-currently selected in `index.html` is `dialogs/jugadores-v5.html?v=1`; the next
-drop should use `dialogs/jugadores-v6.html?v=1`.
+currently selected in `index.html` is `dialogs/jugadores-v6.html?v=1`. All
+current player slots are now active; if another four-player drop is added, use
+`dialogs/jugadores-v7.html?v=1`.
 
 Captain CTAs use shareable links in the format
 `?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and
@@ -167,7 +168,7 @@ To add a news item:
 3. Optionally set its `icon` field to the desired Material Symbols name.
 
 The first item on the first page is featured using the fixed
-`assets/player-card-blank.png` image declared in `index.html`. The first page
+`assets/secret.png` image declared in `index.html`. The first page
 displays up to three items; later pages display up to four.
 
 ## Editing teams
