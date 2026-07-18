@@ -24,103 +24,103 @@
       "active": true
     },
     {
-      "name": "Jugador A4",
+      "name": "Diana",
       "captain": false,
       "position": "MI",
-      "rating": 0,
       "x": 30,
       "y": 52,
+      "rating": 83,
       "stats": {
-        "VN": 78,
-        "PR": 82,
-        "CA": 91,
-        "MS": 87,
-        "UE": 80,
-        "PC": 82
+        "VN": 83,
+        "PR": 98,
+        "CA": 68,
+        "MS": 73,
+        "UE": 78,
+        "PC": 98
       },
       "fieldImage": "assets/teams/player-placeholder.svg",
       "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en CA (91) y MS (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
+      "description": "Diana es puro perreo y picardía, una combinación explosiva que le permite romper la pista, sorprender al equipo contrario y mantener a los Rompediscotecas siempre un paso por delante.",
       "active": false
     },
     {
-      "name": "Jugador A3",
+      "name": "Nerea",
       "captain": false,
       "position": "MD",
-      "rating": 0,
       "x": 70,
       "y": 52,
+      "rating": 82,
       "stats": {
-        "VN": 93,
-        "PR": 88,
-        "CA": 87,
-        "MS": 92,
-        "UE": 39,
-        "PC": 74
-      },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A3 ocupa el rol de medio derecho abierto en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en VN (93) y MS (92), aportando abrir el campo, progresar por derecha y cerrar la banda.",
-      "active": false
-    },
-    {
-      "name": "Jugador A8",
-      "captain": false,
-      "position": "DFC",
-      "rating": 0,
-      "x": 20,
-      "y": 75,
-      "stats": {
-        "VN": 78,
-        "PR": 50,
-        "CA": 74,
-        "MS": 70,
-        "UE": 91,
-        "PC": 89
-      },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en UE (91) y PC (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
-      "active": false
-    },
-    {
-      "name": "Jugador A9",
-      "captain": false,
-      "position": "DFC",
-      "rating": 0,
-      "x": 80,
-      "y": 75,
-      "stats": {
-        "VN": 76,
-        "PR": 53,
-        "CA": 73,
-        "MS": 69,
-        "UE": 90,
+        "VN": 98,
+        "PR": 63,
+        "CA": 68,
+        "MS": 98,
+        "UE": 78,
         "PC": 88
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en UE (90) y PC (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
+      "fieldImage": "assets/teams/rompediscotecas/nereasinfondo.png",
+      "detailImage": "assets/teams/rompediscotecas/nerea.png",
+      "description": "Nerea ve cada giro de la noche antes que nadie y convierte cualquier misión secundaria en el plan principal, su energía mantiene viva la party y hace imposible saber cuál será su próxima aventura.",
       "active": false
     },
     {
-      "name": "Jugador A11",
+      "name": "Anuska",
+      "captain": false,
+      "position": "DFC",
+      "x": 20,
+      "y": 75,
+      "rating": 81,
+      "stats": {
+        "VN": 98,
+        "PR": 63,
+        "CA": 68,
+        "MS": 73,
+        "UE": 98,
+        "PC": 88
+      },
+      "fieldImage": "assets/teams/rompediscotecas/anasinfondo.png",
+      "detailImage": "assets/teams/rompediscotecas/anuska.png",
+      "description": "Anuska es los ojos y el pegamento de los Rompediscotecas, su visión de la noche y su unión de equipo consiguen que nadie se pierda y que todos lleguen juntos hasta el final.",
+      "active": false
+    },
+    {
+      "name": "Sara Hippie",
+      "captain": false,
+      "position": "DFC",
+      "x": 80,
+      "y": 75,
+      "rating": 83,
+      "stats": {
+        "VN": 98,
+        "PR": 63,
+        "CA": 98,
+        "MS": 73,
+        "UE": 78,
+        "PC": 88
+      },
+      "fieldImage": "assets/teams/rompediscotecas/sarasinfondo.png",
+      "detailImage": "assets/teams/rompediscotecas/sara.png",
+      "description": "Sara Hippie tiene una visión privilegiada de la noche y una capacidad de alcohol inagotable, dos armas con las que mantiene la calma mientras el resto de la party pierde el norte.",
+      "active": false
+    },
+    {
+      "name": "DJ Andy",
       "captain": false,
       "position": "POR",
-      "rating": 0,
       "x": 50,
       "y": 90,
+      "rating": 94,
       "stats": {
-        "VN": 89,
-        "PR": 88,
-        "CA": 85,
-        "MS": 92,
-        "UE": 62,
-        "PC": 90
+        "VN": 97,
+        "PR": 85,
+        "CA": 98,
+        "MS": 98,
+        "UE": 91,
+        "PC": 97
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador A11 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo A. Destaca especialmente en MS (92) y PC (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
+      "fieldImage": "assets/teams/rompediscotecas/djandysinfondo.png",
+      "detailImage": "assets/teams/rompediscotecas/djandy.png",
+      "description": "DJ Andy convierte cada misión secundaria en el temazo de la noche, su legendaria capacidad de alcohol le permite mantener el ritmo y la cabina encendida hasta que salga el sol.",
       "active": false
     }
   ]

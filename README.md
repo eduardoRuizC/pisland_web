@@ -105,12 +105,12 @@ editing the currently published dialog.
 
 `dialogs/jugadores-v1.html` is the reusable announcement for player drops. It
 contains one editable `data-player-slot` for each team, in the same order as
-`teams/index.json`. Before publishing it, set each `data-player-video` iframe
-`src` to `https://www.youtube-nocookie.com/embed/SHORT_ID`, remove its
-`tabindex="-1"` and replace the adjacent `data-player-name`. Keep the team ID on
-`data-player-slot` unchanged. Activate the completed announcement by setting the
-host's `data-dialog-src` to `dialogs/jugadores-v1.html?v=2`; until then, the
-currently selected captain dialog remains active.
+`teams/index.json`. Each `data-player-image` uses the player's transparent
+`fieldImage`; if that resource cannot be loaded, the dialog replaces it with
+`assets/player-card-template.png`. Keep the team ID on `data-player-slot`
+unchanged. Activate the completed announcement by setting the host's
+`data-dialog-src` to `dialogs/jugadores-v1.html?v=4`. This is the version
+currently selected in `index.html`.
 
 Captain CTAs use shareable links in the format
 `?team=team-a#partido`. Valid team IDs are `team-a`, `team-b`, `team-c` and

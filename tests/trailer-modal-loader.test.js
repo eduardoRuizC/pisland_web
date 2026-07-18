@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { initExternalTrailerModal } from "../js/components/trailer-modal.js";
+import { initExternalTrailerModal, initTrailerModal } from "../js/components/trailer-modal.js";
 
 function createHost(source = "dialogs/welcome-v1.html") {
   const documentRef = { baseURI: "https://example.test/event/" };
@@ -146,4 +146,42 @@ test("rejects cross-origin versions before requesting them", async () => {
 
   assert.equal(requested, false);
   assert.deepEqual(host.children, []);
+});
+
+test("uses the field default when an announcement player image fails", () => {
+  const imageListeners = new Map();
+  const image = {
+    dataset: { playerImageFallback: "assets/player-card-template.png" },
+    src: "assets/teams/sangre-nueva/eriksinfondo.png",
+    addEventListener(name, listener) {
+      imageListeners.set(name, listener);
+    },
+    removeEventListener(name, listener) {
+      if (imageListeners.get(name) === listener) imageListeners.delete(name);
+    },
+  };
+  const classList = { add() {}, remove() {} };
+  const documentRef = {
+    body: { classList },
+    addEventListener() {},
+    removeEventListener() {},
+  };
+  const dialog = {
+    ownerDocument: documentRef,
+    open: false,
+    querySelectorAll(selector) {
+      return selector === "img[data-player-image]" ? [image] : [];
+    },
+    addEventListener() {},
+    removeEventListener() {},
+  };
+
+  const cleanup = initTrailerModal(dialog, { autoOpen: false });
+  imageListeners.get("error")();
+
+  assert.equal(image.src, "assets/player-card-template.png");
+  assert.equal(image.dataset.playerImageFallbackApplied, "true");
+
+  cleanup();
+  assert.equal(imageListeners.has("error"), false);
 });

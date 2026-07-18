@@ -5,7 +5,14 @@ import { PLAYER_STAT_KEYS } from "../js/utils/player-stats.js";
 
 export const CONTROLLED_VARIATION_OFFSETS = Object.freeze([-6, -2, 2, 6]);
 export const HIGH_INPUT_THRESHOLD = 85;
-export const HIGH_PAIR_OFFSETS = Object.freeze([-40, -30, -20, -10]);
+export const HIGH_PAIR_PENALTIES = Object.freeze({
+  VN: 15,
+  PR: 35,
+  CA: 30,
+  MS: 25,
+  UE: 20,
+  PC: 10,
+});
 const THREE_STAT_VARIATION_OFFSETS = Object.freeze([-6, 0, 6]);
 
 const MIN_STAT_VALUE = 0;
@@ -108,7 +115,7 @@ export function calculatePlayerStats(inputStats) {
   const lowerInputValue = Math.min(...inputValues);
   const isHighPair = inputKeys.length === 2 && lowerInputValue >= HIGH_INPUT_THRESHOLD;
   const desiredValues = isHighPair
-    ? HIGH_PAIR_OFFSETS.map((offset) => lowerInputValue + offset)
+    ? missingKeys.map((key) => lowerInputValue - HIGH_PAIR_PENALTIES[key])
     : variationOffsets.map((offset) => center + offset);
   const sortedInputValues = [...inputValues].sort((first, second) => second - first);
   const highestCalculatedValue = sortedInputValues[1] - 1;

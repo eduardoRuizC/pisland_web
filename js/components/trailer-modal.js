@@ -5,6 +5,19 @@ export function initTrailerModal(dialog, options = {}) {
   const documentRef = options.documentRef ?? dialog.ownerDocument;
   const closeButtons = Array.from(dialog.querySelectorAll("[data-close-trailer-modal]"));
   const mediaElements = Array.from(dialog.querySelectorAll("video, audio"));
+  const playerImages = Array.from(dialog.querySelectorAll("img[data-player-image]"));
+  const playerImageCleanups = playerImages.map((image) => {
+    const fallbackSource = image.dataset.playerImageFallback;
+    if (typeof fallbackSource !== "string" || fallbackSource.trim() === "") return () => {};
+
+    const handleError = () => {
+      if (image.dataset.playerImageFallbackApplied === "true") return;
+      image.dataset.playerImageFallbackApplied = "true";
+      image.src = fallbackSource;
+    };
+    image.addEventListener("error", handleError);
+    return () => image.removeEventListener("error", handleError);
+  });
   const titleFitCleanups = Array.from(dialog.querySelectorAll("[data-fit-dialog-title]"))
     .map((title) => fitText(title, {
       container: title.parentElement,
@@ -49,6 +62,7 @@ export function initTrailerModal(dialog, options = {}) {
     dialog.removeEventListener("close", handleClose);
     documentRef.removeEventListener("click", handleDocumentClick);
     titleFitCleanups.forEach((cleanup) => cleanup());
+    playerImageCleanups.forEach((cleanup) => cleanup());
     pauseMedia();
     documentRef.body.classList.remove("modal-open");
   };
