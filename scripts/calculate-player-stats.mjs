@@ -4,6 +4,9 @@ import { pathToFileURL } from "node:url";
 import { PLAYER_STAT_KEYS } from "../js/utils/player-stats.js";
 
 export const CONTROLLED_VARIATION_OFFSETS = Object.freeze([-6, -2, 2, 6]);
+export const HIGH_INPUT_THRESHOLD = 85;
+export const HIGH_PAIR_OFFSETS = Object.freeze([-40, -30, -20, -10]);
+const THREE_STAT_VARIATION_OFFSETS = Object.freeze([-6, 0, 6]);
 
 const MIN_STAT_VALUE = 0;
 const MIN_INPUT_VALUE = 1;
@@ -32,8 +35,8 @@ function validateInputStats(inputStats) {
   }
 
   const keys = Object.keys(inputStats);
-  if (keys.length !== 2) {
-    throw new TypeError("Debes proporcionar exactamente dos estadísticas distintas.");
+  if (keys.length < 2 || keys.length > 3) {
+    throw new TypeError("Debes proporcionar dos o tres estadísticas distintas.");
   }
 
   keys.forEach((key) => {
@@ -54,12 +57,21 @@ function validateInputStats(inputStats) {
     }
   });
 
+  if (keys.length === 3) {
+    const sortedValues = keys.map((key) => inputStats[key]).sort((first, second) => second - first);
+    if (sortedValues[2] >= sortedValues[1]) {
+      throw new RangeError(
+        "Con tres entradas debe haber exactamente dos estadísticas más altas; la tercera debe ser menor que la segunda.",
+      );
+    }
+  }
+
   return keys;
 }
 
 export function parseStatArguments(argumentsList) {
-  if (!Array.isArray(argumentsList) || argumentsList.length !== 2) {
-    throw new TypeError("Debes proporcionar exactamente dos argumentos CLAVE=VALOR.");
+  if (!Array.isArray(argumentsList) || argumentsList.length < 2 || argumentsList.length > 3) {
+    throw new TypeError("Debes proporcionar dos o tres argumentos CLAVE=VALOR.");
   }
 
   const inputStats = {};
@@ -90,8 +102,16 @@ export function calculatePlayerStats(inputStats) {
   const inputValues = inputKeys.map((key) => inputStats[key]);
   const inputTotal = sum(inputValues);
   const center = inputTotal / inputKeys.length;
-  const desiredValues = CONTROLLED_VARIATION_OFFSETS.map((offset) => center + offset);
-  const highestCalculatedValue = Math.min(...inputValues) - 1;
+  const variationOffsets = missingKeys.length === 4
+    ? CONTROLLED_VARIATION_OFFSETS
+    : THREE_STAT_VARIATION_OFFSETS;
+  const lowerInputValue = Math.min(...inputValues);
+  const isHighPair = inputKeys.length === 2 && lowerInputValue >= HIGH_INPUT_THRESHOLD;
+  const desiredValues = isHighPair
+    ? HIGH_PAIR_OFFSETS.map((offset) => lowerInputValue + offset)
+    : variationOffsets.map((offset) => center + offset);
+  const sortedInputValues = [...inputValues].sort((first, second) => second - first);
+  const highestCalculatedValue = sortedInputValues[1] - 1;
   const downwardShift = Math.max(0, Math.max(...desiredValues) - highestCalculatedValue);
   const calculatedValues = desiredValues.map((value) => clamp(Math.round(value - downwardShift)));
   const calculatedStats = Object.fromEntries(
@@ -111,7 +131,7 @@ function runCli() {
     console.log(JSON.stringify(calculatePlayerStats(inputStats), null, 2));
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    console.error("Uso: node scripts/calculate-player-stats.mjs VN=90 PR=70");
+    console.error("Uso: node scripts/calculate-player-stats.mjs VN=90 PR=70 [CA=60]");
     process.exitCode = 1;
   }
 }

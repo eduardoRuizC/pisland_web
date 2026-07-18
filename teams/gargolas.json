@@ -1,27 +1,27 @@
 {
   "id": "team-c",
-  "name": "Gargolas",
+  "name": "Gárgolas",
   "logo": "assets/teams/gargolas/gargolas-logo.png",
   "players": [
     {
-      "name": "Jugador C1",
+      "name": "Ivan",
       "captain": true,
       "position": "DC",
-      "rating": 90,
       "x": 50,
       "y": 18,
+      "rating": 84,
       "stats": {
-        "VN": 92,
-        "PR": 94,
-        "CA": 83,
-        "MS": 91,
-        "UE": 40,
-        "PC": 87
+        "VN": 98,
+        "PR": 60,
+        "CA": 78,
+        "MS": 95,
+        "UE": 84,
+        "PC": 90
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador C1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo C. Destaca especialmente en PR (94) y MS (91), aportando fijar centrales, atacar el area y finalizar jugadas.",
-      "active": false
+      "fieldImage": "assets/teams/gargolas/ivansinfondo.png",
+      "detailImage": "assets/teams/gargolas/ivan.png",
+      "description": "La cabeza pensante y determinante de Gárgolas, su perfecta vision del juego, su asombrosa capacidad de hacer misiones secundarias hace que sea un delantero muy completo, imposible para sus rivales predecir su próximos movimientos.",
+      "active": true
     },
     {
       "name": "Jugador C4",

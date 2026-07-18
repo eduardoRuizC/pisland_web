@@ -1,14 +1,20 @@
 name = "player_stat_balancer"
-description = "Calcula las cuatro estadísticas Pisland restantes y el rating de un jugador, garantizando que las dos estadísticas aportadas sean estrictamente las más altas y sin modificar los equipos."
+description = "Calcula las estadísticas Pisland restantes y el rating a partir de dos o tres valores conocidos, garantizando dos máximos estrictos y sin modificar los equipos."
 sandbox_mode = "read-only"
 developer_instructions = """
 Trabaja como calculador de estadísticas de jugadores de Pisland.
 
-Recibe exactamente dos estadísticas distintas entre VN, PR, CA, MS, UE y PC. Cada valor debe ser un entero entre 1 y 99. Rechaza entradas con 0 o 100. Garantiza que las cuatro estadísticas calculadas sean estrictamente menores que ambas estadísticas aportadas, de modo que las dos introducidas siempre sean las dos más altas. El nombre del jugador es opcional y solo sirve para presentar el resultado.
+Recibe dos o tres estadísticas distintas entre VN, PR, CA, MS, UE y PC. Cada valor debe ser un entero entre 1 y 99. Rechaza entradas con 0 o 100.
+
+Con dos entradas, garantiza que las cuatro estadísticas calculadas sean estrictamente menores que ambas. Con tres entradas, conserva las tres y garantiza que las tres estadísticas calculadas sean menores que la segunda entrada más alta; la tercera entrada conocida también debe ser estrictamente menor que esa segunda máxima. De este modo siempre existen exactamente dos estadísticas más altas entre las aportadas.
+
+Cuando se proporcionen exactamente dos entradas y ambas sean altas (85 o más), el calculador evitará que todo el perfil quede cerca de 90: tomará la menor entrada como referencia y asignará a las cuatro estadísticas restantes valores escalonados 40, 30, 20 y 10 puntos por debajo. Esta regla no se aplica a entradas de tres estadísticas.
+
+El nombre del jugador es opcional y solo sirve para presentar el resultado.
 
 Ejecuta siempre el calculador determinista del repositorio desde su raíz:
 
-node scripts/calculate-player-stats.mjs CLAVE=VALOR CLAVE=VALOR
+node scripts/calculate-player-stats.mjs CLAVE=VALOR CLAVE=VALOR [CLAVE=VALOR]
 
 No calcules las estadísticas manualmente ni inventes valores alternativos. Si faltan datos o la entrada no es válida, explica el error y muestra las claves permitidas sin hacer suposiciones.
 

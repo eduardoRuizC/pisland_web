@@ -17,12 +17,13 @@ function assertValidCalculation(result, inputStats) {
     assert.ok(value >= 0 && value <= 99);
   });
   const inputKeys = new Set(Object.keys(inputStats));
+  const sortedInputValues = Object.values(inputStats).sort((first, second) => second - first);
   const highestCalculatedValue = Math.max(
     ...Object.entries(result.stats)
       .filter(([key]) => !inputKeys.has(key))
       .map(([, value]) => value),
   );
-  assert.ok(highestCalculatedValue < Math.min(...Object.values(inputStats)));
+  assert.ok(highestCalculatedValue < sortedInputValues[1]);
   const expectedRating = Math.round(
     Object.values(result.stats).reduce((total, value) => total + value, 0)
       / PLAYER_STAT_KEYS.length,
@@ -49,6 +50,24 @@ test("keeps the result independent from input argument order", () => {
   const reversed = calculatePlayerStats({ PR: 70, VN: 90 });
   assert.deepEqual(reversed, first);
   assert.deepEqual(parseStatArguments(["PR=70", "VN=90"]), { PR: 70, VN: 90 });
+});
+
+test("preserves three supplied stats and calculates only the remaining three", () => {
+  const inputStats = { VN: 98, MS: 95, PR: 60 };
+  const result = calculatePlayerStats(inputStats);
+  assertValidCalculation(result, inputStats);
+  assert.deepEqual(result, {
+    rating: 84,
+    stats: {
+      VN: 98,
+      PR: 60,
+      CA: 78,
+      MS: 95,
+      UE: 84,
+      PC: 90,
+    },
+  });
+  assert.deepEqual(parseStatArguments(["VN=98", "MS=95", "PR=60"]), inputStats);
 });
 
 test("supports every pair of Pisland stats in canonical output order", () => {
@@ -97,10 +116,10 @@ test("keeps extreme and near-boundary results inside 0-99", () => {
   assert.deepEqual(calculatePlayerStats({ VN: 99, PR: 99 }).stats, {
     VN: 99,
     PR: 99,
-    CA: 86,
-    MS: 90,
-    UE: 94,
-    PC: 98,
+    CA: 59,
+    MS: 69,
+    UE: 79,
+    PC: 89,
   });
 
   [
@@ -111,32 +130,55 @@ test("keeps extreme and near-boundary results inside 0-99", () => {
   ].forEach((inputStats) => assertValidCalculation(calculatePlayerStats(inputStats), inputStats));
 });
 
-test("never generates 100 for the Genesis input values", () => {
+test("spreads the calculated stats well below two high input values", () => {
   assert.deepEqual(calculatePlayerStats({ VN: 93, PR: 95 }), {
-    rating: 89,
+    rating: 77,
     stats: {
       VN: 93,
       PR: 95,
-      CA: 80,
-      MS: 84,
-      UE: 88,
-      PC: 92,
+      CA: 53,
+      MS: 63,
+      UE: 73,
+      PC: 83,
+    },
+  });
+
+  assert.deepEqual(calculatePlayerStats({ PR: 95, PC: 95 }), {
+    rating: 78,
+    stats: {
+      VN: 55,
+      PR: 95,
+      CA: 65,
+      MS: 75,
+      UE: 85,
+      PC: 95,
     },
   });
 });
 
 test("rejects invalid function inputs", () => {
   assert.throws(() => calculatePlayerStats(null), /deben ser un objeto/u);
-  assert.throws(() => calculatePlayerStats({ VN: 90 }), /exactamente dos/u);
-  assert.throws(() => calculatePlayerStats({ VN: 90, PR: 70, CA: 80 }), /exactamente dos/u);
+  assert.throws(() => calculatePlayerStats({ VN: 90 }), /dos o tres/u);
+  assert.throws(
+    () => calculatePlayerStats({ VN: 90, PR: 70, CA: 80, MS: 60 }),
+    /dos o tres/u,
+  );
   assert.throws(() => calculatePlayerStats({ VN: 90, XX: 70 }), /no es válida/u);
+  assert.throws(
+    () => calculatePlayerStats({ VN: 95, PR: 95, CA: 95 }),
+    /exactamente dos estadísticas más altas/u,
+  );
   assert.throws(() => calculatePlayerStats({ VN: 90.5, PR: 70 }), /número entero/u);
   assert.throws(() => calculatePlayerStats({ VN: 0, PR: 70 }), /entre 1 y 99/u);
   assert.throws(() => calculatePlayerStats({ VN: 90, PR: 100 }), /entre 1 y 99/u);
 });
 
 test("rejects malformed and repeated CLI arguments", () => {
-  assert.throws(() => parseStatArguments(["VN=90"]), /exactamente dos argumentos/u);
+  assert.throws(() => parseStatArguments(["VN=90"]), /dos o tres argumentos/u);
+  assert.throws(
+    () => parseStatArguments(["VN=90", "PR=80", "CA=70", "MS=60"]),
+    /dos o tres argumentos/u,
+  );
   assert.throws(() => parseStatArguments(["VN=90", "VN=70"]), /está repetida/u);
   assert.throws(() => parseStatArguments(["VN:90", "PR=70"]), /formato CLAVE=VALOR/u);
   assert.throws(() => parseStatArguments(["VN=noventa", "PR=70"]), /número entero/u);
