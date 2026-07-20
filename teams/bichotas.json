@@ -4,43 +4,43 @@
   "logo": "assets/teams/bichotas/bichotas-logo.png",
   "players": [
     {
-      "name": "Jugador B1",
+      "name": "Iván",
       "captain": false,
       "position": "DC",
-      "rating": 90,
       "x": 50,
       "y": 18,
+      "rating": 83,
       "stats": {
-        "VN": 92,
-        "PR": 94,
-        "CA": 83,
-        "MS": 91,
-        "UE": 40,
-        "PC": 87
+        "VN": 83,
+        "PR": 98,
+        "CA": 68,
+        "MS": 73,
+        "UE": 78,
+        "PC": 98
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B1 ocupa el rol de delantero de referencia en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en PR (94) y MS (91), aportando fijar centrales, atacar el area y finalizar jugadas.",
-      "active": false
+      "fieldImage": "assets/teams/bichotas/ivansinfondo.png",
+      "detailImage": "assets/teams/bichotas/ivanana.png",
+      "description": "Iván es el rey del perreo y la picardía de las Bichotas, capaz de revolucionar cualquier pista y encontrar siempre la jugada perfecta para poner a su equipo por delante.",
+      "active": true
     },
     {
-      "name": "Jugador B4",
+      "name": "Andrea",
       "captain": false,
       "position": "MI",
-      "rating": 87,
       "x": 30,
       "y": 52,
+      "rating": 84,
       "stats": {
-        "VN": 78,
-        "PR": 82,
-        "CA": 91,
-        "MS": 87,
-        "UE": 80,
-        "PC": 82
+        "VN": 98,
+        "PR": 98,
+        "CA": 68,
+        "MS": 73,
+        "UE": 78,
+        "PC": 88
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B4 ocupa el rol de medio izquierdo abierto en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en CA (91) y MS (87), aportando dar salida por izquierda, conectar con el centro y llegar a zona de ataque.",
+      "fieldImage": "assets/teams/bichotas/andreasinfondo.png",
+      "detailImage": "assets/teams/bichotas/andrea.png",
+      "description": "Andrea ve la noche antes que nadie y sabe exactamente cuándo subir el perreo. Su visión y su ritmo la convierten en una pieza impredecible capaz de cambiar el rumbo de la party.",
       "active": false
     },
     {
@@ -64,63 +64,63 @@
       "active": true
     },
     {
-      "name": "Jugador B8",
+      "name": "Yanire",
       "captain": false,
       "position": "DFC",
-      "rating": 87,
       "x": 20,
       "y": 75,
+      "rating": 84,
       "stats": {
-        "VN": 78,
-        "PR": 50,
-        "CA": 74,
-        "MS": 70,
-        "UE": 91,
-        "PC": 89
-      },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B8 ocupa el rol de defensa central izquierdo en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en UE (91) y PC (89), aportando proteger el area, ganar duelos y lanzar la primera salida.",
-      "active": false
-    },
-    {
-      "name": "Jugador B9",
-      "captain": false,
-      "position": "DFC",
-      "rating": 86,
-      "x": 80,
-      "y": 75,
-      "stats": {
-        "VN": 76,
-        "PR": 53,
-        "CA": 73,
-        "MS": 69,
-        "UE": 90,
+        "VN": 83,
+        "PR": 63,
+        "CA": 98,
+        "MS": 73,
+        "UE": 98,
         "PC": 88
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B9 ocupa el rol de defensa central derecho en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en UE (90) y PC (88), aportando proteger el area, ganar duelos y sostener la linea defensiva.",
+      "fieldImage": "assets/teams/bichotas/yaniresinfondo.png",
+      "detailImage": "assets/teams/bichotas/yanire.png",
+      "description": "Yanire es el pegamento de las Bichotas, su capacidad de alcohol está a prueba de cualquier fiesta y su unión de equipo mantiene a todas juntas hasta el final de la noche.",
       "active": false
     },
     {
-      "name": "Jugador B10",
+      "name": "Marina",
+      "captain": false,
+      "position": "DFC",
+      "x": 80,
+      "y": 75,
+      "rating": 82,
+      "stats": {
+        "VN": 83,
+        "PR": 63,
+        "CA": 98,
+        "MS": 73,
+        "UE": 78,
+        "PC": 98
+      },
+      "fieldImage": "assets/teams/bichotas/marinasinfondo.png",
+      "detailImage": "assets/teams/bichotas/marina.png",
+      "description": "Marina combina una capacidad de alcohol legendaria con la picardía necesaria para salir de cualquier situación, cuando la noche se complica siempre encuentra la forma de darle la vuelta.",
+      "active": false
+    },
+    {
+      "name": "Josu",
       "captain": false,
       "position": "POR",
-      "rating": 89,
+      "rating": 74,
       "x": 50,
       "y": 90,
       "stats": {
-        "VN": 89,
-        "PR": 88,
-        "CA": 85,
+        "VN": 75,
+        "PR": 55,
+        "CA": 60,
         "MS": 92,
-        "UE": 62,
+        "UE": 70,
         "PC": 90
       },
-      "fieldImage": "assets/teams/player-placeholder.svg",
-      "detailImage": "assets/teams/player-placeholder.svg",
-      "description": "Jugador B10 ocupa el rol de portero en la formacion de futbol reducido 1-2-2-1 de Equipo B. Destaca especialmente en MS (92) y PC (90), aportando cerrar la porteria, ordenar la defensa y activar el juego desde atras.",
+      "fieldImage": "assets/teams/bichotas/josusinfondo.png",
+      "detailImage": "assets/teams/bichotas/josu.png",
+      "description": "Josu es el especialista en convertir cada misión secundaria en una aventura, su picardía hace que siempre aparezca donde menos se le espera para inclinar la noche a favor de las Bichotas.",
       "active": false
     }
   ]

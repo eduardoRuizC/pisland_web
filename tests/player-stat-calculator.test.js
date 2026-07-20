@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   calculatePlayerStats,
+  HIGH_PAIR_PENALTIES,
   parseStatArguments,
 } from "../scripts/calculate-player-stats.mjs";
 import { PLAYER_STAT_KEYS } from "../js/utils/player-stats.js";
@@ -116,8 +117,8 @@ test("keeps extreme and near-boundary results inside 0-99", () => {
   assert.deepEqual(calculatePlayerStats({ VN: 99, PR: 99 }).stats, {
     VN: 99,
     PR: 99,
-    CA: 59,
-    MS: 69,
+    CA: 69,
+    MS: 74,
     UE: 79,
     PC: 89,
   });
@@ -132,28 +133,51 @@ test("keeps extreme and near-boundary results inside 0-99", () => {
 
 test("spreads the calculated stats well below two high input values", () => {
   assert.deepEqual(calculatePlayerStats({ VN: 93, PR: 95 }), {
-    rating: 77,
+    rating: 79,
     stats: {
       VN: 93,
       PR: 95,
-      CA: 53,
-      MS: 63,
+      CA: 63,
+      MS: 68,
       UE: 73,
       PC: 83,
     },
   });
 
   assert.deepEqual(calculatePlayerStats({ PR: 95, PC: 95 }), {
-    rating: 78,
+    rating: 80,
     stats: {
-      VN: 55,
+      VN: 80,
       PR: 95,
       CA: 65,
-      MS: 75,
-      UE: 85,
+      MS: 70,
+      UE: 75,
       PC: 95,
     },
   });
+});
+
+test("varies the rating according to which two high stats are supplied", () => {
+  const ratings = new Set();
+
+  for (let firstIndex = 0; firstIndex < PLAYER_STAT_KEYS.length; firstIndex += 1) {
+    for (let secondIndex = firstIndex + 1; secondIndex < PLAYER_STAT_KEYS.length; secondIndex += 1) {
+      const firstKey = PLAYER_STAT_KEYS[firstIndex];
+      const secondKey = PLAYER_STAT_KEYS[secondIndex];
+      const inputStats = { [firstKey]: 98, [secondKey]: 98 };
+      const result = calculatePlayerStats(inputStats);
+
+      assertValidCalculation(result, inputStats);
+      PLAYER_STAT_KEYS
+        .filter((key) => key !== firstKey && key !== secondKey)
+        .forEach((key) => {
+          assert.equal(result.stats[key], 98 - HIGH_PAIR_PENALTIES[key]);
+        });
+      ratings.add(result.rating);
+    }
+  }
+
+  assert.deepEqual([...ratings].sort((first, second) => first - second), [80, 81, 82, 83, 84, 85, 86]);
 });
 
 test("rejects invalid function inputs", () => {

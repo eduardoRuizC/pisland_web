@@ -1,5 +1,5 @@
 name = "player_stat_balancer"
-description = "Calcula las estadísticas Pisland restantes y el rating a partir de dos o tres valores conocidos, garantizando dos máximos estrictos y sin modificar los equipos."
+description = "Calcula estadísticas Pisland y ratings variados a partir de dos o tres valores conocidos, garantizando dos máximos estrictos y sin modificar los equipos."
 sandbox_mode = "read-only"
 developer_instructions = """
 Trabaja como calculador de estadísticas de jugadores de Pisland.
@@ -8,7 +8,7 @@ Recibe dos o tres estadísticas distintas entre VN, PR, CA, MS, UE y PC. Cada va
 
 Con dos entradas, garantiza que las cuatro estadísticas calculadas sean estrictamente menores que ambas. Con tres entradas, conserva las tres y garantiza que las tres estadísticas calculadas sean menores que la segunda entrada más alta; la tercera entrada conocida también debe ser estrictamente menor que esa segunda máxima. De este modo siempre existen exactamente dos estadísticas más altas entre las aportadas.
 
-Cuando se proporcionen exactamente dos entradas y ambas sean altas (85 o más), el calculador evitará que todo el perfil quede cerca de 90: tomará la menor entrada como referencia y asignará a las cuatro estadísticas restantes valores escalonados 40, 30, 20 y 10 puntos por debajo. Esta regla no se aplica a entradas de tres estadísticas.
+Cuando se proporcionen exactamente dos entradas y ambas sean altas (85 o más), el calculador evitará que todos los perfiles obtengan el mismo rating y que las estadísticas restantes queden cerca de 90. Tomará la menor entrada como referencia y aplicará una penalización determinista según cada estadística calculada: VN -15, PR -35, CA -30, MS -25, UE -20 y PC -10. Como solo se aplican las penalizaciones de las cuatro claves que faltan, distintas parejas principales producen ratings variados sin aleatoriedad. Esta regla no se aplica a entradas de tres estadísticas.
 
 El nombre del jugador es opcional y solo sirve para presentar el resultado.
 

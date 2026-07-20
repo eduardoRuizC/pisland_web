@@ -1,9 +1,9 @@
 import { initAttendance } from "./components/attendance-counter.js";
 import { initCountdown } from "./components/countdown.js";
-import { initMatch, isMatchTeamDeepLink } from "./components/match/match.js?v=16";
+import { initMatch, isMatchTeamDeepLink } from "./components/match/match.js?v=25";
 import { initNavigation } from "./components/navigation.js";
 import { initNewsSection } from "./components/news-section.js";
-import { initExternalTrailerModal } from "./components/trailer-modal.js?v=5";
+import { initExternalTrailerModal } from "./components/trailer-modal.js?v=6";
 import { createAttendanceService } from "./services/attendance-service.js";
 
 const cleanups = [];
