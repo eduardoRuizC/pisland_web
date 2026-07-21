@@ -61,7 +61,7 @@
       "fieldImage": "assets/teams/sangre-nueva/elysinfondo.png",
       "detailImage": "assets/teams/sangre-nueva/ely.png",
       "description": "Ely mezcla un perreo imparable con una picardía natural, una combinación que le permite encender la noche y sorprender justo cuando todos creen tenerla controlada.",
-      "active": false
+      "active": true
     },
     {
       "name": "Emma",
