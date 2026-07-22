@@ -101,7 +101,7 @@
       "fieldImage": "assets/teams/bichotas/marinasinfondo.png",
       "detailImage": "assets/teams/bichotas/marina.png",
       "description": "Marina combina una capacidad de alcohol legendaria con la picardía necesaria para salir de cualquier situación, cuando la noche se complica siempre encuentra la forma de darle la vuelta.",
-      "active": false
+      "active": true
     },
     {
       "name": "Josu",

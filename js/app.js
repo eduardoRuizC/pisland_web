@@ -1,6 +1,6 @@
 import { initAttendance } from "./components/attendance-counter.js";
 import { initCountdown } from "./components/countdown.js";
-import { initMatch, isMatchTeamDeepLink } from "./components/match/match.js?v=26";
+import { initMatch, isMatchTeamDeepLink } from "./components/match/match.js?v=27";
 import { initNavigation } from "./components/navigation.js";
 import { initNewsSection } from "./components/news-section.js";
 import { initExternalTrailerModal } from "./components/trailer-modal.js?v=6";
