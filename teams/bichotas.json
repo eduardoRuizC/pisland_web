@@ -81,7 +81,7 @@
       "fieldImage": "assets/teams/bichotas/yaniresinfondo.png",
       "detailImage": "assets/teams/bichotas/yanire.png",
       "description": "Yanire es el pegamento de las Bichotas, su capacidad de alcohol está a prueba de cualquier fiesta y su unión de equipo mantiene a todas juntas hasta el final de la noche.",
-      "active": false
+      "active": true
     },
     {
       "name": "Marina",
