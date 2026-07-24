@@ -6,9 +6,10 @@ import { validateNewsItem, validateNewsManifest } from "../js/validation/news-va
 
 const readProjectFile = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-test("the new-players news is valid and leads the current manifest", async () => {
+test("the archived new-players news and current manifest remain valid", async () => {
   const manifest = JSON.parse(await readProjectFile("news/index.json"));
   const newsItem = JSON.parse(await readProjectFile("news/nuevos-jugadores.json"));
+  const indexMarkup = await readProjectFile("index.html");
 
   assert.equal(validateNewsManifest(manifest), manifest);
   assert.equal(validateNewsItem(newsItem), newsItem);
@@ -20,12 +21,15 @@ test("the new-players news is valid and leads the current manifest", async () =>
     icon: "groups",
   });
 
-  assert.deepEqual(manifest.news, ["nuevos-jugadores.json", "dress-code.json"]);
+  assert.deepEqual(manifest.news, ["dress-code.json"]);
+  assert.match(indexMarkup, /src="assets\/secret\.png\?v=1"/u);
+  assert.match(indexMarkup, /alt="Top secret del Dress Code de Pisland"/u);
+  assert.doesNotMatch(indexMarkup, /src="assets\/player-card-blank\.png/u);
 });
 
 test("the player announcement has one ordered slot per team and is the active dialog", async () => {
   const [dialogMarkup, indexMarkup] = await Promise.all([
-    readProjectFile("dialogs/jugadores-v5.html"),
+    readProjectFile("dialogs/jugadores-v6.html"),
     readProjectFile("index.html"),
   ]);
   const slots = [...dialogMarkup.matchAll(/data-player-slot="([^"]+)"/gu)]
@@ -36,15 +40,15 @@ test("the player announcement has one ordered slot per team and is the active di
     .map((match) => match[1]);
 
   assert.deepEqual(slots, ["team-a", "team-c", "team-b", "team-d"]);
-  assert.deepEqual(playerNames, ["Diana", "Sastian", "Yanire", "Erik"]);
+  assert.deepEqual(playerNames, ["DJ Andy", "Carla", "Josu", "Sheila"]);
   assert.equal(playerImages.length, 4);
   assert.deepEqual(
     playerImages.map((image) => image.match(/\ssrc="([^"]+)"/u)?.[1]),
     [
-      "assets/player-card-template.png",
-      "assets/teams/gargolas/sastrosinfondo.png",
-      "assets/teams/bichotas/yaniresinfondo.png",
-      "assets/teams/sangre-nueva/eriksinfondo.png",
+      "assets/teams/rompediscotecas/djandysinfondo.png",
+      "assets/teams/gargolas/carlasinfondo.png",
+      "assets/teams/bichotas/josusinfondo.png",
+      "assets/teams/sangre-nueva/sheilasinfondo.png",
     ],
   );
   playerImages.forEach((image) => {
@@ -59,8 +63,8 @@ test("the player announcement has one ordered slot per team and is the active di
   assert.match(dialogMarkup, /aria-labelledby="jugadores-modal-title"/u);
   assert.match(dialogMarkup, /data-close-trailer-modal/u);
   assert.doesNotMatch(dialogMarkup, /<(?:script|style)\b/iu);
-  assert.match(indexMarkup, /data-manifest-url="news\/index\.json\?v=1"/u);
-  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v5\.html\?v=1"/u);
+  assert.match(indexMarkup, /data-manifest-url="news\/index\.json\?v=2"/u);
+  assert.match(indexMarkup, /data-dialog-src="dialogs\/jugadores-v6\.html\?v=1"/u);
 });
 
 test("player drops accumulate while unrevealed players remain inactive", async () => {
@@ -77,10 +81,10 @@ test("player drops accumulate while unrevealed players remain inactive", async (
   assert.deepEqual(
     teams.map((team) => team.players.filter((player) => player.active).map((player) => player.name)),
     [
-      ["Indio", "Diana", "Nerea", "Anuska", "Sara Hippie"],
-      ["Ivan", "Sastian", "Aritz", "Diana", "Pabloski"],
-      ["Iván", "Andrea", "Geen", "Yanire", "Marina"],
-      ["Erik", "Brigitte", "Ely", "Emma", "Paola"],
+      ["Indio", "Diana", "Nerea", "Anuska", "Sara Hippie", "DJ Andy"],
+      ["Ivan", "Sastian", "Aritz", "Carla", "Diana", "Pabloski"],
+      ["Iván", "Andrea", "Geen", "Yanire", "Marina", "Josu"],
+      ["Erik", "Brigitte", "Ely", "Emma", "Paola", "Sheila"],
     ],
   );
 });

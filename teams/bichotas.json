@@ -121,7 +121,7 @@
       "fieldImage": "assets/teams/bichotas/josusinfondo.png",
       "detailImage": "assets/teams/bichotas/josu.png",
       "description": "Josu es el especialista en convertir cada misión secundaria en una aventura, su picardía hace que siempre aparezca donde menos se le espera para inclinar la noche a favor de las Bichotas.",
-      "active": false
+      "active": true
     }
   ]
 }
